@@ -1,0 +1,1 @@
+web: gunicorn justCleanPrestige.asgi --log-file -
