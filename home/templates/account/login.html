@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block style %}
+    <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block body %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+  <div style="background-image: url('{% static 'imgs/loginbg.jpg' %}');background-repeat: no-repeat;background-size: cover" class="registration">
+    <div class="registration-container">
+      
+  <h1 style="color: #000000;font-weight: bold">Log in</h1>
+  <form method="post">
+
+      {% csrf_token %}
+  
+    
+  <div class="form-group">
+    <label style="color: #000000" for="id_username">Email address:</label>
+    <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="254" class="form-control" required id="id_username">
+  </div>
+
+  
+    
+  <div class="form-group">
+    <label style="color: #000000" for="id_password">Password:</label>
+    <input type="password" name="password" autocomplete="current-password" class="form-control" required id="id_password">
+  </div>
+
+  
+
+  
+    <button style="background-color: #fe6703;color: white" type="submit" class="btn btn-default">Log in</button>
+  
+
+  </form>
+  <p class="reg-push-md">
+    Forgot your password?
+    <a style="color: #fe6703" href="{% url 'resetpass' %}">Reset it here.</a>
+  </p>
+  <p class="reg-push-md">
+    Dont have account?
+    <a style="color: #fe6703" href="{% url 'signup' %}">Signup.</a>
+  </p>
+<script type="text/javascript">
+    var win;
+function OpenNewWindow(MyPath)
+{
+    var left = (screen.width/2);
+var top = (screen.height/2);
+var popWidth = 800;
+var popHeight = 600;
+var popTop = top - popHeight/2;
+var popLeft = left - popWidth/2;
+if(win && !win.closed){ //checks to see if window is open
+win.focus();
+} else {
+win = window.open(MyPath, 'Sign in to Pick up Clean', 'height=' + popHeight + ',width=' + popWidth + ',resizeable=0, top=' + popTop + ', left=' + popLeft);
+win.focus();
+}
+}
+
+function polling(){
+    var login=window.localStorage.getItem('loggedIn');
+    if (login) {
+        clearInterval(timer);
+        $.get('/loggedin/',(res)=>{
+            if(res.login){
+                window.localStorage.removeItem('loggedIn')
+                window.localStorage.setItem('token',res.token)
+                window.location.replace('/');
+            }else{
+                window.localStorage.removeItem('loggedIn')
+                window.location.replace('/login');
+            }
+       });
+    }
+}
+timer = setInterval('polling()',1000);
+
+</script>
+        <div style="display:block;text-align: center;margin-top: 3%">
+            <a style="display:inline-block;color: white;text-decoration: none;background-color: #fe6703" class="btn btn-default" onclick="OpenNewWindow('/accounts/google/login')">Login with <i style="color:white" class="fa fa-google"></i>oogle</a>
+            <a style="display:inline-block;color: white;text-decoration: none;background-color: #fe6703" class="btn btn-default" onclick="OpenNewWindow('/accounts/facebook/login')">Login with <i style="color:white" class="fa fa-facebook"></i>acebook</a>
+        </div>
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block style %}
+    <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block body %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+  <div style="background-image: url('{% static 'imgs/loginbg.jpg' %}');background-repeat: no-repeat;background-size: cover" class="registration">
+    <div style="text-align: -webkit-center" class="registration-container">
+      
+        <h3 style="color: #000000;text-align: center;margin-top: 20%;">Your order has been placed your order number is <strong>"{{ order_id }}"</strong></h3>
+<a style="background-color: #fe6703;color: white;margin-top: 10%;margin-bottom: 20%" href="{% url 'orderhistory' %}" class="btn btn-default">Order List</a>
+    </div>
+  </div>
+
+{% endblock %}

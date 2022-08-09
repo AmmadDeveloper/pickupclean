@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en-GB">
+{% load static %}
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Location Directory | pick up clean </title>
+  <meta name="description" content="Areas where UK's 1st On Demand Dry Cleaners are available. Suits ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" href="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/icons/favicon.ico">
+  <link rel="stylesheet" href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
+    <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
+
+
+    <style>
+    .btn-proceed:hover{
+        color: whitesmoke;
+    }
+    tr td,tr th{
+        text-align: center;
+        padding-top: 50px;
+    }
+    </style>
+        <style>
+    tr.heading{
+        cursor:pointer;
+    }
+    .heading .sign{
+        height: 45px;
+	width: 45px;
+	background: #f2f2f2;
+	border-radius: 50%;
+	font-size: 18px;
+	color: #111111;
+	line-height: 44px;
+	text-align: center;
+	display: inline-block;
+	font-weight: 600;
+	cursor: pointer;
+    }
+    .heading .sign:after{
+        content:"-";
+        display:inline-block;
+    }
+    .heading.expand .sign:after{
+        content:"+";
+    }
+    </style>
+</head>
+<body class="light">
+<header >
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+          <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
+                <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+          </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-ihi navbar-main">
+              <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>
+            <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
+            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li><a href="{% url 'corporate' %}"><span class="link-text">Corporates</span></a></li>
+
+              <li>
+                <a href="{% url 'login' %}">
+                  <span class="link-text">Log in</span>
+                </a>
+              </li>
+              <li>
+                <a href="tel:+090078601">
+                  <span class="link-text">T 090 0786 01</span>
+                </a>
+              </li>
+
+              <li>
+                <form action="#" style="visibility:hidden">
+  <select name="flag_dropdown" id="flag_picker" style="font-size:20px;height:auto;padding:0;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
+    <option value="GB">🇬🇧</option>
+  </select>
+  <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
+</form>
+
+              </li>
+
+          <li class="nav-btn-cta">
+            <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
+          </li>
+        </ul>
+
+              <ol class="nav navbar-nav breadcrumb">
+                <hr class="breadcrumb-hr"/>
+                  <li><a href="{% url 'homepage' %}">Home</a></li>
+
+              </ol>
+
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+  <div class="service-list-content">
+    <h1 style="color: #fe6703;font-weight: bold" class="service-list-title">Your Orders</h1>
+        <div class="shop__cart__table">
+            <table style="width: 100%">
+                <thead style="text-align: center;text-align: -webkit-center">
+                    <tr>
+                        <th> </th>
+                        <th>Id</th>
+
+                        <th>Pickup Time</th>
+                        <th>Dropoff Time</th>
+                        <th>Order Amount</th>
+                        <th>Status</th>
+                        <th>Order Address</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody style="margin-top: 20px;text-align: center" id="orders">
+                {% if user.is_authenticated %}
+                    {% if orders %}
+                        {% for item in orders %}
+                            <tr class="heading expand">
+                            <td><span style="margin-right: 15px" class="sign"></span></td>
+                                <td style="min-width: 100px" class="cart__price">
+                                        {{ item.orderid }}
+                                </td>
+
+                                <td class="cart__price">({{ item.pickuptime }}) {{item.pickupdate}}</td>
+                                <td class="cart__price">({{ item.dropofftime }}) {{item.dropoffdate}}</td>
+                                <td class="cart__price">£{{item.orderamount}}</td>
+                                {% if "open" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold" class="badge badge-warning">{{ item.orderstatus }}</span></td>
+                                            {% elif "confirmed" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #fadb14;" class="badge badge-primary">{{ item.orderstatus }}</span></td>
+                                            {% elif "declined" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #f5222d;" class="badge badge-danger">{{ item.orderstatus }}</span></td>
+                                            {% elif "shipped" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #722ed1;" class="badge badge-info">{{ item.orderstatus }}</span></td>
+                                            {% elif "pickedup" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #fa8c16;" class="badge badge-success">{{ item.orderstatus }}</span></td>
+                                            {% elif "processing" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #000000;" class="badge badge-secondary">{{ item.orderstatus }}</span></td>
+                                            {% elif "cancelled" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #f5222d;" class="badge badge-danger">{{ item.orderstatus }}</span></td>
+                                            {% elif "refunded" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #1890ff;" class="badge badge-warning">{{ item.orderstatus }}</span></td>
+                                            {% elif "delivered" == item.orderstatus %}
+                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #52c41a;" class="badge badge-warning">{{ item.orderstatus }}</span></td>
+                                            {% endif %}
+                                <td class="cart__total carttotal" >{{ item.orderaddress }}</td>
+        {#                                    {% if 'pending' == item.orderstatus %}#}
+        {#                                    <td class="cart__close"><span class="icon_close" onclick="removerow(this,{{ item.id }},{{ item.total }})"></span></td>#}
+        {#                                    {% endif %}#}
+                            </tr>
+        {#                                <tr>#}
+        {#                                    <th></th>#}
+        {#                                    <th>Product Name</th>#}
+        {#                                    <th>Price</th>#}
+        {#                                    <th>Quantity</th>#}
+        {#                                    <th>Size</th>#}
+        {#                                    <th>Total Price</th>#}
+        {#                                    <th></th>#}
+        {#                                </tr>#}
+                            {% for product in item.lines %}
+                                <tr style="display: none;text-align: center">
+                                    <td></td>
+                                    <td class="cart__product__item">
+                                        <img width="75px" height="75px" src="{{product.image}}" alt="">
+                                    </td>
+                                    <td>
+                                        <div class="cart__product__item__title">
+                                            <h6>{{ product.productname }}</h6>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="cart__product__item__title">
+                                            <h6>{{ product.categoryname }}</h6>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">£{{product.price}}</td>
+                                    <td class="cart__price">{{product.quantity}}</td>
+
+                                    <td class="cart__total carttotal" >£{{ product.totalprice }}</td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <tr style="margin-top: 20px"><td style='text-align: center;' colspan='6'>You have placed no order yet!</td></tr>
+
+                    {% endif %}
+                {% else %}
+                    <tr><td style='text-align: center' colspan='6'>You are not logged in, kindly log in to view your orders!</td></tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 5%;text-align: center;text-align: -webkit-center" class="cart__btn">
+            <a style="background-color: orangered;color: white;width: 50%" class="btn" href="{% url 'homepage' %}">Continue Shopping</a>
+        </div>
+  </div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="col-md-4 footer-app-stores">
+        <div class="footer-top-title">Download our new app:</div>
+        <a class="ios-link" href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
+          <img src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/apple.png' %}" alt="Download on the App Store">
+        </a>
+        <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
+          <img src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/google.png' %}" alt="Get it on Google Play">
+        </a>
+      </div>
+      <div class="col-md-8 sub2-newsletter footer-push">
+        <div class="footer-top-title">Subscribe to our newsletter:</div>
+        <div class="sub2-newsletter-content">
+          <form action="https://ihateironing.us5.list-manage.com/subscribe/post?u=70163dda0059bbc6424bb415f&amp;id=b7c1f868ac" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <div id="mc_embed_signup_scroll" class="sub2-form-container">
+              <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
+              <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-payment-methods footer-push">
+        <div class="footer-payment-methods-title">Accepted payment methods:</div>
+        <img class="footer-payment-methods-img" src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/payments/payments-sprite-black.png' %}" width="190" alt="Accepted payment methods">
+      </div>
+      <div class="footer-logo-wrapper footer-push">
+        <div class="footer-logo">
+         <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+        </div>
+        <div class="footer-copyright">
+          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pickupclean</span>.</div>
+          <div class="footer-rights">All rights reserved.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/js/libs.js' %}"></script>
+  <!-- Axios CDN: https://github.com/axios/axios -->
+  <script src="{% static 'cdn.jsdelivr.net/npm/axios/dist/axios.min.js' %}"></script>
+  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+  <script>
+    window.intercomSettings = {
+      app_id: 'uk1rq1t1'
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
+  <script>
+    $('.heading').click(function(){
+        $(this).toggleClass('expand').nextUntil('tr.heading').slideToggle('fast');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en-GB">
+{% load static %}
+<!-- Mirrored from www.ihateironing.com/prices/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:27:09 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}{% endblock %} | Pick up Clean</title>
+{% block style %}
+{% endblock %}
+  <style>
+    .async-hide {
+      opacity: 0 !important
+    }
+  </style>
+  <meta name="description"
+    content="Competitive Dry Cleaning Prices from the Uk's 1st On Demand Dry Cleaners. Suits ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon"
+    href="{% static 'imgs/favicon.png' %}">
+  <link rel="stylesheet"
+    href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
+  <script>document.documentMode && document.write('<script src="{% static 'polyfill.io/v3/polyfill.min3a03.js?features=default%2Ces2017%2Cfetch' %}"><\/script>');</script>
+
+</head>
+
+<body class="prices-body light">
+  <header>
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
+            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+          </a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-ihi navbar-main">
+{#            <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>#}
+            <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
+            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li>
+                <a href="tel:+090078601">
+                  <span class="link-text">T 090 0786 01</span>
+                </a>
+              </li>
+
+
+              {% if not user.is_authenticated %}
+                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  {% else %}
+                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">Orders</span></a></li>
+                  <li><a href="accounts/login/"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+              {% endif %}
+
+
+<li>
+              <form action="#" style="visibility:hidden">
+                <select name="flag_dropdown" id="flag_picker"
+                  style="font-size:20px;height:auto;padding:0px;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
+                  <option value="GB">🇬🇧</option>
+                </select>
+                <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
+              </form>
+
+              <script>
+
+                const dropdown = document.getElementById("flag_picker"); // dropdown
+                const current_country_code = document.getElementById("currentCountryCode").value; // accounts/countries.py
+
+                window.addEventListener("load", function () {
+                  dropdown.value = current_country_code;
+                  dropdown.style.visibility = "visible";
+                  // load current session country as selected
+                });
+
+                dropdown.addEventListener("change", function () {
+                  setCurrentCountryCode(dropdown.value);
+                  // on change, change the session and reload
+                });
+
+                function setCurrentCountryCode() {
+                  axios.get("/accounts/country", {
+                    params: {
+                      country: dropdown.value
+                    }
+                  })
+                    .then(function (response) {
+                      window.location.reload();
+                    })
+                    .catch(function (error) {
+                      console.error('Unable to set current session country:', error);
+                    });
+                }
+
+              </script>
+            </li>
+            <li class="nav-btn-cta">
+              <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
+            </li>
+          </ul>
+
+          <ol class="nav navbar-nav breadcrumb">
+            <hr class="breadcrumb-hr" />
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+
+          </ol>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+{% block body %}
+  {% endblock %}
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="col-md-4 footer-app-stores">
+          <div class="footer-top-title">Download our new app:</div>
+          <a class="ios-link"
+            href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
+            <img
+              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/apple.png' %}"
+              alt="Download on the App Store">
+          </a>
+          <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
+            <img
+              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/google.png' %}"
+              alt="Get it on Google Play">
+          </a>
+        </div>
+        <div class="col-md-8 sub2-newsletter footer-push">
+          <div class="footer-top-title">Subscribe to our newsletter:</div>
+          <div class="sub2-newsletter-content">
+            <form
+              action="/subscribe/post"
+              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+              target="_blank" novalidate>
+              <div id="mc_embed_signup_scroll" class="sub2-form-container">
+                <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address"
+                  required>
+                <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value=""
+                  style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-payment-methods footer-push">
+          <div class="footer-payment-methods-title">Accepted payment methods:</div>
+          <img class="footer-payment-methods-img"
+            src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/payments/payments-sprite-black.png' %}"
+            width="190" alt="Accepted payment methods">
+        </div>
+        <div class="footer-logo-wrapper footer-push">
+          <div class="footer-logo">
+            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+          </div>
+          <div class="footer-copyright">
+            <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pick up clean</span>.</div>
+            <div class="footer-rights">All rights reserved.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+  <div class="cookie-consent">
+    <div class="cookie-consent-container">
+      <div class="cookie-consent-message">
+        We use cookies to ensure you get the best experience on our website. To find out more, read our policy
+        <a class="cookie-consent-link" href="privacy/index.html#cookies">here</a>.
+      </div>
+      <button id="cookie-consent-action" class="btn">Accept and close</button>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {% if not user.is_authenticated %}
+        <script>
+        localStorage.removeItem('token');
+        </script>
+      {% endif %}
+    <script>
+        var token=localStorage.getItem('token')
+        if(token===null||token===undefined||token==='undefined'){
+            $.get('/loggedin/',(res)=>{
+                localStorage.setItem('token',res.token)
+            });
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        if(getCookie('cookieconsent')==='1'){
+            var divCookie=document.getElementsByClassName('cookie-consent');
+            divCookie[0].setAttribute("style","display:none")
+        }
+        document.getElementById('cookie-consent-action').addEventListener('click', function () {
+            var expires = new Date();
+            expires.setUTCFullYear(expires.getUTCFullYear() + 1);
+            document.cookie = 'cookieconsent=1; expires=' + expires.toUTCString() + '; path=/';
+            var message = this.parentNode.parentNode;
+            message.parentNode.removeChild(message);
+        });
+    </script>
+  </div>
+
+
+  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/js/libs.js' %}"></script>
+  <!-- Axios CDN: https://github.com/axios/axios -->
+  <script src="{% static 'cdn.jsdelivr.net/npm/axios/dist/axios.min.js' %}"></script>
+
+  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}"
+    data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+  <script
+    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/packages/time-slot-picker.js' %}"></script>
+  <script
+    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/js/order-form.js' %}"></script>
+
+  <script>
+      //Slides for Main template
+    IronWeb.orderSlides = [
+      {
+        src: '{% static 'imgs/loginbg.jpg' %}',
+        logo: {
+          src: 'https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/images/icons/shoe.png',
+          alt: 'Crossed shoes icon to represents no waiting time'
+        },
+        theme: 'light',
+        title: 'I hate waiting',
+        description: 'Skip standing in line, let us come to you with our super fast[[ $location]] dry cleaning and laundry service'
+      },
+      {
+        src: '{% static 'imgs/womensmell.jpg' %}',
+        theme: 'light',
+        title: '<span class="order-intro-love"><span class="order-intro-love-line">I <img class="order-intro-heart" src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/images/icons/heart.png" ></span><span>looking sharp</span></span>',
+        description: 'You take time to look and feel good, we\'ll take care of your wardrobe. Laundry & dry cleaning[[ in $location]] all sorted'
+      },
+      {
+        src: '{% static 'imgs/areabg.webp' %}',
+        logo: {
+          src: 'https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/images/icons/shoe.png',
+          alt: 'Crossed shoes icon to represents no waiting time.'
+        },
+        theme: 'light',
+        title: 'I hate waiting',
+        description: 'Skip standing in line, let us come to you with our super fast[[ $location]] dry cleaning and laundry service'
+      },
+      {
+        src: '{% static 'imgs/whitebasket.jpg' %}',
+        theme: 'light',
+        title: '<span class="order-intro-love"><span class="order-intro-love-line">I <img class="order-intro-heart" src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/images/icons/heart.png" ></span><span>me time</span></span>',
+        description: 'Free time is precious so let us take care of the laundry & dry cleaning[[ in $location]]'
+      },
+      {
+        src: '{% static 'imgs/ironing.jpg' %}',
+        logo: {
+          src: 'https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/images/icons/clock.png',
+          alt: 'Crossed shoes icon to represents no waiting time'
+        },
+        theme: 'light',
+        title: 'I hate mondays',
+        description: 'Wake up happy[[ in $location]] with box-fresh, beautifully pressed work shirts and dry cleaning'
+      }
+    ];
+  </script>
+{% block script %}
+{% endblock %}
+  <script
+    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/js/order-home.js' %}"></script>
+
+  <script
+    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/vendor/jquery/dist/jquery.matchHeight.js' %}"></script>
+  <script>
+    'use strict'; // necessary for Safari only
+
+    $(function equalizeOtherCleanerCellHeights() {
+      $('.other-cleaner-cell').matchHeight();
+    });
+  </script>
+  <script
+    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/local_pages/js/local-services.js' %}"></script>
+  <script>
+    window.intercomSettings = {
+      app_id: 'uk1rq1t1'
+    };
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
+
+  <script>
+    function priceListTop() {
+      hj('tagRecording', ['User Clicked On Pending Page Price List (Top)']);
+    }
+
+    function priceListSide() {
+      hj('tagRecording', ['User Clicked On Pending Page Price List (Side)']);
+    }
+  </script>
+
+</body>
+
+</html>

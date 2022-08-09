@@ -1,0 +1,20 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+  {% block content %}
+      <div style="text-align: center">
+
+    <form id="social-login-btn" method="post" style="margin-top: 5%;visibility: hidden">
+      {% csrf_token %}
+      <button class="btn btn-sm btn-success" type="submit">{% trans "Continue" %}</button>
+      <button class="btn btn-sm btn-danger">{% trans "Cancel" %}</button>
+    </form>
+      </div>
+      <script>
+      var form = document.getElementById('social-login-btn')
+      form.submit();
+      </script>
+{% endblock %}

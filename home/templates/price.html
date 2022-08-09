@@ -1,0 +1,4370 @@
+<!doctype html>
+<html lang="en-GB">
+{% load static %}
+<!-- Mirrored from www.ihateironing.com/prices/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:27:09 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Prices | Pick Up Clean</title>
+  <style>
+    .async-hide {
+      opacity: 0 !important
+    }
+  </style>
+  <meta name="description"
+    content="Competitive Dry Cleaning Prices from the Uk's 1st On Demand Dry Cleaners. Suits ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon"
+    href="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/icons/favicon.ico">
+  <link rel="stylesheet"
+    href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
+  <script>document.documentMode && document.write('<script src="{% static 'polyfill.io/v3/polyfill.min3a03.js?features=default%2Ces2017%2Cfetch' %}"><\/script>');</script>
+
+  <script type="text/javascript" src="{% static 'widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js' %}"
+    async></script>
+
+</head>
+
+<body class="prices-body light">
+  <header>
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
+            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+          </a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-ihi navbar-main">
+            <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>
+            <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
+            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li><a href="https://help.ihateironing.com/hc/en-us"><span class="link-text">FAQs</span></a></li>
+            <li><a href="{% url 'corporate' %}"><span class="link-text">Corporates</span></a></li>
+
+              <li>
+                <a href="{% url 'login' %}">
+                  <span class="link-text">Log in</span>
+                </a>
+              </li>
+              <li>
+                <a href="tel:+090078601">
+                  <span class="link-text">T 090 0786 01</span>
+                </a>
+              </li>
+
+            <li>
+              <form action="#" style="visibility:hidden">
+                <select name="flag_dropdown" id="flag_picker"
+                  style="font-size:20px;height:auto;padding:0px;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
+                  <option value="GB">🇬🇧</option>
+                  <option value="US">🇺🇸</option>
+                  <option value="IE">🇮🇪</option>
+                  <option value="SG">🇸🇬</option>
+                  <option value="AU">🇦🇺</option>
+                </select>
+                <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
+              </form>
+
+              <script>
+
+                const dropdown = document.getElementById("flag_picker"); // dropdown
+                const current_country_code = document.getElementById("currentCountryCode").value; // accounts/countries.py
+
+                window.addEventListener("load", function () {
+                  dropdown.value = current_country_code;
+                  dropdown.style.visibility = "visible";
+                  // load current session country as selected
+                });
+
+                dropdown.addEventListener("change", function () {
+                  setCurrentCountryCode(dropdown.value);
+                  // on change, change the session and reload
+                });
+
+                function setCurrentCountryCode() {
+                  axios.get("/accounts/country", {
+                    params: {
+                      country: dropdown.value
+                    }
+                  })
+                    .then(function (response) {
+                      window.location.reload();
+                    })
+                    .catch(function (error) {
+                      console.error('Unable to set current session country:', error);
+                    });
+                }
+
+              </script>
+            </li>
+
+            <li class="nav-btn-cta">
+              <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
+            </li>
+          </ul>
+
+          <ol class="nav navbar-nav breadcrumb">
+            <hr class="breadcrumb-hr" />
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+
+          </ol>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <div id="content" role="main" class="prices-content">
+
+    <div style="background-image: url('{% static 'imgs/ironing.jpg' %}')" class="prices-intro"></div>
+
+    <section class="prices-section prices-header">
+      <div class="text-wrapper">
+        <h2 class="prices-title">What service do you require?</h2>
+      </div>
+      <div class="prices-search">
+        <svg class="prices-search-icon" height="24" viewBox="0 0 24 24" width="24">
+          <path
+            d="m15.5 14h-.79l-.28-.27c.98-1.14 1.57-2.62 1.57-4.23 0-3.59-2.91-6.5-6.5-6.5s-6.5 2.91-6.5 6.5 2.91 6.5 6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99 1.49-1.49zm-6 0c-2.49 0-4.5-2.01-4.5-4.5s2.01-4.5 4.5-4.5 4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z" />
+          <path d="m0 0h24v24h-24z" fill="none" />
+        </svg>
+        <input class="prices-search-input" placeholder="Search">
+      </div>
+    </section>
+
+    <div class="prices-body">
+      <section class="prices-section prices-category-list">
+        <button class="btn btn-cta prices-category-item popular active">Most popular</button>
+
+        <button class="btn btn-cta prices-category-item">
+          Household
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Dry Cleaning
+        </button>
+
+        <button class="btn btn-cta prices-category-item row-last">
+          Shirts
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Laundry
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Bedding
+        </button>
+
+        <button class="btn btn-cta prices-category-item row-last">
+          Curtains
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Shoes
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Trainers
+        </button>
+
+        <button class="btn btn-cta prices-category-item row-last">
+          Wedding dress
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Alterations
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Leather/Fur/Suede
+        </button>
+
+        <button class="btn btn-cta prices-category-item row-last">
+          Specialist
+        </button>
+
+        <button class="btn btn-cta prices-category-item">
+          Ironing
+        </button>
+
+      </section>
+
+      <div class="prices-section">
+        <h5 class="prices-list-title">Price list</h5>
+      </div>
+
+      <section class="prices-section prices-item-sections">
+
+        <div class="prices-item-section active">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed Set - 1 Double Duvet Cover, 1 Double Sheet, 2 Pillow Cases (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dress - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet - Double
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £21.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jacket - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Knitwear - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Men&#39;s Rubber Half Sole &amp; Rubber Heel
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £44.70
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Re-hem Trousers (1 Leg)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.90
+                </div>
+              </div>
+
+
+              <div class="prices-item"
+                data-details="Items are washed at 30 degrees and tumble dried warm. We cannot take responsibility for items included that should not be treated in this way.">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Service Wash (Wash, Dry &amp; Fold) - Additional kg above 5kg
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.20
+                </div>
+              </div>
+
+
+              <div class="prices-item"
+                data-details="Items are washed at 30 degrees and tumble dried warm. We cannot take responsibility for items included that should not be treated in this way. See FAQs for full list of items not to be included.">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Service Wash (Wash, Dry &amp; Fold) Up to 5kg
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Skirt - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trousers - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Two-Piece Suit - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £12.50
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <p class="prices-item-section-remarks"></p>
+
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Apron - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bath Mat
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bath Robe
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bath Sheet (from 1.5 metre in length)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blinds per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.60
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Chair Cover
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Chair Cover - Double
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £29.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains - Heavy Lined per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains - Medium Lined per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains - Non-lined per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.10
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cushion Cover
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cushion Cover - Large
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cushion - Large
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cushion - Small
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Futon Cover
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £25.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Handbag - Cleaning
+                  </div>
+                  <div class="prices-item-description">
+                    Light clean (not a restoration)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £31.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Mat
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Napkin
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.05
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Rug - Dry Clean/Wash per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £20.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Slippers
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Socks
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.00
+                </div>
+              </div>
+
+
+              <div class="prices-item"
+                data-details="This price includes the sofa covering only. Any sofa cushions will be charged separately.">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sofa Cover (1 Seater)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item"
+                data-details="This price includes the sofa covering only. Any sofa cushions will be charged separately.">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sofa Cover (2 Seater)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £26.50
+                </div>
+              </div>
+
+
+              <div class="prices-item"
+                data-details="This price includes the sofa covering only. Any sofa cushions will be charged separately.">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sofa Cover (3 Seater)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £36.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Table Cloth
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.25
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Table Mat
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Table Runner - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £12.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Tea Cosy - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Tea Towel
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £0.55
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Throw
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £15.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Towel
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.60
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Towel - Hand
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.10
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Toy (Large) - Dry Clean/Wash
+                  </div>
+                  <div class="prices-item-description">
+                    between 30cm and 50cm
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Toy (Small) - Dry Clean/Wash
+                  </div>
+                  <div class="prices-item-description">
+                    less than 30cm
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.70
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Cushions, curtains and rugs</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blouse - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bolero - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bow Tie - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cashmere Knitwear - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cashmere Trousers - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Children&#39;s Items - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £0.00 (Children&#39;s items will be invoiced at 65% of adult prices)
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Coat - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £14.85
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dinner Jacket - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dinner Suit - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £18.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dinner Trousers - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dress - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Evening/Delicate Dress - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £18.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Evening/Delicate Jumpsuit - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £20.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Gown - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £12.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Handkerchief - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.90
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Hat - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Hijab - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jacket - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jeans - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jumper - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jumpsuit - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Kilt - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £21.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Knitwear - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Kurta - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £20.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Top - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Net Curtain
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pashmina - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Playsuit - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pleated Skirt - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Poncho - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Puffa Gilet - Dry Clean/Wash
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Puffa Jacket - Dry Clean/Wash
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £20.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pyjamas - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sari - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £26.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Scarf - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shawl - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shorts - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Silk/Beads Top - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Silk Jacket - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Silk Trousers - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ski Gloves - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £15.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ski jacket
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.60
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Skirt - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ski suit
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £26.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ski trousers
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £12.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Three Piece Suit - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Tie - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Top - dry clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trousers - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    T-Shirt - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Two-Piece Suit - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £12.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Waistcoat - Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.50
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Dry Cleaning and Pressing</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Shirt - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shirt - Dry Cleaning
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shirt (Folded) - Press only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shirt (Folded) - Wash &amp; Press*
+                  </div>
+                  <div class="prices-item-description">
+                    *£3.50 in Oxford
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.20
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shirt (On Hanger) - Wash &amp; Press* (10 or more)
+                  </div>
+                  <div class="prices-item-description">
+                    *£3.50 in Oxford
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shirt (On Hanger) - Wash &amp; Press* (less than 10)
+                  </div>
+                  <div class="prices-item-description">
+                    *£3.50 in Oxford
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shirt - Press Only* (10 or more)
+                  </div>
+                  <div class="prices-item-description">
+                    *£3.00 in Oxford
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shirt - Press Only* (less than 10)
+                  </div>
+                  <div class="prices-item-description">
+                    *£3.00 in Oxford
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.40
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Shirts delivered on hangers or folded</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bikini - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blouse - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bra - Wash
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Children&#39;s Items - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £0.00 (Children&#39;s items will be invoiced at 65% of adult prices)
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Coat - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.25
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dress - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Face Mask - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Gloves - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Handkerchief - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jacket - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jeans - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jumper - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jumpsuit - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Knitwear - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Kurta - Wash and Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Leggings - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Nightdress - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.40
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Polo Shirt - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pyjamas - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Robe - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Scarf - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item"
+                data-details="Items are washed at 30 degrees and tumble dried warm. We cannot take responsibility for items included that should not be treated in this way.">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Service Wash (Wash, Dry &amp; Fold) - Additional kg above 5kg
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.20
+                </div>
+              </div>
+
+
+              <div class="prices-item"
+                data-details="Items are washed at 30 degrees and tumble dried warm. We cannot take responsibility for items included that should not be treated in this way. See FAQs for full list of items not to be included.">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Service Wash (Wash, Dry &amp; Fold) Up to 5kg
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shorts - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Skirt - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.65
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Socks / Tights
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Top - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Tracksuit - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trousers - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    T-Shirt - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Underwear - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Vest - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Waistcoat - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.50
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Laundered items are washed with non bio detergents and are typically
+            machine dried</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed footer - Wash &amp; press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed Set - 1 Double Duvet Cover, 1 Double Sheet, 2 Pillow Cases (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed Set - 1 King Duvet Cover, 1 King Sheet, 2 Pillow Cases (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £19.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed Set - 1 Super King Duvet Cover, 1 Super King Sheet, 2 Pillow Cases (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £21.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed Set - Single Sheet, Single Duvet Cover, 1 Pillow Case (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed Spread - Heavy
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £21.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Bed Throw
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £25.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blanket
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blanket - King Size (Dry Clean)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £21.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blanket - Small (Dry Clean)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Combi Duvet
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £0.00 (Combi Duvets will be invoiced at 1.5x standard duvet prices)
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet Cover - Double (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet Cover - King Size (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet Cover - Single (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet Cover - Super King Size (Wash and Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet - Double
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £21.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet (Feather) - Double
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £25.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet (Feather) - King Size
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £27.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet (Feather) - Single
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £18.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet (Feather) - Super King Size
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £28.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet - King Size
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £24.00
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet - Single
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet - Super King Size
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £25.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Mattress Cover - Wash &amp; Press
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Mattress Protector
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Mattress Topper
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £26.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Mattress Topper (Feather)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £36.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pillow
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pillow Case - Silk
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pillow Case - Wash &amp; Press/Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sheet - Double (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sheet - King Size (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.75
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sheet - Single (Wash &amp; Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sheet - Super King Size (Wash and Press)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Silk Bed Set - 1 Double Duvet Cover, 1 Double Sheet, 2 Pillow Cases
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £24.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Silk Bed Set - 1 King Duvet Cover, 1 King Sheet, 2 Pillow Cases
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £27.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Silk Duvet Cover - King
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Silk Duvet Cover - Super King
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £15.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sleeping Bag
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Small Throw
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £18.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Standard Bed Spread
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Valance - Wash &amp; Press / Dry Clean
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.15
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Bed linen and duvets</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item" data-details="Service only available within the M25 and may take up to 2 weeks">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains - Blackout/Thermal (per m^2)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £12.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains - Heavy Lined per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains - Medium Lined per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.50
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains - Non-lined per m^2
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.10
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Re-hem - Curtains
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £24.00
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">We collect, clean and deliver your curtains directly to your door
+            within 48 hours (blackout/thermal curtains may take up to two weeks)</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Boot - Zip Repair
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £53.25
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Heel Tips
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Leather Half Sole
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £36.25
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Leather Sole &amp; Leather Half Heel
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £46.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Rubber Half Sole
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £26.25
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Rubber Half Sole &amp; Rubber Heel
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £35.45
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Rubber Heels
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £15.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Shoe Tips
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £15.00
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Men&#39;s Leather Half Sole
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £43.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Men&#39;s Leather Half Sole &amp; Leather Heel
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £65.90
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Men&#39;s Rubber Half Sole
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £32.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Men&#39;s Rubber Half Sole &amp; Rubber Heel
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £44.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Men&#39;s Rubber Heels
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £20.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Men&#39;s Shoe Tips
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £18.75
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shoe Shine
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Shoe repairs and shining</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trainers Cleaning
+                  </div>
+                  <div class="prices-item-description">
+                    *We do not clean couture trainers (value over £250)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £19.50
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Please leave at least 72 hours between collection and delivery.
+            Service not available in all areas.</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Wedding Dress - Cleaning
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £130.00 (Starting from)
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Wedding Dress Packaging Box (Only)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £25.00
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Beautifully cleaned and presented to keep for ever</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Button Repair
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Coat Lining Repair
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £24.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Curtains Shortening (per metre*)
+                  </div>
+                  <div class="prices-item-description">
+                    *curtains will be measured by width
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dress Shortening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £18.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dress Tapering
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £31.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jacket/Coat Shortening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £35.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Lining - Dress
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £35.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Lining - Jacket
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £66.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Lining - Skirt
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £26.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    New Zip (0&#34; to 10&#34;)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    New Zip (10&#34; to 30&#34;)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £31.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    New Zip (30&#34;+)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £46.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Open Button Hole
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.65
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Patch Repair
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.80
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Re-hem - Dress/Skirt/Coat
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.55
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Re-hem Trousers (1 Leg)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.90
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Remove Front Pocket
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.65
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Repairs/Alterations
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sewing Name Tags (8 or more)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sewing Name Tags (less than 8)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Skirt Shortening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £19.90
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sleeve Lengthening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £25.65
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sleeve Shortening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £25.65
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Small Repair
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Top Shortening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.10
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trouser Lengthening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £17.15
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trouser Shortening
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £17.15
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trouser Tapering
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £29.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trouser Waist In/Waist Out
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £17.25
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Take a little longer than cleaning so leave 48 hours between
+            collection and delivery.</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item" data-details="Includes Jumpers and Jackets">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Item With Leather, Fur or Suede Trim
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £24.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Leather/Fur/Suede Coat
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £66.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Leather/Fur/Suede Gloves
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £16.50
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Leather/Fur/Suede Jacket
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £56.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Leather Skirt
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £31.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Leather Trousers
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £31.50
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Speciality cleaning for leather, fur and suede, please allow 1 week
+            between collection and delivery.</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Burberry Trench Coat
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £46.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Canada Goose Coat
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £51.50
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Moncler Jacket
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £51.50
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Professional care for specialist items, please allow 72 hours for
+            cleaning.</div>
+
+        </div>
+
+        <div class="prices-item-section">
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Apron - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blanket - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £13.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Blouse - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Children&#39;s Items - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £0.00 (Children&#39;s items will be invoiced at 65% of adult prices)
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Coat - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cumerband - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Cushion - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Double Duvet Cover - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.60
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Double Sheet - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.80
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Dress - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.25
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Duvet Cover - Super King Size (Press Only)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.80
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Evening/Delicate Dress - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £11.10
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Gown - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Handkerchief - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.70
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jacket - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.10
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jeans - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jumper - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Jumpsuit - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.25
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    King Duvet Cover - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    King Sheet - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Knitwear - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Kurta - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.20
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Ladies Top - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Large Cushion Cover - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Leggings - press only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Napkin - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £0.84
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pashmina
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £7.20
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pashmina - press only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £4.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pillowcase - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.76
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Polo Shirt - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.55
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pyjama Bottoms - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Pyjama Top - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sari - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £15.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Scarf - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.55
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Sheet - Super King Size (Press Only)
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Shorts - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Single Duvet Cover - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £6.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Single Sheet - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.60
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Skirt - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.95
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Table Cloth - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £5.80
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Table Runner - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £10.50
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Three-Piece Suit - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £9.90
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Tie - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Top - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.55
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Towel - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £1.28
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Tracksuit Bottoms - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.00
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Trousers - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.40
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    T-shirt - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.55
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Two-Piece Suit - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.15
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Underwear - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £0.85
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Valance - Press only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £8.45
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Vest - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £2.15
+                </div>
+              </div>
+
+
+              <div class="prices-item">
+                <div class="prices-item-left">
+                  <div class="prices-item-name">
+                    Waistcoat - Press Only
+                  </div>
+                </div>
+                <div class="prices-item-price">
+                  £3.85
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="prices-item-section-subtitle">Press Only</div>
+
+        </div>
+
+
+        <div class="prices-item-section prices-search-results">
+          <div class="row prices-search-result-items"></div>
+          <p class="prices-search-results-empty">
+            No matching items found.
+          </p>
+        </div>
+      </section>
+
+      <section class="prices-section prices-order">
+        <div class="prices-order-container">
+          <div class="prices-order-description">
+            Check times for your address
+          </div>
+
+          <script id="embedded-order-form-target">
+            (function () {
+              var config = {
+                url: '/orders/create/embedded/',
+              };
+
+              window.addEventListener('DOMContentLoaded', function () {
+                var container = document.createElement('div');
+                container.className = 'embedded-order-form';
+                var target = document.getElementById('embedded-order-form-target');
+                target.insertAdjacentElement('afterend', container);
+                $(container).load(config.url);
+              });
+            })();
+          </script>
+          <div class="embedded-order-form">
+            <script>
+              (function () {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/packages/time-slot-picker.css';
+                document.head.appendChild(link);
+              })();
+            </script>
+              <!--Todo Create order form-->
+            <form class="eof-form" method="post" action="/orders/create/" autocomplete="off"
+              data-config="{&quot;search_url&quot;: &quot;/api/time-slots/&quot;, &quot;preselect&quot;: false}">
+              <div class="of-group of-group--address-line1">
+                <input type="text" name="address_line1" autocomplete="off" role="combobox" aria-haspopup="true"
+                  aria-autocomplete="list" spellcheck="false" maxlength="255" class="form-control"
+                  placeholder="Postcode" required="" id="id_address_line1">
+              </div>
+
+              <button id="toggle-time-slots" type="button" class="btn of-time-slot-display of-time-slots-button">
+                Time Slots
+              </button>
+
+              <div class="of-time-slot-display of-time-slot js-selected-pickup">
+                <div class="of-time-slot-label">Collection Slot</div>
+                <div class="of-time-slot-value js-selected-label"></div>
+              </div>
+
+              <div class="of-time-slot-display of-time-slot js-selected-dropoff">
+                <div class="of-time-slot-label">Dropoff Slot</div>
+                <div class="of-time-slot-value js-selected-label"></div>
+              </div>
+
+              <div class="time-slots"></div>
+
+              <button class="btn of-submit-button" type="submit">Place order</button>
+
+              <input type="hidden" name="pickup_date" id="id_pickup_date">
+              <input type="hidden" name="pickup_time_slot" id="id_pickup_time_slot">
+              <input type="hidden" name="dropoff_date" id="id_dropoff_date">
+              <input type="hidden" name="dropoff_time_slot" id="id_dropoff_time_slot">
+              <input type="hidden" name="address_line2" id="id_address_line2">
+              <input type="hidden" name="address_line3" id="id_address_line3">
+              <input type="hidden" name="address_line4" id="id_address_line4">
+              <input type="hidden" name="postcode" id="id_postcode">
+              <input type="hidden" name="city" id="id_city">
+              <input type="hidden" name="country" id="id_country">
+
+              <input type="hidden" name="csrfmiddlewaretoken"
+                value="Qwf1h46Ukhcdg4is6Y5Bm7VR7x64y3PUAfZyNHo2OJmENc95dE9B91Bibuct7gNL">
+            </form>
+
+
+            <div class="unserved-area modal fade">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Area not served</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div style="margin-bottom: 1em;">
+                      ihateironing does not currently serve your area.
+                    </div>
+                    <div style="margin-bottom: 1em;">
+                      We're always adding new locations. Please fill out the form below to be notified when we roll out
+                      to your area.
+                    </div>
+                    <form method="POST" action="/api/district-request/" id="unserved-area-form"
+                      style="width: 300px; margin: 2em auto 1em;">
+                      <div style="margin-bottom: 1em; display: flex; flex-direction: row;">
+                        <label style="width: 100px; margin-top: 0.5em; font-weight: 500;">Name:</label><input
+                          name="name" type="text" id="unserved-area-form-name" style="flex: 1;">
+                      </div>
+                      <div style="margin-bottom: 1em; display: flex; flex-direction: row;">
+                        <label style="width: 100px; margin-top: 0.5em; font-weight: 500;">Email:</label><input
+                          name="email" type="email" id="unserved-area-form-email" style="flex: 1;">
+                      </div>
+                      <input name="postcode" type="hidden" id="unserved-area-form-postcode">
+                      <input name="country" type="hidden" id="unserved-area-form-country">
+                      <input type="hidden" name="csrfmiddlewaretoken"
+                        value="3qsDE1ernzgg1WRipR8NeBve76KyvsuLN9caaEwzR1qHy4IVwxcN1vbFb3QX4FsC">
+                      <input type="submit" value="Submit" style="width: 100%;">
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <script
+              src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js"
+              data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+            <script>
+              window.IronWeb.Utils.styliseSelects('.eof-form select');
+            </script>
+            <script
+              src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/packages/time-slot-picker.js"></script>
+            <script
+              src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/js/order-form.js"></script>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="prices-section prices-features">
+        <div class="prices-feature-item">
+          <div class="prices-feature-icon-cont">
+            <svg viewBox="0 0 104.11 52.05">
+              <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <g stroke="#000">
+                  <path
+                    d="m97.2 23.32c-2.33-.66-11.82-3.19-14.16-3.84-4.24-1.19-4.57-1.15-6.09-2.81-4.13-4.5-5.53-6.1-10.78-11.35-2.39-2.39-7.5-4.57-13.17-4.57h-45.11c-1.69.01-2.59 1.25-3.07 3.07l-4 18.52a4.79 4.79 0 0 0 -.11 1v14.49a5.07 5.07 0 0 0 5.06 5.06h.12v-1.09c0-5.86 5.08-10.6 11.35-10.6s11.36 4.74 11.36 10.6v1.09h44.48v-1.09c0-5.86 5.08-10.6 11.36-10.6s11.35 4.74 11.35 10.6v1.09h2.06c4 0 5.49-2.13 5.49-5.41v-7.41c.02-4.07-1.55-5.44-6.14-6.75z" />
+                  <path
+                    d="m53 5.21h-2.93v10.27.12a5.15 5.15 0 0 0 4.93 4.16h17.15a.7.7 0 0 0 .5-1.19l-.26-.27c-3.15-3.44-4.75-5.2-9.39-9.82-1.57-1.58-5.64-3.27-10-3.27z" />
+                  <ellipse cx="17.31" cy="42.94" rx="8.2" ry="8.37" />
+                  <ellipse cx="17.31" cy="42.94" rx="3.03" ry="3.09" />
+                  <ellipse cx="84.46" cy="42.94" rx="8.2" ry="8.37" />
+                  <ellipse cx="84.46" cy="42.94" rx="3.03" ry="3.09" />
+                  <path d="m.75 33.44h9.54" />
+                  <path d="m91.42 33.44h11.94" />
+                  <path d="m103.13 27.82h-4.91a2.74 2.74 0 0 0 -2.58 1.84l-1.3 3.78" />
+                </g>
+                <path d="m3.14 23.42v7.87" stroke="#c32a2e" />
+                <path d="m49.08 25.69h6.01" stroke="#000" />
+              </g>
+            </svg>
+          </div>
+          <div class="prices-feature-details">
+            <h5 class="prices-feature-title">Free Collection &amp; Delivery</h5>
+            <p>On all orders over £20</p>
+          </div>
+        </div>
+        <div class="prices-feature-item">
+          <div class="prices-feature-icon-cont">
+
+            <svg viewBox="0 0 83.98 50.84">
+              <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="m7.98 15.36v-7.38h68.02v34.73h-7.24" stroke="#000" />
+                <path d="m15.21 15.36v-14.61h68.02v34.73h-14.47" stroke="#000" />
+                <path d="m.75 15.36h68.01v34.73h-68.01z" stroke="#000" />
+                <path d="m5.84 45.01h6.43" stroke="#c32a2e" />
+                <path d="m57.58 20.09h6.42" stroke="#c32a2e" />
+                <g stroke="#000">
+                  <path
+                    d="m21 38.05v-7.63a3.92 3.92 0 0 1 1-2.8 3.49 3.49 0 0 1 2.64-1 4 4 0 0 1 3.49 1.8m0 9.63h-9.13" />
+                  <path d="m18.95 32.34h6.63" />
+                  <ellipse cx="45.87" cy="32.33" rx="4.58" ry="5.72" />
+                  <path
+                    d="m31 28.43a4.54 4.54 0 0 1 4-1.81 3.48 3.48 0 0 1 3.31 5.05c-1.37 2.73-4.52 4.4-7 6l-.54.37h8.06" />
+                </g>
+              </g>
+            </svg>
+
+          </div>
+          <div class="prices-feature-details">
+            <h5 class="prices-feature-title">£20 Minimum</h5>
+            <p>You can give us fewer items and the order will be rounded up
+              to £20</p>
+          </div>
+        </div>
+        <div class="prices-feature-item">
+          <div class="prices-feature-icon-cont">
+            <svg viewBox="0 0 54.66 63.57">
+              <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="m27.33 5.17v4.69" stroke="#c32a2e" />
+                <g stroke="#000">
+                  <path d="m.75 31.76h4.69" />
+                  <path d="m27.33 58.33v-4.69" />
+                  <path d="m53.91 31.75h-4.69" />
+                  <path d="m27.32 13.08v18.66l10.02 9.96" />
+                  <path d="m51.36.75-48.14 62.07" />
+                  <circle cx="27.33" cy="31.75" r="26.58" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="prices-feature-details">
+            <h5 class="prices-feature-title">No Show</h5>
+            <p>A supplement of £10 will apply if you are not in for a
+              collection or delivery</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="prices-section prices-order-support">
+      <h2>Can’t find what you’re looking for?</h2>
+      <p>
+        You can have almost anything cleaned, pressed or repaired through ihateironing. If you have an item you would
+        like us to take care of but can't see it listed please give us a call on
+        <a href="tel:+442070604939">020 7060 4939</a>
+        to clarify the price.
+      </p>
+      <p>
+        For any high value services not listed on the pricing page we'll always contact you to get your permission
+        before going ahead with the work.
+      </p>
+    </section>
+
+
+    <div class="item-modal modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content prices-item-modal-content">
+          <svg class="prices-item-modal-close" data-dismiss="modal" aria-label="Close">
+            <g stroke="#979797" fill="none" fill-rule="evenodd" stroke-linecap="square">
+              <path d="M1.5.5l21.378 21.378M22.5.5L1.122 21.878" />
+            </g>
+          </svg>
+          <div class="prices-item-modal-title"></div>
+          <div class="prices-item-modal-description"></div>
+          <div class="prices-item-modal-details"></div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="col-md-4 footer-app-stores">
+          <div class="footer-top-title">Download our new app:</div>
+          <a class="ios-link"
+            href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
+            <img
+              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/apple.png' %}"
+              alt="Download on the App Store">
+          </a>
+          <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
+            <img
+              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/google.png' %}"
+              alt="Get it on Google Play">
+          </a>
+        </div>
+        <div class="col-md-8 sub2-newsletter footer-push">
+          <div class="footer-top-title">Subscribe to our newsletter:</div>
+          <div class="sub2-newsletter-content">
+            <form
+              action="https://ihateironing.us5.list-manage.com/subscribe/post?u=70163dda0059bbc6424bb415f&amp;id=b7c1f868ac"
+              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+              target="_blank" novalidate>
+              <div id="mc_embed_signup_scroll" class="sub2-form-container">
+                <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address"
+                  required>
+                <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value=""
+                  style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-payment-methods footer-push">
+          <div class="footer-payment-methods-title">Accepted payment methods:</div>
+          <img class="footer-payment-methods-img"
+            src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/payments/payments-sprite-black.png' %}"
+            width="190" alt="Accepted payment methods">
+        </div>
+        <div class="footer-logo-wrapper footer-push">
+          <div class="footer-logo">
+            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+          </div>
+          <div class="footer-copyright">
+            <div class="footer-company">© 2022 <span class="u-text-uppercase">ihateironing</span>.</div>
+            <div class="footer-rights">All rights reserved.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+  <div class="cookie-consent">
+    <div class="cookie-consent-container">
+      <div class="cookie-consent-message">
+        We use cookies to ensure you get the best experience on our website. To find out more, read our policy
+        <a class="cookie-consent-link" href="../privacy/index.html#cookies">here</a>.
+      </div>
+      <button id="cookie-consent-action" class="btn">Accept and close</button>
+    </div>
+    <script>
+      document.getElementById('cookie-consent-action').addEventListener('click', function () {
+        var expires = new Date();
+        expires.setUTCFullYear(expires.getUTCFullYear() + 1);
+        document.cookie = 'cookieconsent=1; expires=' + expires.toUTCString() + '; path=/';
+        var message = this.parentNode.parentNode;
+        message.parentNode.removeChild(message);
+      });
+    </script>
+  </div>
+
+  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/js/libs.js' %}"></script>
+  <!-- Axios CDN: https://github.com/axios/axios -->
+  <script src="{% static 'cdn.jsdelivr.net/npm/axios/dist/axios.min.js' %}"></script>
+  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}"
+    data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/about/js/prices.js' %}"></script>
+
+
+  <script>
+    window.intercomSettings = {
+      app_id: 'uk1rq1t1'
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
+  <script>
+    function priceListTop() {
+      hj('tagRecording', ['User Clicked On Pending Page Price List (Top)']);
+    }
+
+    function priceListSide() {
+      hj('tagRecording', ['User Clicked On Pending Page Price List (Side)']);
+    }
+  </script>
+</body>
+
+<!-- Mirrored from www.ihateironing.com/prices/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:27:10 GMT -->
+
+</html>

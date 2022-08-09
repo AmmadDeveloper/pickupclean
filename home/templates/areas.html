@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Areas{% endblock %}
+{% load static %}
+{% block style %}
+{% endblock %}
+{% block body %}
+  <div style="background-image: url('{% static 'imgs/areabg.webp'  %}')" class="mdn-header">
+    <div style="color: black" class="mdn-header__container">
+      <h1 class="mdn-header__title">Location Directory</h1>
+      <p class="subtitle">Areas we currently serve</p>
+    </div>
+  </div>
+
+  <div class="mdn-container sb-smooth">
+    
+  <div class="areas__section areas__index">
+      {% for items in letters %}
+          <a href="#group-{{ items }}" class="areas__link js-link">{{ items }}</a>
+      <span class="areas__separator">|</span>
+      {% endfor %}
+  </div>
+  {% for list in data %}
+    <div class="areas__row">
+        {% for item in list %}
+            <div id="group-{{ item.name }}" class="areas__section areas__group">
+              <div class="areas__group-title">{{ item.name }}</div>
+              <ul class="areas__group-list">
+                  {% for area in item.area %}
+                      <li><a class="areas__link" href="{% url 'homepage' %}">{{area}}</a></li>
+                  {% endfor %}
+              </ul>
+            </div>
+
+        {% endfor %}
+    </div>
+  {% endfor %}
+
+  </div>
+{% endblock %}
+{% block script %}
+{% endblock %}
