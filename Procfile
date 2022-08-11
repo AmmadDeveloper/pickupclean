@@ -1,1 +1,1 @@
-web: gunicorn justCleanPrestige.asgi --log-file -
+web: gunicorn justCleanPrestige.wsgi --log-file -
