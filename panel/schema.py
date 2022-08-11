@@ -1,4 +1,4 @@
-from models.models import Category,Service,PostCode,Promo
+from models.models import Promo
 
 from ninja import ModelSchema,Schema
 
@@ -26,6 +26,7 @@ class ServiceSchema(Schema):
     description:str
     delivery_time:str
     category_id:int
+    type_id:int
 
     # class Config:
     #     model=Service
@@ -63,3 +64,7 @@ class PhoneSendSchema(Schema):
     phones:list=None
     to:str
     body:str
+
+class ServiceTypeSchema(Schema):
+    name:str
+    id:int = None
