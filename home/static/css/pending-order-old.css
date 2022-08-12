@@ -16,7 +16,7 @@
   margin-bottom: 42px; }
 
 .pending-header {
-  background: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)), url("/static/orders/images/bg/pending-mobile.jpg") no-repeat top center;
+  background: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)) no-repeat top center;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@
     margin: 0 50px; }
   @media (min-width: 60em) {
     .pending-header {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)), url("/static/orders/images/bg/pending-desktop.jpg");
+      background-image: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72));
       height: 350px; }
       .pending-header .ord-progress {
         margin: 56px auto 0;
