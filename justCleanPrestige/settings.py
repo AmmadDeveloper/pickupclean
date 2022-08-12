@@ -131,7 +131,7 @@ DATABASES = {
     #     # 'PASSWORD':'1234'
     # },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd7c8bioo8h1iia',
         'HOST': 'ec2-176-34-215-248.eu-west-1.compute.amazonaws.com',
         'URI':'postgres://gjbbaxptojrcsp:94d06f8ccfbf003f9f690df5c804614adc071f3ccf93a588e17fbdceae0d15f4@ec2-176-34-215-248.eu-west-1.compute.amazonaws.com:5432/d7c8bioo8h1iia',
