@@ -2,9 +2,9 @@ from django.contrib.auth import authenticate
 from ninja import NinjaAPI
 from ninja.security import HttpBearer
 from django.contrib.auth.models import User
-from models.models import Category,Files,Service,Order,Cart,PostCode,TimeSlot,ScheduleConfig,EmailConfig,PhoneConfig,Promo,HomeBackground,PaymentIntent,Notification,NotificationRead,PromoUsage
+from models.models import Category,Files,Service,Order,Cart,PostCode,TimeSlot,ScheduleConfig,EmailConfig,PhoneConfig,Promo,HomeBackground,PaymentIntent,Notification,NotificationRead,PromoUsage,ServiceType
 from rest_framework.authtoken.models import Token
-from .schema import CategorySchema,AuthenticationSchema,ServiceSchema,PostCodeSchema,SettingSchema,PromoSchema,EmailSendSchema,PhoneSendSchema
+from .schema import CategorySchema,AuthenticationSchema,ServiceSchema,PostCodeSchema,SettingSchema,PromoSchema,EmailSendSchema,PhoneSendSchema,ServiceTypeSchema
 from ninja.files import UploadedFile
 from twilio.rest import Client
 from models.models import Message
@@ -315,6 +315,14 @@ def refundPayment(request,id:int):
         return {'statuscode': 400, 'message': 'error'}
 
 
+@api.get('listEmail/')
+def getEmailRecord(request,id:int=None):
+    return
+
+@api.get('listSms/')
+def getSmsRecord(request,id:int=None):
+    return
+
 
 @api.post('sendEmail/')
 def sendMail(request,emailSchema:EmailSendSchema):
@@ -466,6 +474,19 @@ def update_category(request,category:CategorySchema):
     return {'categories': Cat, 'statuscode': 200, 'message': 'success'}
 
 
+@api.get('/types')
+def get_types(request,id:int=None):
+    if not id:
+        Types=[{"id":t.id,"name":t.name,"key":t.id} for t in ServiceType.objects.filter()]
+        return {'types':Types,'statuscode':200,'message':'success'}
+
+@api.post('/types')
+def save_type(request,type:ServiceTypeSchema):
+    st=ServiceType()
+    st.name=type.name
+    st.save()
+    return {'type': {"id": st.id, "name": st.name, "key": st.id}, 'statuscode': 200, 'message': 'success'}
+
 @api.get('/category')
 def get_category(request,id:int=None):
     if not id:
@@ -503,6 +524,7 @@ def delete_category(request,id:int):
 def create_service(request,service:ServiceSchema):
     Ser=Service()
     Ser.name=service.name
+    Ser.servicetype_id=service.type_id
     Ser.description=service.description
     Ser.price=service.price
     Ser.category_id=service.category_id
@@ -518,7 +540,7 @@ def get_service(request,id:int=None):
         Ser=[{"id":Ser.id,"name":Ser.name,"delivery_time":Ser.delivery_time,"price":Ser.price,"key":Ser.id} for Ser in Service.objects.filter(is_available=True)]
         return {'services':Ser,'statuscode':200,'message':'success'}
     else:
-        Serv = [{"id": Ser.id, "name": Ser.name, "delivery_time": Ser.delivery_time,"description":Ser.description, "price": Ser.price,"cat":Ser.category.id,"category_id":Ser.category.id, "key": Ser.id}
+        Serv = [{"id": Ser.id, "name": Ser.name, "delivery_time": Ser.delivery_time,"description":Ser.description, "price": Ser.price,"cat":Ser.category.id,"type_id":Ser.servicetype.id,"category_id":Ser.category.id, "key": Ser.id}
                for Ser in Service.objects.filter(is_available=True,id=id)][0]
         return {'service': Serv, 'statuscode': 200, 'message': 'success'}
 
@@ -526,6 +548,7 @@ def get_service(request,id:int=None):
 def update_service(request,service:ServiceSchema):
     Ser = Service.objects.filter(id=service.id).first()
     Ser.name = service.name
+    Ser.servicetype_id=service.type_id
     Ser.description = service.description
     Ser.price = service.price
     Ser.category_id = service.category_id
@@ -642,5 +665,3 @@ def sendsms(request):
 
 
 #SMe4c93b75288c4bdcada0adbea5827b2f
-
-
