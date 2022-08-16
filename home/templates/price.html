@@ -17,14 +17,10 @@
   <meta name="description"
     content="Competitive Dry Cleaning Prices from the Uk's 1st On Demand Dry Cleaners. Suits ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
-  <link rel="shortcut icon"
-    href="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/icons/favicon.ico">
+ <link rel="shortcut icon" href="{% static 'imgs/favicon.png' %}">
   <link rel="stylesheet"
-    href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
+    href="{% static '/css/css/styles.css' %}">
   <script>document.documentMode && document.write('<script src="{% static 'polyfill.io/v3/polyfill.min3a03.js?features=default%2Ces2017%2Cfetch' %}"><\/script>');</script>
-
-  <script type="text/javascript" src="{% static 'widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js' %}"
-    async></script>
 
 </head>
 
@@ -49,8 +45,6 @@
             <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
             <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
             <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
-            <li><a href="https://help.ihateironing.com/hc/en-us"><span class="link-text">FAQs</span></a></li>
-            <li><a href="{% url 'corporate' %}"><span class="link-text">Corporates</span></a></li>
 
               <li>
                 <a href="{% url 'login' %}">
@@ -68,45 +62,9 @@
                 <select name="flag_dropdown" id="flag_picker"
                   style="font-size:20px;height:auto;padding:0px;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
                   <option value="GB">🇬🇧</option>
-                  <option value="US">🇺🇸</option>
-                  <option value="IE">🇮🇪</option>
-                  <option value="SG">🇸🇬</option>
-                  <option value="AU">🇦🇺</option>
                 </select>
                 <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
               </form>
-
-              <script>
-
-                const dropdown = document.getElementById("flag_picker"); // dropdown
-                const current_country_code = document.getElementById("currentCountryCode").value; // accounts/countries.py
-
-                window.addEventListener("load", function () {
-                  dropdown.value = current_country_code;
-                  dropdown.style.visibility = "visible";
-                  // load current session country as selected
-                });
-
-                dropdown.addEventListener("change", function () {
-                  setCurrentCountryCode(dropdown.value);
-                  // on change, change the session and reload
-                });
-
-                function setCurrentCountryCode() {
-                  axios.get("/accounts/country", {
-                    params: {
-                      country: dropdown.value
-                    }
-                  })
-                    .then(function (response) {
-                      window.location.reload();
-                    })
-                    .catch(function (error) {
-                      console.error('Unable to set current session country:', error);
-                    });
-                }
-
-              </script>
             </li>
 
             <li class="nav-btn-cta">
@@ -4273,12 +4231,12 @@
           <a class="ios-link"
             href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
             <img
-              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/apple.png' %}"
+              src="{% static '/images/app-stores/apple.png' %}"
               alt="Download on the App Store">
           </a>
           <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
             <img
-              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/google.png' %}"
+              src="{% static '/images/app-stores/google.png' %}"
               alt="Get it on Google Play">
           </a>
         </div>
@@ -4305,7 +4263,7 @@
         <div class="footer-payment-methods footer-push">
           <div class="footer-payment-methods-title">Accepted payment methods:</div>
           <img class="footer-payment-methods-img"
-            src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/payments/payments-sprite-black.png' %}"
+            src="{% static '/images/payments/payments-sprite-black.png' %}"
             width="190" alt="Accepted payment methods">
         </div>
         <div class="footer-logo-wrapper footer-push">
@@ -4340,12 +4298,10 @@
     </script>
   </div>
 
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/js/libs.js' %}"></script>
-  <!-- Axios CDN: https://github.com/axios/axios -->
-  <script src="{% static 'cdn.jsdelivr.net/npm/axios/dist/axios.min.js' %}"></script>
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}"
+  <script src="{% static '/js/libs.js' %}"></script>
+  <script src="{% static '/accounts/js/addresses.js' %}"
     data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/about/js/prices.js' %}"></script>
+  <script src="{% static '/about/js/prices.js' %}"></script>
 
 
   <script>
@@ -4354,15 +4310,6 @@
     };
   </script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
-  <script>
-    function priceListTop() {
-      hj('tagRecording', ['User Clicked On Pending Page Price List (Top)']);
-    }
-
-    function priceListSide() {
-      hj('tagRecording', ['User Clicked On Pending Page Price List (Side)']);
-    }
-  </script>
 </body>
 
 <!-- Mirrored from www.ihateironing.com/prices/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:27:10 GMT -->

@@ -17,8 +17,8 @@ from django.contrib import messages
 from django.template.loader import get_template
 from django.db.models.query_utils import Q
 from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
 from collections import OrderedDict
+from django.conf import settings
 import stripe
 
 
@@ -207,7 +207,6 @@ def servicedetail(request,id):
 def orderhistory(request):
     if request.user.is_authenticated:
         query=Q()
-        query.add(Q(email__iexact=request.user.email),Q.OR)
         query.add(Q(user_id=request.user.pk),Q.OR)
         query.add(~Q(order_status=OrderType.OPEN), Q.AND)
         orders=[{"orderid":item.id,
@@ -316,6 +315,30 @@ def smswebhook(request):
         message.save()
         return JsonResponse({"status":"ok"})
     return JsonResponse({'status':'not found'})
+
+
+
+
+#Response for marketing webhook
+
+#<QueryDict: {'ErrorCode': ['21608'], 'SmsSid': ['SM31ec2fecaeff1a1bedd7253f954d1672'], 'SmsStatus': ['failed'], 'MessageStatus': ['failed'], 'To': ['+923045171619'], 'MessagingServiceSid': ['MG0f508964da61e66634828eb44a2b27a9'], 'MessageSid': ['SM31ec2fecaeff1a1bedd7253f954d1672'], 'AccountSid': ['AC1bfc23beba30546467e2c4351485b009'], 'From': ['+19707164935'], 'ApiVersion': ['2010-04-01']}>
+#<QueryDict: {'SmsSid': ['SM7242eb432726a38b21b9c2442eb4dba5'], 'SmsStatus': ['sent'], 'MessageStatus': ['sent'], 'To': ['+923130452101'], 'MessagingServiceSid': ['MG0f508964da61e66634828eb44a2b27a9'], 'MessageSid': ['SM7242eb432726a38b21b9c2442eb4dba5'], 'AccountSid': ['AC1bfc23beba30546467e2c4351485b009'], 'From': ['+19707164935'], 'ApiVersion': ['2010-04-01']}>
+#<QueryDict: {'SmsSid': ['SM7242eb432726a38b21b9c2442eb4dba5'], 'SmsStatus': ['queued'], 'MessageStatus': ['queued'], 'To': ['+923130452101'], 'MessagingServiceSid': ['MG0f508964da61e66634828eb44a2b27a9'], 'MessageSid': ['SM7242eb432726a38b21b9c2442eb4dba5'], 'AccountSid': ['AC1bfc23beba30546467e2c4351485b009'], 'From': ['+19707164935'], 'ApiVersion': ['2010-04-01']}>
+#<QueryDict: {'SmsSid': ['SM7242eb432726a38b21b9c2442eb4dba5'], 'SmsStatus': ['delivered'], 'MessageStatus': ['delivered'], 'To': ['+923130452101'], 'MessagingServiceSid': ['MG0f508964da61e66634828eb44a2b27a9'], 'MessageSid': ['SM7242eb432726a38b21b9c2442eb4dba5'], 'AccountSid': ['AC1bfc23beba30546467e2c4351485b009'], 'From': ['+19707164935'], 'ApiVersion': ['2010-04-01']}>
+
+@csrf_exempt
+def smsmarketinhwebhook(request):
+    print(request.POST)
+    if request.method=="POST":
+        message_sid = request.POST.get('MessageSid', None)
+        message_status = request.POST.get('MessageStatus', None)
+        message=Message.objects.filter(sid=message_sid).first()
+        message.updated_on=datetime.datetime.now()
+        message.status=message_status
+        message.save()
+        return JsonResponse({"status":"ok"})
+    return JsonResponse({'status':'not found'})
+
 
 
 def order(request):

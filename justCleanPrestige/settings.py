@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'home',
     'panel',
+    'mobile',
     'corsheaders',
     'models',
     'accounts',
@@ -242,11 +243,15 @@ EMAIL_USE_TLS=True
 EMAIL_TIMEOUT=5000
 
 
+SERVER_URL='https://pickupclean.herokuapp.com/'
+
 
 #TWILIO
 ACCOUNT_SID='AC1bfc23beba30546467e2c4351485b009'
 AUTH_TOKEN='2714974eac7458a1f3b1decb9e27dc00'
+MESSAGE_SERVICE_SID='MG0f508964da61e66634828eb44a2b27a9'
 PHONE_NUMBER='+19707164935'
+NOTIFY_SID='IS5d64c0c0999c6cdd8c03ad7d23e7d16f'
 
 USERNAME_FIELD='email'
 LOGIN_REDIRECT_URL="success"

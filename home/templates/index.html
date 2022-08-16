@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <link type="text/css" rel="stylesheet" href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/packages/time-slot-picker.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static '/packages/time-slot-picker.css' %}"/>
     <section id="order-intro" class="order-intro full">
     <script>
       if (!!navigator.userAgent.match(/safari/i) && !navigator.userAgent.match(/chrome/i) && typeof document.body.style.webkitFilter !== 'undefined' && !window.chrome) {
@@ -533,8 +533,8 @@
 
 {% block script %}
     <script
-    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/vendor/vegas/dist/vegas.min.js' %}"></script>
+    src="{% static '/vegas/dist/vegas.min.js' %}"></script>
   <link rel="stylesheet"
-    href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/vendor/vegas/dist/vegas.min.css' %}" />
+    href="{% static '/vegas/dist/vegas.min.css' %}" />
 
 {% endblock %}

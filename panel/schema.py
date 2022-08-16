@@ -58,6 +58,7 @@ class AuthenticationSchema(Schema):
 class EmailSendSchema(Schema):
     emails:list=None
     to:str
+    subject:str=''
     body:str
 
 class PhoneSendSchema(Schema):
@@ -66,5 +67,7 @@ class PhoneSendSchema(Schema):
     body:str
 
 class ServiceTypeSchema(Schema):
-    name:str
-    id:int = None
+    description: str
+    picture: str
+    name: str
+    id: int = None

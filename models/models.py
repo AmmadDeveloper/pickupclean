@@ -196,7 +196,12 @@ class Postal_Address(models.Model):
 # Services and Category
 class ServiceType(models.Model):
     name=models.CharField(max_length=200)
+    active=models.BooleanField(default=True)
+    description=models.CharField(max_length=200)
+    picture = models.ImageField(upload_to='typeImage')
     created_on=models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
 
 class Service(models.Model):
     name = models.CharField(max_length=200)
@@ -447,7 +452,6 @@ class Notification(models.Model):
     heading = models.CharField(max_length=100, default='')
 
 class NotificationRead(models.Model):
-
     read_on=models.DateTimeField(auto_now_add=True)
     notification=models.ForeignKey('Notification',on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="read_notifications")
@@ -472,6 +476,34 @@ class Message(models.Model):
     uri=models.CharField(max_length=200,blank=True,null=True)
 
 
+class UserVerification(models.Model):
+    email_verified=models.BooleanField(default=False)
+    phone_verified = models.BooleanField(default=False)
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+
+
+class EmailRecord(models.Model):
+    subject=models.CharField(max_length=1000,blank=False,null=False)
+    recipient_type=models.CharField(max_length=15)
+    status=models.CharField(max_length=10)
+    status_message = models.CharField(max_length=10)
+    recipients=models.TextField()
+    created_by= models.ForeignKey(User, on_delete=models.CASCADE,related_name="emails_sent")
+    created_on=models.DateTimeField(auto_now_add=True)
+    body=models.TextField()
+
+
+class MessageRecord(models.Model):
+    sid=models.CharField(max_length=100,default='')
+    recipient_type = models.CharField(max_length=15)
+    status = models.CharField(max_length=10)
+    status_message = models.CharField(max_length=10)
+    recipients = models.TextField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")
+    created_on = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
+
+
 #Signals
 
 
@@ -494,3 +526,4 @@ def create_notification(sender, instance=None, created=False, **kwargs):
         notification.heading="Order Received"
         notification.message="You have a new order, Order number is "+str(order.id)+", pick up time slot is "+str(order.pickup_time_slot)+" on "+order.pickup_date.strftime("%B %d, %y")+" and postal code is "+str(order.ship_postal_code)
         notification.save()
+

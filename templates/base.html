@@ -22,7 +22,7 @@
   <link rel="shortcut icon"
     href="{% static 'imgs/favicon.png' %}">
   <link rel="stylesheet"
-    href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
+    href="{% static '/css/css/styles.css' %}">
   <script>document.documentMode && document.write('<script src="{% static 'polyfill.io/v3/polyfill.min3a03.js?features=default%2Ces2017%2Cfetch' %}"><\/script>');</script>
 
 </head>
@@ -72,38 +72,6 @@
                 </select>
                 <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
               </form>
-
-              <script>
-
-                const dropdown = document.getElementById("flag_picker"); // dropdown
-                const current_country_code = document.getElementById("currentCountryCode").value; // accounts/countries.py
-
-                window.addEventListener("load", function () {
-                  dropdown.value = current_country_code;
-                  dropdown.style.visibility = "visible";
-                  // load current session country as selected
-                });
-
-                dropdown.addEventListener("change", function () {
-                  setCurrentCountryCode(dropdown.value);
-                  // on change, change the session and reload
-                });
-
-                function setCurrentCountryCode() {
-                  axios.get("/accounts/country", {
-                    params: {
-                      country: dropdown.value
-                    }
-                  })
-                    .then(function (response) {
-                      window.location.reload();
-                    })
-                    .catch(function (error) {
-                      console.error('Unable to set current session country:', error);
-                    });
-                }
-
-              </script>
             </li>
             <li class="nav-btn-cta">
               <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
@@ -133,12 +101,12 @@
           <a class="ios-link"
             href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
             <img
-              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/apple.png' %}"
+              src="{% static '/images/app-stores/apple.png' %}"
               alt="Download on the App Store">
           </a>
           <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
             <img
-              src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/app-stores/google.png' %}"
+              src="{% static 'images/app-stores/google.png' %}"
               alt="Get it on Google Play">
           </a>
         </div>
@@ -165,7 +133,7 @@
         <div class="footer-payment-methods footer-push">
           <div class="footer-payment-methods-title">Accepted payment methods:</div>
           <img class="footer-payment-methods-img"
-            src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/payments/payments-sprite-black.png' %}"
+            src="{% static 'images/payments/payments-sprite-black.png' %}"
             width="190" alt="Accepted payment methods">
         </div>
         <div class="footer-logo-wrapper footer-push">
@@ -232,16 +200,14 @@
   </div>
 
 
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/js/libs.js' %}"></script>
-  <!-- Axios CDN: https://github.com/axios/axios -->
-  <script src="{% static 'cdn.jsdelivr.net/npm/axios/dist/axios.min.js' %}"></script>
+  <script src="{% static '/js/libs.js' %}"></script>
 
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}"
+  <script src="{% static '/accounts/js/addresses.js' %}"
     data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
   <script
-    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/packages/time-slot-picker.js' %}"></script>
+    src="{% static '/packages/time-slot-picker.js' %}"></script>
   <script
-    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/js/order-form.js' %}"></script>
+    src="{% static '/orders/js/order-form.js' %}"></script>
 
   <script>
       //Slides for Main template
@@ -293,10 +259,10 @@
 {% block script %}
 {% endblock %}
   <script
-    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/js/order-home.js' %}"></script>
+    src="{% static '/orders/js/order-home.js' %}"></script>
 
   <script
-    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/vendor/jquery/dist/jquery.matchHeight.js' %}"></script>
+    src="{% static '/vendor/jquery/dist/jquery.matchHeight.js' %}"></script>
   <script>
     'use strict'; // necessary for Safari only
 
@@ -305,15 +271,15 @@
     });
   </script>
   <script
-    src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/local_pages/js/local-services.js' %}"></script>
+    src="{% static '/local_pages/js/local-services.js' %}"></script>
   <script>
     window.intercomSettings = {
       app_id: 'uk1rq1t1'
     };
   </script>
 
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
 
   <script>
     function priceListTop() {

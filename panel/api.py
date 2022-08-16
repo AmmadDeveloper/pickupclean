@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import get_template
 from ninja import NinjaAPI
 from ninja.security import HttpBearer
 from django.contrib.auth.models import User
@@ -326,7 +328,18 @@ def getSmsRecord(request,id:int=None):
 
 @api.post('sendEmail/')
 def sendMail(request,emailSchema:EmailSendSchema):
-    return {'statuscode': 400,'statusmessge':'Your email has been sent', 'message': 'success'}
+    c = {
+        'body':emailSchema.body
+    }
+    subject = emailSchema.subject
+    template = get_template("email/MarketingEmail.html")
+    email = template.render(c)
+    # email = loader.render_to_string(email_template_name, c)
+    #send_mail(subject,message="Hello world", from_email='suitclosset@gmail.com', to=["ammadhassanqureshi@gmail.com","ammad.development@gmail.com"], fail_silently=False,html_message=email)
+    msg=EmailMultiAlternatives(subject,body=email, from_email='suitclosset@gmail.com', bcc=["ammadhassanqureshi@gmail.com","ammad.development@gmail.com"])
+    msg.attach_alternative(email, "text/html")
+    msg.send(fail_silently=False)
+    return {'statuscode': 200,'statusmessge':'Your email has been sent', 'message': 'success'}
 
 @api.post('sendSms/')
 def sendMail(request,data:PhoneSendSchema):
@@ -477,15 +490,50 @@ def update_category(request,category:CategorySchema):
 @api.get('/types')
 def get_types(request,id:int=None):
     if not id:
-        Types=[{"id":t.id,"name":t.name,"key":t.id} for t in ServiceType.objects.filter()]
+        Types=[{"id":t.id,"name":t.name,"description":t.description,"key":t.id} for t in ServiceType.objects.filter(active=True)]
         return {'types':Types,'statuscode':200,'message':'success'}
+    else:
+        type=[{"id": t.id, "name": t.name, "description": t.description,"picture_path":t.picture.url[6:],"picture":"http://localhost:8000"+t.picture.url[6:], "key": t.id} for t in ServiceType.objects.filter(id=id,active=True)][0]
+        type['picture'] = [{
+            'uid': type.get('id'),
+            'name': type.get('picture').split('/')[-1],
+            'status': 'done',
+            'url': type.get('picture'),
+            'thumbUrl': type.get('picture'),
+        }]
+        return {'type': type, 'statuscode': 200, 'message': 'success'}
 
 @api.post('/types')
 def save_type(request,type:ServiceTypeSchema):
     st=ServiceType()
     st.name=type.name
+    st.description = type.description
+    st.picture = type.picture
+    user = Token.objects.get(key=request.auth).user
+    st.created_by = user
     st.save()
-    return {'type': {"id": st.id, "name": st.name, "key": st.id}, 'statuscode': 200, 'message': 'success'}
+    return {'type': {"id": st.id, "name": st.name,"description":st.description, "key": st.id}, 'statuscode': 200, 'message': 'success'}
+
+@api.patch('/types')
+def update_type(request,type:ServiceTypeSchema):
+    st=ServiceType.objects.filter(id=type.id).first()
+    st.name=type.name
+    st.description = type.description
+    st.picture = type.picture
+    user = Token.objects.get(key=request.auth).user
+    st.created_by = user
+    st.save()
+    Types = [{"id": t.id, "name": t.name, "description": t.description, "key": t.id} for t in
+             ServiceType.objects.filter(active=True)]
+    return {'types': Types, 'statuscode': 200, 'message': 'success'}
+
+@api.delete('/types')
+def delete_type(request,id:int):
+    type=ServiceType.objects.get(id=id)
+    type.active=False
+    type.save()
+    return {'statuscode':200,'message':'success'}
+
 
 @api.get('/category')
 def get_category(request,id:int=None):
@@ -640,16 +688,25 @@ def delete_promo(request,id:int):
     return {'statuscode':200,'message':'success'}
 
 
+import json
 
 @api.get('/sendsms',auth=None)
 def sendsms(request):
-    response = client.messages \
-        .create(
-        body='Hello tabtab this is a new message',
-        from_=settings.PHONE_NUMBER,
-        status_callback='https://29d6-182-185-204-70.ap.ngrok.io/sms/status',
-        to='+923130452101'
+    bindings = list(map(lambda number: json.dumps({'binding_type': 'sms', 'address': number}), ['+923130452101','+923045171619']))
+    print("=====> To Bindings :>", bindings, "<: =====")
+    response = client.notify.services(settings.NOTIFY_SID).notifications.create(
+        to_binding=bindings,
+        body="Hello this is broadcast"
     )
+
+
+    # response = client.messages \
+    #     .create(
+    #     body='Hello tabtab this is a new message',
+    #     from_=settings.PHONE_NUMBER,
+    #     status_callback='https://992b-182-185-167-180.ap.ngrok.io/sms/status',
+    #     to='+923130452101'
+    # )
     message=Message()
     message.sid=response.sid
     message.body=response.body
