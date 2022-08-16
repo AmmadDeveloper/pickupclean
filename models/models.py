@@ -196,7 +196,12 @@ class Postal_Address(models.Model):
 # Services and Category
 class ServiceType(models.Model):
     name=models.CharField(max_length=200)
+    active=models.BooleanField(default=True)
+    description=models.CharField(max_length=200,null=True,blank=True)
+    picture = models.ImageField(upload_to='typeImage',default="/media/files/coatgrey-03.png")
     created_on=models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING,blank=True,null=True)
+
 
 class Service(models.Model):
     name = models.CharField(max_length=200)
@@ -289,7 +294,7 @@ class Order(models.Model):
     ship_address3 = models.TextField(blank=True, null=True)
     ship_address4 = models.TextField(blank=True, null=True)
     ship_phone1 = models.CharField(max_length=50, blank=True, null=True)
-    ship_postal_code = models.CharField(max_length=20, blank=True, null=True)
+    ship_postal_code = models.CharField(max_length=6, blank=True, null=True)
     ship_city = models.CharField(max_length=50, blank=True, null=True)
     ship_country = models.CharField(max_length=50, blank=True, null=True)
     shipping_number = models.CharField(max_length=254, blank=True, null=True)
@@ -353,9 +358,9 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=65, decimal_places=4, default=0.0)
     status = models.CharField(max_length=10, blank=True, null=True)
     card_holder_name = models.CharField(max_length=254, blank=True, null=True)
-    last4digit = models.CharField(max_length=30, blank=True, null=True)
+    last4digit = models.CharField(max_length=5, blank=True, null=True)
     card_type = models.CharField(max_length=20, blank=True, null=True)
-    currency_code = models.CharField(max_length=30, blank=True, null=True)
+    currency_code = models.CharField(max_length=5, blank=True, null=True)
     process_type = models.CharField(max_length=25, blank=True, null=True)
     trans_type = models.CharField(max_length=15, blank=True, null=True)
     auth_code = models.CharField(max_length=254, blank=True, null=True)
@@ -447,7 +452,6 @@ class Notification(models.Model):
     heading = models.CharField(max_length=100, default='')
 
 class NotificationRead(models.Model):
-
     read_on=models.DateTimeField(auto_now_add=True)
     notification=models.ForeignKey('Notification',on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="read_notifications")
@@ -472,6 +476,34 @@ class Message(models.Model):
     uri=models.CharField(max_length=200,blank=True,null=True)
 
 
+class UserVerification(models.Model):
+    email_verified=models.BooleanField(default=False)
+    phone_verified = models.BooleanField(default=False)
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+
+
+class EmailRecord(models.Model):
+    subject=models.CharField(max_length=1000,blank=False,null=False)
+    recipient_type=models.CharField(max_length=15)
+    status=models.CharField(max_length=10)
+    status_message = models.CharField(max_length=10)
+    recipients=models.TextField()
+    created_by= models.ForeignKey(User, on_delete=models.CASCADE,related_name="emails_sent")
+    created_on=models.DateTimeField(auto_now_add=True)
+    body=models.TextField()
+
+
+class MessageRecord(models.Model):
+    sid=models.CharField(max_length=100,default='')
+    recipient_type = models.CharField(max_length=15)
+    status = models.CharField(max_length=10)
+    status_message = models.CharField(max_length=10)
+    recipients = models.TextField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")
+    created_on = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
+
+
 #Signals
 
 
@@ -494,3 +526,4 @@ def create_notification(sender, instance=None, created=False, **kwargs):
         notification.heading="Order Received"
         notification.message="You have a new order, Order number is "+str(order.id)+", pick up time slot is "+str(order.pickup_time_slot)+" on "+order.pickup_date.strftime("%B %d, %y")+" and postal code is "+str(order.ship_postal_code)
         notification.save()
+
