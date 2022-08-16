@@ -133,13 +133,13 @@ DATABASES = {
     # },
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7c8bioo8h1iia',
-        'HOST': 'ec2-176-34-215-248.eu-west-1.compute.amazonaws.com',
-        'URI':'postgres://gjbbaxptojrcsp:94d06f8ccfbf003f9f690df5c804614adc071f3ccf93a588e17fbdceae0d15f4@ec2-176-34-215-248.eu-west-1.compute.amazonaws.com:5432/d7c8bioo8h1iia',
+        'NAME': 'd8q75ni0uet4kc',
+        'HOST': 'ec2-54-220-86-118.eu-west-1.compute.amazonaws.com',
+        'URI':'postgres://uhdukbdtmcvvki:91dc4eeb996154035e7c782f7c56fe17d431aaa5fa98b00fd75620972b47c28a@ec2-54-220-86-118.eu-west-1.compute.amazonaws.com:5432/d8q75ni0uet4kc',
         'Heroku CLI':'heroku pg:psql postgresql-amorphous-70591 --app pickupclean',
-        'USER': 'gjbbaxptojrcsp',
+        'USER': 'uhdukbdtmcvvki',
         'PORT': '5432',
-        'PASSWORD':'94d06f8ccfbf003f9f690df5c804614adc071f3ccf93a588e17fbdceae0d15f4'
+        'PASSWORD':'91dc4eeb996154035e7c782f7c56fe17d431aaa5fa98b00fd75620972b47c28a'
     },
 }
 
