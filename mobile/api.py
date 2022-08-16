@@ -294,6 +294,7 @@ def getPaymentIntent(request):
     except Exception as exc:
         return {"message":exc.args[1],'statuscode':400}
 
+@api.get('getorderhistory',auth=AuthClass())
 def order_history(request):
     try:
         user = Token.objects.get(key=request.auth).user
