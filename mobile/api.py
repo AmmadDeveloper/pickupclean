@@ -294,6 +294,7 @@ def getPaymentIntent(request):
     except Exception as exc:
         return {"message":exc.args[1],'statuscode':400}
 
+@api.get('getorderhistory',auth=AuthClass())
 def order_history(request):
     try:
         user = Token.objects.get(key=request.auth).user
@@ -329,13 +330,3 @@ def order_history(request):
 
 
 #pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at
-
-# {
-#   "catid": "1",
-#   "catname": "Dry Cleaning",
-#   "name": "Cashmere Knitwear",
-#   "id": "2",
-#   "price": 7.5,
-#   "qty": 1,
-#   "total": 7.5
-# }
