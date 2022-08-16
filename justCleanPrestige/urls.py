@@ -20,6 +20,7 @@ urlpatterns = [
     path('dbpanel/', admin.site.urls),
     path('',include('home.urls')),
     path('',include('panel.urls')),
+    path('',include('mobile.urls')),
     path('accounts/', include('allauth.urls')),
     path('chat/',include('accounts.urls'))
 ]

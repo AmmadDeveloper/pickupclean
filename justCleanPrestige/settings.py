@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'mobile'
 ]
 
 MIDDLEWARE = [
@@ -121,25 +122,25 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'pickupclean',
-    #     'HOST': '127.0.0.1',
-    #     # 'HOST': '172.17.0.2',
-    #     'USER': 'root',
-    #     'PORT': '3306',
-    #     # 'PASSWORD':'1234'
-    # },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7c8bioo8h1iia',
-        'HOST': 'ec2-176-34-215-248.eu-west-1.compute.amazonaws.com',
-        'URI':'postgres://gjbbaxptojrcsp:94d06f8ccfbf003f9f690df5c804614adc071f3ccf93a588e17fbdceae0d15f4@ec2-176-34-215-248.eu-west-1.compute.amazonaws.com:5432/d7c8bioo8h1iia',
-        'Heroku CLI':'heroku pg:psql postgresql-amorphous-70591 --app pickupclean',
-        'USER': 'gjbbaxptojrcsp',
-        'PORT': '5432',
-        'PASSWORD':'94d06f8ccfbf003f9f690df5c804614adc071f3ccf93a588e17fbdceae0d15f4'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pickupclean',
+        'HOST': '127.0.0.1',
+        # 'HOST': '172.17.0.2',
+        'USER': 'root',
+        'PORT': '3306',
+        # 'PASSWORD':'1234'
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'd7c8bioo8h1iia',
+    #     'HOST': 'ec2-176-34-215-248.eu-west-1.compute.amazonaws.com',
+    #     'URI':'postgres://gjbbaxptojrcsp:94d06f8ccfbf003f9f690df5c804614adc071f3ccf93a588e17fbdceae0d15f4@ec2-176-34-215-248.eu-west-1.compute.amazonaws.com:5432/d7c8bioo8h1iia',
+    #     'Heroku CLI':'heroku pg:psql postgresql-amorphous-70591 --app pickupclean',
+    #     'USER': 'gjbbaxptojrcsp',
+    #     'PORT': '5432',
+    #     'PASSWORD':'94d06f8ccfbf003f9f690df5c804614adc071f3ccf93a588e17fbdceae0d15f4'
+    # },
 }
 
 # import dj_database_url
@@ -259,7 +260,7 @@ EMAIL_HOST_PASSWORD='uoxlgodbqekcwvdt'
 EMAIL_USE_TLS=True
 EMAIL_TIMEOUT=5000
 
-
+SERVER_URL='http://pickupclean.herokuapp.com/'
 
 #TWILIO
 ACCOUNT_SID='AC1bfc23beba30546467e2c4351485b009'
