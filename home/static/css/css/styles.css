@@ -5907,7 +5907,7 @@ html {
   justify-content: space-between; }
 
 .sub2-input, .sub2-button {
-  border: 1px solid #000000;
+  border: 1px solid #000;
   width: 68%; }
 
 .sub2-input {
@@ -5916,12 +5916,13 @@ html {
 
 .sub2-button {
   background: #ffffff;
+  color: #000;
   height: 39px;
   margin-top: 10px;
   padding: 0;
   text-transform: uppercase; }
   .sub2-button:hover {
-    background: #000000;
+    background: #f26522;
     color: #ffffff; }
 
 @media (max-width: 19.99em) {
@@ -6030,7 +6031,7 @@ form .nonfield-errors {
   padding-bottom: 20px; }
 
 .no-scroll {
-  position: fixed !important;
+  position: fixed;
   overflow: hidden !important;
   width: 100%; }
 
@@ -7014,9 +7015,8 @@ select {
   .btn.btn-default:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #e22319;
     /* The Fallback */
-    background: rgba(226, 35, 25, 0.63);
+    background: #f26522;
     border: none;
     color: #ffffff;
     text-transform: uppercase;
@@ -7093,19 +7093,21 @@ select {
   background-color: #000000; }
   .dark .btn.btn-cta {
     color: #ffffff;
-    border-color: #ffffff; }
+    border-color: #000; }
   .dark .btn.btn-cta-order {
-    color: #000000;
-    border-color: #000000;
+    color: #f26522;
+    border-color: #f26522;
     margin-bottom: 10px; }
 
 .light {
   color: #000000;
   background-color: #ffffff; }
   .light .btn.btn-cta {
-    color: #000000;
-    border-color: #000000; }
-
+    color: #000;
+    border-color: #000; }
+.light .btn.btn-cta:hover {
+    background: #f26522;
+    color: #ffffff; }
 .about h1 {
   margin: 10px 0 60px; }
   .about h1.light {
@@ -9561,11 +9563,11 @@ select {
     width: 47.2%; }
     .prices-category-list .btn.btn-cta:hover {
       color: #ffffff;
-      background: #f1645d;
-      border-color: #f1645d; }
+      background: #f26522;
+      border-color: #f26522; }
     .prices-category-list .btn.btn-cta.active, .prices-category-list .btn.btn-cta:active {
-      background: #000000;
-      border-color: #000000;
+      background: #f26522;
+      border-color: #f26522;
       color: #ffffff; }
     .prices-category-list .btn.btn-cta:first-child {
       width: 98%; }

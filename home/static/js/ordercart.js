@@ -74,13 +74,13 @@ function updateRows(){
                     <input style="display: inline-block;width: 100px;" type="text" readonly name="price${key}" required="" id="price${key}" value="${value.total !== 0 ? "£"+value.total.toString() : "£0"}"/>`
             if (value.cartid === 0) {
                 rows += `<span>
-                        <button type="button" onclick="addtocart(${key})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-check"></i></button>
-                        <button type="button" onclick="remove(${key})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
+                        <button type="button" onclick="addtocart(${key})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-check"></i></button>
+                        <button type="button" onclick="remove(${key})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
                     </span>`
             } else {
                 rows += `<span>
-                        <button type="button" onclick="editcart(${key},${value.cartid})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-edit"></i></button>
-                        <button type="button" onclick="removecart(${value.cartid})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
+                        <button type="button" onclick="editcart(${key},${value.cartid})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-edit"></i></button>
+                        <button type="button" onclick="removecart(${value.cartid})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
                     </span>`
             }
             rows += `</div>`
@@ -219,14 +219,14 @@ function updateCart(){
     let rows=""
     $.each(UserCart,(key,value)=>{
         rows+=`<div class="row">
-                  <div class="col-sm-7">${value.qty} X ${value.name} - ${value.catname}</div>
-                  <div style="text-align: right" class="col-sm-5">
+                  <div style="width: 100%;padding-right: 20px;padding-left: 20px">${value.qty} X ${value.name} - ${value.catname} <span style="float: right;text-align: end;">
                       £${value.total}
-                  </div>
+                  </span></div>
+                  
               </div>`
     });
     $("#total-amount")[0].innerHTML=UserCart.reduce((x,y)=>x+y.total,0);
-    $("#ord-info__content")[0].innerHTML=rows;
+    $("#ord-info-rows")[0].innerHTML=rows;
 
 }
 function getService(service,cat,index){

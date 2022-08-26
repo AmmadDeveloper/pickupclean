@@ -18,9 +18,9 @@ import datetime
 import random
 import string
 import stripe
-
-client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 stripe.api_key = settings.STRIPE_SECRET_KEY
+client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
+
 
 
 def get_random_string(length):

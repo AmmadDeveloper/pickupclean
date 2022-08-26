@@ -5,7 +5,7 @@
   <title>Your pickupclean collection and delivery slots are reserved</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
-  <link rel="shortcut icon" href="https://d150we8dervy8c.cloudfront.net/static/images/icons/favicon.ico">
+  <link rel="shortcut icon" href="{% static 'imgs/favicon.png' %}">
     <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/pending-order-old.css' %}">
@@ -32,19 +32,18 @@
             <li class="nav-item-prices"><a href="/prices/"><span class="link-text">Pricing</span></a></li>
             <li class="services"><a href="/services/"><span class="link-text">Services</span></a></li>
             <li><a href="/areas/"><span class="link-text">Areas</span></a></li>
-            <li><a href="https://help.ihateironing.com/hc/en-us"><span class="link-text">FAQs</span></a></li>
-            <li><a href="/corporate/"><span class="link-text">Corporates</span></a></li>
-
-              <li>
-                <a href="/accounts/login/">
-                  <span class="link-text">Log in</span>
+            <li>
+                <a href="tel:+090078601">
+                  <span class="link-text">T 090 0786 01</span>
                 </a>
               </li>
-              <li>
-                <a href="tel:+442070604939">
-                  <span class="link-text">T 020 7060 4939</span>
-                </a>
-              </li>
+              {% if not user.is_authenticated %}
+                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  {% else %}
+                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
+                  <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+              {% endif %}
 
               <li>
                 <form action="#" style="visibility:hidden">
@@ -68,9 +67,9 @@
 
   <div class="pending-header">
     <div class="pending-header-links">
-      <a class="pending-header-link pending-header-price-link" href="{% url 'price' %}" onclick="javascript:priceListTop();">
+      <a class="pending-header-link pending-header-price-link" href="{% url 'price' %}">
         <svg class="pending-link-icon" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8.5" stroke="#FFF" fill="none"></circle><path d="M8.176 7.376h.781v5.786h-.781V7.376zm-.011-1.43C8.055 5.836 8 5.704 8 5.55c0-.14667.055-.275.165-.385.11-.11.24567-.165.407-.165.16133 0 .297.05317.407.1595.11.10633.165.23283.165.3795 0 .16133-.055.297-.165.407-.11.11-.24567.165-.407.165-.16133 0-.297-.055-.407-.165z" fill="#FFF"></path></svg>
-        Price list
+        See Pricing
       </a>
       {% if user.is_authenticated %}
           <a class="pending-header-link pending-login" href="{% url 'homepage' %}">
@@ -82,16 +81,15 @@
     <div class="ord-progress">
       <div class="ord-progress-bar ord-progress-bar--50"></div>
       <ul class="ord-progress-states">
-        <li>Location</li>
-        <li>Details</li>
-        <li>Done</li>
+        <li>Address</li>
+        <li>Cart</li>
+        <li>Payment</li>
       </ul>
     </div>
     <div class="pending-header-headings">
       <h1 class="pending-title">Enter order details!</h1>
       <div class="subtitle subtitle--centered">
-          We Love to make your life easier - No list of items necessary.
-          Scroll down to learn more.
+          Enter your desired laundry items. We would love to serve you!
       </div>
     </div>
   </div>
@@ -107,7 +105,11 @@
         </div>
         <div class="ord-info__row">
           <div id="ord-info__content" class="ord-info__content">
-              <p style="text-align: center">There is no item in your cart</p>
+              <div id="ord-info-rows">
+                  <p style="text-align: center">There is no item in your cart</p>
+              </div>
+              <div id="ord-promo-row" class="row">
+              </div>
           </div>
         </div>
           <hr/>
@@ -115,8 +117,59 @@
               Total: £ <span id="total-amount">0</span>
           </div>
           <div>
-              <a type="button" href="{% url 'order' %}" style="background-color: orange;" class="btn pending-submit-button">Proceed to checkout</a>
+              <a type="button" onclick="proceedcheckout()" style="background-color: #f26522;color: white" class="btn pending-submit-button">Proceed to checkout</a>
           </div>
+          <div style="margin-top: 10%">
+              <p> Do you Have Promo Code?</p>
+              <div style="display: flex" class="form-group">
+                <input placeholder="Enter Promo Code" id="promo-code" style="width: 270%"/>
+                  <a type="button" onclick="applyPromo()" style="background-color: #f26522;color: white;display: inline-block;height: 43px" class="btn pending-submit-button">Apply</a>
+              </div>
+          </div>
+          <script>
+              function proceedcheckout(){
+                  var total = +(document.getElementById('total-amount').innerHTML)
+                  if(total<=0) {
+                      alert("Order Amount cannot be 0 or less than 0");
+                  }else{
+                      window.location.href=`{% url 'order' %}`
+                  }
+              }
+              function applyPromo(){
+                  var promo={
+                      "code":document.getElementById("promo-code").value
+                  }
+                  var token=localStorage.getItem('token')
+                  $.ajax({
+                        url: '/api/promo',
+                        type: 'post',
+                        headers:{'Authorization': `Bearer ${token}`},
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if(data.statuscode===200){
+                               var total = +(document.getElementById('total-amount').innerHTML)
+                                if(data.promo.type=='percentage'){
+                                    var disc=total*(data.promo.value/100)
+                                    var newtotal=total-disc
+                                }else if(data.promo.type=='amount'){
+                                    var disc=data.promo.value
+                                    var newtotal=total-data.promo.value
+                                }
+
+                               var htms=`<div style="width: 100%;padding-right: 20px;padding-left: 20px">${data.promo.title} (${data.promo.code})<span style="float: right;text-align: end;" class="col-sm-5">
+                                            - £${disc}
+                                        </span></div>`
+                                document.getElementById('ord-promo-row').innerHTML=htms
+                                document.getElementById('total-amount').innerHTML=newtotal
+                            }else{
+                                alert(data.message);
+                            }
+                        },
+                        data: JSON.stringify(promo)
+                    });
+              }
+          </script>
       </div>
 
     </div>
@@ -131,7 +184,7 @@
         </script>
 
 
-        <button type="button" onclick="addRow()" style="background-color: orange;width: 250px" class="btn pending-submit-button">Add More</button>
+        <button type="button" onclick="addRow()" style="background-color: #f26522;color:white;width: 250px" class="btn pending-submit-button">Add More</button>
 
     </div>
 
@@ -172,15 +225,6 @@
       </div>
     </div>
   </div>
-
-<script type="text/javascript" id="">var _dcq=_dcq||[],_dcs=_dcs||{};_dcs.account="9514891";(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="//tag.getdrip.com/9514891.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();</script>
-
-
-  <script>
-    window.intercomSettings = {
-      app_id: 'uk1rq1t1'
-    };
-  </script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
 </body></html>

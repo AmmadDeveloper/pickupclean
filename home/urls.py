@@ -1,6 +1,6 @@
 
 from django.urls import path,re_path
-from .views import smswebhook,setpassword,orderhistory,home,orderdetail,loggedIn,loginsuccess,login,price,resetpass,services,corporate,areas,servicedetail,order,logout,privacy,instruction,status,signup,orderwebhook,smsmarketinhwebhook
+from .views import verify_email,verify_phone,smswebhook,setpassword,orderhistory,home,orderdetail,loggedIn,loginsuccess,login,price,resetpass,services,profile,areas,servicedetail,order,logout,privacy,instruction,status,signup,orderwebhook,smsmarketinhwebhook
 from django.conf import settings
 from django.conf.urls.static import static
 from .api import user_api
@@ -23,8 +23,10 @@ urlpatterns = [
     path('areas/', areas ,name="areas"),
     path('services/', services ,name="services"),
     path('servicesdetail/<id>', servicedetail ,name="servicedetail"),
-    path('corporate/', corporate ,name="corporate"),
+    path('profile/', profile ,name="profile"),
     path('api/',user_api.urls),
+    path('verify_email/',verify_email,name="verify_email"),
+    path('verify_phone/',verify_phone,name="verify_phone"),
     re_path('^order/',status),
     re_path('^sms/status',smswebhook,name="smswebhook"),
     re_path('^smsmarketing/status',smsmarketinhwebhook,name="smsmarketingwebhook")

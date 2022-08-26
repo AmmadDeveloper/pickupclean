@@ -18,6 +18,9 @@ class cartSchema(Schema):
     total: float=None
     cartid:int=None
 
+class PromoSchema(Schema):
+    code:str
+
 class AuthenticationSchema(Schema):
     email:str
     password:str

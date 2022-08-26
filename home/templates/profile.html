@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en-GB">
+{% load static %}
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Location Directory | pick up clean </title>
+  <meta name="description" content="Areas where UK's 1st On Demand Dry Cleaners are available. Suits ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+   <link rel="shortcut icon" href="{% static 'imgs/favicon.png' %}">
+    <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* Style the tab */
+.tab {
+  overflow: hidden;
+  border-bottom: 1px solid #f26522;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+    font-size: 20px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  color: #f26522;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  color: #f26522;
+    border-bottom: 3px solid #f26522;
+
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+.tabcontent {
+  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+    </style>
+    <style>
+        @media only screen and (max-width: 600px) {
+          input {
+            width: 300px !important;
+          }
+            .service-card-link{
+                width: 300px !important;
+            }
+        }
+    </style>
+</head>
+<body class="light">
+<header >
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+          <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
+                <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="23%">
+          </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-ihi navbar-main">
+              <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>
+            <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
+            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li>
+                <a href="tel:+090078601">
+                  <span class="link-text">T 090 0786 01</span>
+                </a>
+              </li>
+              {% if not user.is_authenticated %}
+                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  {% else %}
+                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
+                  <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+              {% endif %}
+
+              <li>
+                <form action="#" style="visibility:hidden">
+  <select name="flag_dropdown" id="flag_picker" style="font-size:20px;height:auto;padding:0;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
+    <option value="GB">🇬🇧</option>
+  </select>
+  <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
+</form>
+
+              </li>
+
+          <li class="nav-btn-cta">
+            <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
+          </li>
+        </ul>
+
+              <ol class="nav navbar-nav breadcrumb">
+                <hr class="breadcrumb-hr"/>
+                  <li><a href="{% url 'homepage' %}">Home</a></li>
+
+              </ol>
+
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+  <div style="margin-top:5%;max-width: 80%;align-self: center">
+<!-- Tab links -->
+  {% if messages %}
+      {% for message in messages %}
+          <p style="background-color: #ffcfb8;padding: 15px;border-radius: 10px;border: 1px solid #ffb694;">{{ message }}</p>
+
+      {% endfor %}
+  {% endif %}
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Details')" id="defaultOpen">User Details</button>
+  <button class="tablinks" onclick="openTab(event, 'Password')">Password</button>
+</div>
+
+<!-- Tab content -->
+<div id="Details" class="tabcontent" >
+    <div style="margin-top: 3%">
+        <label for="name">  Full Name:</label><br/>
+        <input id="name" style="display: inline-block;width: 350px;" value="{{ user.first_name }} {{ user.last_name }}" readonly type="text">
+    </div>
+    <div style="margin-top: 3%">
+        <label for="name">  Email: </label>
+        {% if email_verified %}
+            <span style="float: right;color: #17bd19;">Verified <i class="fa fa-check"></i></span><br/>
+            {% else %}
+            <span><a style="float: right;color: #f26522;cursor: pointer">Verify</a></span><br/>
+        {% endif %}
+
+        <input id="name" style="display: inline-block;width: 350px;" value="{{ user.email }}" type="text">
+    </div>
+    <div style="margin-top: 3%">
+        <label for="name">  Phone:</label>
+        {% if phone_verified %}
+            <span><a style="float: right;color: #17bd19;cursor: pointer">Verified <i class="fa fa-check"></i> </a></span><br/>
+            {% else %}
+            <span><a style="float: right;color: #f26522;cursor: pointer">Verify</a></span><br/>
+        {% endif %}
+        <input id="name" style="display: inline-block;width: 350px;" value="{{ phone }}" type="text">
+    </div>
+</div>
+
+<div id="Password" class="tabcontent">
+    <form method="post">
+        {% csrf_token %}
+  <div style="margin-top: 3%">
+        <label for="oldpass">  Old Password:</label><br/>
+        <input id="oldpass" name="oldpass" style="display: inline-block;width: 350px;" placeholder="Enter your old password" type="password">
+    </div>
+    <div style="margin-top: 3%">
+        <label for="newpass">  New Password:</label><br/>
+        <input id="newpass" name="newpass" style="display: inline-block;width: 350px;" placeholder="Enter your new password" type="password">
+    </div>
+    <div style="margin-top: 3%">
+        <label for="cnewpass">  Confirm New Password:</label><br/>
+        <input id="cnewpass" name="cnewpass" style="display: inline-block;width: 350px;" placeholder="Confirm you new password" type="password">
+    </div>
+    <div style="margin-top: 3%">
+        <button type="submit" style="color:white;background-color: #f26522;border-color: #f26522;width:  350px;" class="service-card-link">Update Password</button>
+    </div>
+        </form>
+</div>
+  </div>
+
+<footer style="margin-top: 5%" class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="col-md-4 footer-app-stores">
+        <div class="footer-top-title">Download our new app:</div>
+        <a class="ios-link" href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
+          <img src="{% static '/images/app-stores/apple.png' %}" alt="Download on the App Store">
+        </a>
+        <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
+          <img src="{% static '/images/app-stores/google.png' %}" alt="Get it on Google Play">
+        </a>
+      </div>
+      <div class="col-md-8 sub2-newsletter footer-push">
+        <div class="footer-top-title">Subscribe to our newsletter:</div>
+        <div class="sub2-newsletter-content">
+          <form action="https://ihateironing.us5.list-manage.com/subscribe/post?u=70163dda0059bbc6424bb415f&amp;id=b7c1f868ac" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <div id="mc_embed_signup_scroll" class="sub2-form-container">
+              <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
+              <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-payment-methods footer-push">
+        <div class="footer-payment-methods-title">Accepted payment methods:</div>
+        <img class="footer-payment-methods-img" src="{% static '/images/payments/payments-sprite-black.png' %}" width="190" alt="Accepted payment methods">
+      </div>
+      <div class="footer-logo-wrapper footer-push">
+        <div class="footer-logo">
+         <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+        </div>
+        <div class="footer-copyright">
+          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pickupclean</span>.</div>
+          <div class="footer-rights">All rights reserved.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+  <script src="{% static '/js/libs.js' %}"></script>
+<script>
+    function openTab(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+<script>
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+{#  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>#}
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
+  <script>
+    $('.heading').click(function(){
+        $(this).toggleClass('expand').nextUntil('tr.heading').slideToggle('fast');
+    });
+  </script>
+</body>
+</html>

@@ -2,7 +2,10 @@ import datetime
 import functools
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
-from models.models import Category,Message,PostCode,Electronic_Address,Order,Cart,PaymentIntent
+from django.utils import timezone
+
+from models.models import Category, Message, PostCode, Electronic_Address, Order, Cart, PaymentIntent, UserVerification, \
+    PromoUsage, ServiceType
 from models.utils.Constants import OrderType
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import logout as lout, authenticate,login as lin
@@ -20,6 +23,7 @@ from django.views.decorators.csrf import csrf_exempt
 from collections import OrderedDict
 from django.conf import settings
 import stripe
+from django.contrib.auth.decorators import login_required
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -36,7 +40,7 @@ def home(request):
                 eaddress=Electronic_Address.objects.filter(user_id=request.user.id).first()
                 if not ord:
                     ord=Order()
-                    ord.fullname=request.user.first_name+request.user.last_name
+                    ord.fullname=request.user.first_name+" "+request.user.last_name
                     ord.email=request.user.email
                     if eaddress!=None:
                         ord.phone=eaddress.phone
@@ -72,8 +76,11 @@ def home(request):
         else:
             return redirect('/login')
 
-
+@login_required()
 def orderdetail(request):
+    promo=request.session.get('promo')
+    if promo is not None:
+        del request.session['promo']
     return render(request,'orderdetail.html')
 
 def login(request):
@@ -92,9 +99,9 @@ def login(request):
                 return redirect('homepage')
         else:
             return render(request, 'account/login.html')
-
-
     return render(request,'account/login.html')
+
+
 def signup(request):
     if request.method=="GET":
         return render(request,'account/signup.html')
@@ -130,7 +137,26 @@ def instruction(request):
     return render(request,'instructions.html')
 
 def price(request):
-    return render(request,'price.html')
+    types=[]
+    services=[]
+    query=ServiceType.objects.filter(active=True).prefetch_related('services')
+    for q in query:
+        types.append({"name":q.name,"desc":q.description})
+        ser=[x for x in q.services.filter(is_available=True)]
+        length=len(ser)
+        if length>0:
+            if length!=1:
+                temp=[]
+                temp2=[]
+                for s in ser[0:round(length/2)]:
+                    temp.append({"name":s.name+" - "+s.category.name,"price":s.price})
+                for s in ser[round(length/2):]:
+                    temp2.append({"name":s.name+" - "+s.category.name,"price":s.price})
+                services.append([temp,temp2])
+            else:
+                services.append([[{"name":ser[0].name+" - "+ser[0].category.name,"price":ser[0].price}]])
+        types[0]['active']="active"
+    return render(request,'price.html',{"services":services,"types":types})
 
 
 
@@ -204,11 +230,22 @@ def servicedetail(request,id):
     return render(request, 'services/servicedetail.html', {"category":cats[0]})
 
 
+def getCancel(item):
+    if timezone.now()>(item.order_date+datetime.timedelta(hours=24)) and item.order_status==OrderType.CANCELLED:
+        return False
+    elif timezone.now()>(item.order_date+datetime.timedelta(hours=24)) and item.order_status!=OrderType.CANCELLED :
+        return False
+    elif item.order_status==OrderType.CANCELLED:
+        return False
+    else:
+        return True
+
 def orderhistory(request):
     if request.user.is_authenticated:
         query=Q()
         query.add(Q(user_id=request.user.pk),Q.OR)
         query.add(~Q(order_status=OrderType.OPEN), Q.AND)
+
         orders=[{"orderid":item.id,
                  "orderstatus":item.order_status,
                  "orderdate":item.order_date.strftime("%B %d, %Y") if item.order_date else '',
@@ -218,6 +255,7 @@ def orderhistory(request):
                  "dropoffdate": item.dropoff_date.strftime("%B %d, %Y") if item.dropoff_date else '',
                  "orderamount":float(item.order_amount),
                  "orderaddress":item.__fulladdress__(),
+                 "cancel":getCancel(item),
                  'lines':[
                      {
                          "categoryname":line.category.name,
@@ -249,9 +287,42 @@ def orderhistory(request):
     else:
         return render(request,'orderhistory.html')
 
-def corporate(request):
-    return render(request,'corporate.html')
+@login_required()
+def verify_email(request):
+    if request.method=="GET":
+        return render(request,'verifyemail.html')
 
+@login_required()
+def verify_phone(request):
+    if request.method=="GET":
+        return render(request,'verifyphone.html')
+
+
+@login_required()
+def profile(request):
+    if request.method=="GET":
+        eadd=Electronic_Address.objects.filter(user_id=request.user.id).first()
+        phone=eadd.phone if eadd else ''
+        # email_verified=
+        verified=UserVerification.objects.get_or_create(user_id=request.user.id)[0]
+        return  render(request,'profile.html',{"phone":phone,"phone_verified":verified.phone_verified,"email_verified":verified.email_verified})
+    elif request.method=="POST":
+        oldpass=request.POST.get('oldpass')
+        newpass = request.POST.get('newpass')
+        cnewpass = request.POST.get('cnewpass')
+        user=authenticate(request,email=request.user.email,password=oldpass)
+        if user and newpass==cnewpass:
+            user.set_password(newpass)
+            messages.success(request, 'Password changed successfully.')
+        else:
+            messages.error(request, "Your password didn't match.")
+
+        eadd = Electronic_Address.objects.filter(user_id=request.user.id).first()
+        phone = eadd.phone if eadd else ''
+        # email_verified=
+        verified = UserVerification.objects.get_or_create(user_id=request.user.id)[0]
+        return render(request, 'profile.html', {"phone": phone, "phone_verified": verified.phone_verified,
+                                                "email_verified": verified.email_verified})
 
 def areas(request):
     areas=PostCode.objects.all()
@@ -296,6 +367,15 @@ def orderwebhook(request):
     if stripe_intent.status=='succeeded':
         order_id=stripe_intent.metadata.get('order_id')
         user_id = stripe_intent.metadata.get('user_id')
+        promo_id = stripe_intent.metadata.get('promo_id') or None
+        order = Order.objects.filter(id=order_id, user_id=user_id).first()
+        if promo_id:
+            promo=PromoUsage()
+            promo.order_id=order_id
+            promo.promo_id=promo_id
+            promo.used_by_id=user_id
+            promo.save()
+            order.promo_applied=True
         order=Order.objects.filter(id=order_id,user_id=user_id).first()
         order.order_place_date=datetime.datetime.now()
         order.order_status=OrderType.CONFIRMED
@@ -340,10 +420,10 @@ def smsmarketinhwebhook(request):
     return JsonResponse({'status':'not found'})
 
 
-
 def order(request):
     user=request.user
     order = Order.objects.filter(user_id=request.user.id, order_status=OrderType.OPEN).first()
+
     cart_total=[x.total for x in Cart.objects.filter(order_id=order.id,active=True)]
     cart=[{"cartid":item.id,
            "catid":item.category.id,
@@ -355,19 +435,48 @@ def order(request):
            "catname":item.category.name
            } for item in Cart.objects.filter(active=True,purchased=False,user=user,order_id=order.id)]
     total_amount=functools.reduce(lambda a, b: a + b, cart_total,)
+    promo=request.session.get('promo')
+    promo_amount=None
+    promo_res=None
+    if promo:
+        if promo.get('type')=='amount':
+            promo_amount = promo.get('value')
+            total_amount=total_amount-promo.get('value')
+        elif promo.get('type')=='percentage':
+            promo_amount = total_amount * (promo.get('value') / 100)
+            total_amount=total_amount-promo_amount
+
+        promo_res={
+            "title":promo.get('title'),
+            "code":promo.get('code'),
+            "total":promo_amount
+        }
+
     order.order_amount=total_amount
     order.save()
     intent=PaymentIntent.objects.filter(order_id=order.id).first()
     if not intent:
-        res = stripe.PaymentIntent.create(
-            amount=int(order.order_amount * 100),
-            currency="gbp",
-            payment_method_types=["card"],
-            metadata={
-                "order_id": order.id,
-                "user_id": user.id
-            }
-        )
+        if promo is not None:
+            res = stripe.PaymentIntent.create(
+                amount=int(order.order_amount * 100),
+                currency="gbp",
+                payment_method_types=["card"],
+                metadata={
+                    "order_id": order.id,
+                    "user_id": user.id,
+                    "promo_id": promo.get('id')
+                }
+            )
+        else:
+            res = stripe.PaymentIntent.create(
+                amount=int(order.order_amount * 100),
+                currency="gbp",
+                payment_method_types=["card"],
+                metadata={
+                    "order_id": order.id,
+                    "user_id": user.id
+                }
+            )
         intent=PaymentIntent()
         intent.order=order
         intent.user=request.user
@@ -379,10 +488,21 @@ def order(request):
         id=intent.intentid
         stripe_intent=stripe.PaymentIntent.retrieve(id)
         if int(total_amount * 100)!=stripe_intent.amount:
-            res=stripe.PaymentIntent.modify(
-                stripe_intent.id,
-                amount=int(total_amount*100),
-            )
+            if promo is not None:
+                res=stripe.PaymentIntent.modify(
+                    stripe_intent.id,
+                    amount=int(total_amount*100),
+                    metadata={
+                        "order_id": order.id,
+                        "user_id": user.id,
+                        "promo_id":promo.get('id')
+                    }
+                )
+            else:
+                res = stripe.PaymentIntent.modify(
+                    stripe_intent.id,
+                    amount=int(total_amount * 100),
+                )
             intent.amount=res.amount
             intent.save()
         # intent.intenti
@@ -399,7 +519,7 @@ def order(request):
         "timeslot": order.dropoff_time_slot,
         "date": order.dropoff_date.strftime("%A, %B %d")
     }
-    return render(request,'order.html',{'addressdetail':order.addressdetail,'detail':order.detail,'name':order.fullname,'email':order.email,'phone':order.phone,'cart':cart,'total':total_amount,'address':address,'city':city,'country':country,'postcode':postcode,'pickup':pickup,'dropoff':dropoff})
+    return render(request,'order.html',{'promo':promo_res,'addressdetail':order.addressdetail,'detail':order.detail,'name':order.fullname,'email':order.email,'phone':order.phone,'cart':cart,'total':total_amount,'address':address,'city':city,'country':country,'postcode':postcode,'pickup':pickup,'dropoff':dropoff})
 
 
 def loginsuccess(request):

@@ -34,17 +34,19 @@
             <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
             <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
             <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
-
-              <li>
-                <a href="{% url 'login' %}">
-                  <span class="link-text">Log in</span>
-                </a>
-              </li>
-              <li>
+            <li>
                 <a href="tel:+090078601">
                   <span class="link-text">T 090 0786 01</span>
                 </a>
-              </li>
+            </li>
+              {% if not user.is_authenticated %}
+                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  {% else %}
+                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
+                  <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+              {% endif %}
+
               
               <li>
                 <form action="#" style="visibility:hidden">
@@ -74,7 +76,7 @@
 
 
   <div class="service-list-content">
-    <h1 style="color: #fe6703;font-weight: bold" class="service-list-title">Our Services</h1>
+    <h1 style="color: #f26522;font-weight: bold" class="service-list-title">Our Services</h1>
     <p class="service-list-description">
       Pick up clean provides an extensive, ever-growing list of services.
     </p>
@@ -82,9 +84,9 @@
         {% for service in Services %}
             <div class="service-card">
             <img class="service-card-icon" src="{{ service.icon }}">
-            <h3 style="color: #fe6703" class="service-card-title">{{ service.name}}</h3>
+            <h3 style="color: #f26522" class="service-card-title">{{ service.name}}</h3>
             <h3 style="color: #000" class="service-card-description">{{ service.short_description}}</h3>
-            <a style="color:white;background-color: #fe6703;border-color: #fe6703" class="service-card-link" href="{% url 'servicedetail' service.id %}">Info + Pricing</a>
+            <a style="color:white;background-color: #f26522;border-color: #f26522" class="service-card-link" href="{% url 'servicedetail' service.id %}">Info + Pricing</a>
           </div>
         {% endfor %}
     </div>
@@ -105,7 +107,7 @@
       <div class="col-md-8 sub2-newsletter footer-push">
         <div class="footer-top-title">Subscribe to our newsletter:</div>
         <div class="sub2-newsletter-content">
-          <form action="https://ihateironing.us5.list-manage.com/subscribe/post?u=70163dda0059bbc6424bb415f&amp;id=b7c1f868ac" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <form method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <div id="mc_embed_signup_scroll" class="sub2-form-container">
               <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
               <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
@@ -136,21 +138,8 @@
 </footer>
   <script src="{% static '/js/libs.js' %}"></script>
   <script src="{% static '/accounts/js/addresses.js' %}" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
-  <script>
-    window.intercomSettings = {
-      app_id: 'uk1rq1t1'
-    };
-  </script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
-  <script>
-    function priceListTop() {
-      hj('tagRecording', ['User Clicked On Pending Page Price List (Top)']);
-    }
-
-    function priceListSide() {
-      hj('tagRecording', ['User Clicked On Pending Page Price List (Side)']);
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
 </body>
 
 <!-- Mirrored from www.ihateironing.com/services/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:27:23 GMT -->

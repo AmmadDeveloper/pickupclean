@@ -1,20 +1,15 @@
 <!doctype html>
 <html lang="en-GB">
 {% load static %}
-<!-- Mirrored from www.ihateironing.com/services/ironing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:28:07 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{ category.name }} delivery service within 24Hrs- pickupclean | pick up clean</title>
     <meta name="description" content="We provide a high qaulity ironing service for all your household goods, They will be collected cleaned and delivered to your door. If you prefer to wash your items at home then we are happy to collect your cleaned items and iron them for you returning the items on a hanger or folded.">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
-  <link rel="shortcut icon" href="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/images/icons/favicon.ico">
+  <link rel="shortcut icon" href="{% static 'imgs/favicon.png' %}">
 
-  <link rel="stylesheet" href="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/css/styles.css' %}">
-
-  <script>document.documentMode && document.write('<script src="{% static 'polyfill.io/v3/polyfill.min3a03.js?features=default%2Ces2017%2Cfetch' %}"><\/script>');</script>
-
+  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
 </head>
 <body class="light services-body">
 <header >
@@ -35,65 +30,29 @@
         <ul class="nav navbar-ihi navbar-main">
               <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>
             <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
-            <li class="services"><a href="../index.html"><span class="link-text">Services</span></a></li>
-            <li><a href="../../areas/index.html"><span class="link-text">Areas</span></a></li>
-            <li><a href="https://help.ihateironing.com/hc/en-us"><span class="link-text">FAQs</span></a></li>
-            <li><a href="../../corporate/index.html"><span class="link-text">Corporates</span></a></li>
-
-              <li>
-                <a href="../../accounts/login/index.html">
-                  <span class="link-text">Log in</span>
+            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li>
+                <a href="tel:+090078601">
+                  <span class="link-text">T 090 0786 01</span>
                 </a>
               </li>
-              <li>
-                <a href="tel:+442070604939">
-                  <span class="link-text">T 020 7060 4939</span>
-                </a>
-              </li>
+              {% if not user.is_authenticated %}
+                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  {% else %}
+                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
+                  <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+              {% endif %}
 
               <li>
                 <form action="#" style="visibility:hidden">
-  <select name="flag_dropdown" id="flag_picker" style="font-size:20px;height:auto;padding:0px;border:0;letter-spacing:0;border-radius:1;background-color:transparent;padding-top:5px;">
+  <select name="flag_dropdown" id="flag_picker" style="font-size:20px;height:auto;padding:0;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
     <option value="GB">🇬🇧</option>
-    <option value="US">🇺🇸</option>
-    <option value="IE">🇮🇪</option>
-    <option value="SG">🇸🇬</option>
-    <option value="AU">🇦🇺</option>
   </select>
   <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
 </form>
 
-<script>
-
-  const dropdown = document.getElementById("flag_picker"); // dropdown
-  const current_country_code = document.getElementById("currentCountryCode").value; // accounts/countries.py
-
-  window.addEventListener("load", function() {
-    dropdown.value = current_country_code;
-    dropdown.style.visibility = "visible";
-    // load current session country as selected
-  });
-
-  dropdown.addEventListener("change", function() {
-    setCurrentCountryCode(dropdown.value);
-    // on change, change the session and reload
-  });
-
-  function setCurrentCountryCode(){
-    axios.get("/accounts/country", {
-      params: {
-        country: dropdown.value
-      }
-    })
-    .then(function (response) {
-      window.location.reload();
-    })
-    .catch(function (error) {
-      console.error('Unable to set current session country:', error);
-    });
-  }
-
-</script>
               </li>
 
           <li class="nav-btn-cta">
@@ -123,10 +82,10 @@
         <h1>{{ category.name}} Services</h1>
         
       </div>
-      <a href="#prices" title="Check Prices" class="btn btn-cta">Check Prices</a>
+      <a href="#prices" style="background-color: #f26522" title="Check Prices" class="btn btn-cta">Check Prices</a>
     </section>
 
-    <section class="order-section highlights">
+    <section style="background-color: #f26522" class="order-section highlights">
   <div class="container highlights__container">
     <div class="highlights__col">
       <div class="highlights__item highlights__item--first">
@@ -232,41 +191,28 @@
     </section>
 
     
-  <section id="order-form" class="services-order-form" data-scroll-offset="30">
+  <section style="background-color: #fff;color:black;padding-bottom: 20px" id="order-form" class="services-order-form" data-scroll-offset="30">
     <h2>Ready to place an order?</h2>
-      <div class="prices-order-container">
+      <div style="margin-bottom: 30px" class="prices-order-container">
           <div class="prices-order-description">
             Check times for your address
           </div>
-
-          <script id="embedded-order-form-target">
-            (function () {
-              var config = {
-                url: '/orders/create/embedded/',
-              };
-
-              window.addEventListener('DOMContentLoaded', function () {
-                var container = document.createElement('div');
-                container.className = 'embedded-order-form';
-                var target = document.getElementById('embedded-order-form-target');
-                target.insertAdjacentElement('afterend', container);
-                $(container).load(config.url);
-              });
-            })();
-          </script><div class="embedded-order-form"></div>
           <div class="embedded-order-form">
             <script>
               (function () {
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
-                link.href = 'https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/packages/time-slot-picker.css';
+                link.href = '{% static '/packages/time-slot-picker.css' %}';
                 document.head.appendChild(link);
               })();
             </script>
-
-            <form class="eof-form" method="post" action="{% url 'homepage' %}" autocomplete="off" data-config="{&quot;search_url&quot;: &quot;/api/time-slots/&quot;, &quot;preselect&quot;: false}">
+              <!--Todo Create order form-->
+            <form class="eof-form" method="post" action="{% url 'homepage' %}" autocomplete="off"
+              data-config="{&quot;search_url&quot;: &quot;/api/time-slots/&quot;, &quot;preselect&quot;: false}">
               <div class="of-group of-group--address-line1">
-                <input type="text" name="address_line1" autocomplete="off" role="combobox" aria-haspopup="true" aria-autocomplete="list" spellcheck="false" maxlength="255" class="form-control" placeholder="Postcode" required="" id="id_address_line1">
+                <input type="text" name="address_line1" autocomplete="off" role="combobox" aria-haspopup="true"
+                  aria-autocomplete="list" spellcheck="false" maxlength="255" class="form-control"
+                  placeholder="Postcode" required="" id="id_address_line1">
               </div>
 
               <button id="toggle-time-slots" type="button" class="btn of-time-slot-display of-time-slots-button">
@@ -291,12 +237,12 @@
               <input type="hidden" name="pickup_time_slot" id="id_pickup_time_slot">
               <input type="hidden" name="dropoff_date" id="id_dropoff_date">
               <input type="hidden" name="dropoff_time_slot" id="id_dropoff_time_slot">
-              <input type="hidden" name="address_line2" id="id_address_line2" value="Langtry Place">
-              <input type="hidden" name="address_line3" id="id_address_line3" value="">
-              <input type="hidden" name="address_line4" id="id_address_line4" value="">
-              <input type="hidden" name="postcode" id="id_postcode" value="SW6 1XR">
-              <input type="hidden" name="city" id="id_city" value="London">
-              <input type="hidden" name="country" id="id_country" value="GB">
+              <input type="hidden" name="address_line2" id="id_address_line2">
+              <input type="hidden" name="address_line3" id="id_address_line3">
+              <input type="hidden" name="address_line4" id="id_address_line4">
+              <input type="hidden" name="postcode" id="id_postcode">
+              <input type="hidden" name="city" id="id_city">
+              <input type="hidden" name="country" id="id_country">
 
                 {% csrf_token %}
             </form>
@@ -316,12 +262,15 @@
                       We're always adding new locations. Please fill out the form below to be notified when we roll out
                       to your area.
                     </div>
-                    <form method="POST" action="/api/district-request/" id="unserved-area-form" style="width: 300px; margin: 2em auto 1em;">
+                    <form method="POST" action="/api/district-request/" id="unserved-area-form"
+                      style="width: 300px; margin: 2em auto 1em;">
                       <div style="margin-bottom: 1em; display: flex; flex-direction: row;">
-                        <label style="width: 100px; margin-top: 0.5em; font-weight: 500;">Name:</label><input name="name" type="text" id="unserved-area-form-name" style="flex: 1;">
+                        <label style="width: 100px; margin-top: 0.5em; font-weight: 500;">Name:</label><input
+                          name="name" type="text" id="unserved-area-form-name" style="flex: 1;">
                       </div>
                       <div style="margin-bottom: 1em; display: flex; flex-direction: row;">
-                        <label style="width: 100px; margin-top: 0.5em; font-weight: 500;">Email:</label><input name="email" type="email" id="unserved-area-form-email" style="flex: 1;">
+                        <label style="width: 100px; margin-top: 0.5em; font-weight: 500;">Email:</label><input
+                          name="email" type="email" id="unserved-area-form-email" style="flex: 1;">
                       </div>
                       <input name="postcode" type="hidden" id="unserved-area-form-postcode">
                       <input name="country" type="hidden" id="unserved-area-form-country">
@@ -336,20 +285,23 @@
               </div>
             </div>
 
-
-            <script src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+<script src="{% static 'js/libs.js' %}"></script>
+            <script
+              src="{% static '/accounts/js/addresses.js' %}"
+              data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
             <script>
               window.IronWeb.Utils.styliseSelects('.eof-form select');
             </script>
-            <script src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/packages/time-slot-picker.js"></script>
-            <script src="https://s3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/orders/js/order-form.js"></script>
+            <script
+              src=" {% static '/packages/time-slot-picker.js' %}"></script>
+            <script
+              src="{% static '/orders/js/order-form.js' %}"></script>
           </div>
-
         </div>
   </section>
 
 
-    <section class="service-details">
+    <section style="background-color: #f26522;" class="service-details">
       
   <h2>Our {{ category.name }} Service</h2>
   <div class="services-description services-links"><p>{{ category.description }}</p></div>
@@ -415,29 +367,12 @@
   </div>
 </footer>
 
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/js/libs.js' %}"></script>
-  <!-- Axios CDN: https://github.com/axios/axios -->
-  <script src="{% static 'cdn.jsdelivr.net/npm/axios/dist/axios.min.js' %}"></script>
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/services/js/services.js' %}"></script>
-  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/about/js/prices.js' %}"></script>
+  <script src="{% static 'js/libs.js' %}"></script>
+  <script src="{% static '/accounts/js/addresses.js' %}" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+  <script src="{% static '/services/js/services.js' %}"></script>
+  <script src="{% static '/about/js/prices.js' %}"></script>
 
-  <script>
-    window.intercomSettings = {
-      app_id: 'uk1rq1t1'
-    };
-  </script>
+
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
-  <script>
-    function priceListTop() {
-      hj('tagRecording', ['User Clicked On Pending Page Price List (Top)']);
-    }
-
-    function priceListSide() {
-      hj('tagRecording', ['User Clicked On Pending Page Price List (Side)']);
-    }
-  </script>
 </body>
-
-<!-- Mirrored from www.ihateironing.com/services/ironing/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:28:09 GMT -->
 </html>

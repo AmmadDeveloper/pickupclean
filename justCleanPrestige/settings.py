@@ -123,13 +123,13 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pickupclean',
-        'HOST': '127.0.0.1',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test',
+        'HOST': '46.101.55.159',
         # 'HOST': '172.17.0.2',
-        'USER': 'root',
-        'PORT': '3306',
-        # 'PASSWORD':'1234'
+        'USER': 'pickupclean',
+        'PORT': '5432',
+        'PASSWORD':'12345super'
     },
 }
 
@@ -204,6 +204,7 @@ CORS_ORIGIN_WHITELIST = (
 
 SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD='username_email'
+ACCOUNT_EMAIL_VERIFICATION='none'
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

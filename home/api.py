@@ -1,7 +1,9 @@
 #/api/time-slots/?country=GB&postcode=TW11%208UF
 import json
-
+import stripe
+from django.conf import settings
 from django.contrib.auth import authenticate
+from django.utils import timezone
 from ninja import NinjaAPI,Form
 from ninja.security import HttpBearer
 from models.models import Category,Files,ScheduleConfig,PostCode,PostCodeRequests,Service,Cart,Order
@@ -10,9 +12,11 @@ from datetime import timedelta
 import datetime
 import requests
 from ninja.responses import codes_4xx
-from .schema import districtSchema,cartSchema,AuthenticationSchema
+from .schema import districtSchema, cartSchema, AuthenticationSchema, PromoSchema
 from models.utils.Constants import OrderType
 
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 class AuthBearer(HttpBearer):
     def authenticate(self, request, token):
         user = Token.objects.get(key=token).user
@@ -82,6 +86,24 @@ def delete_cart(request,cartid:int):
     obj.save()
     return {'statuscode':200,'message':'success'}
 
+
+
+@user_api.delete('order',auth=AuthBearer())
+def cancel_order(request,orderid:int):
+    user=Token.objects.get(key=request.auth).user
+    intent = PaymentIntent.objects.filter(order_id=orderid,order__user=user).first()
+    res = stripe.Refund.create(
+        payment_intent=intent.intentid,
+    )
+    if res.status == 'succeeded':
+        intent.refund = True
+        intent.refund_date = datetime.datetime.now()
+        intent.order.order_status = OrderType.CANCELLED
+        intent.save()
+        intent.order.save()
+        return {'statuscode':200,'message':'success'}
+    else:
+        return {'statuscode':400,'message':res.status}
 
 @user_api.get('categories/',auth=None)
 def get_categories(request):
@@ -163,6 +185,22 @@ def districtrequest(request,Items:districtSchema=Form('')):
     return {'settings': Items, 'statuscode': 200, 'message': 'success'}
 
 
+from models.models import Promo,PromoUsage
+@user_api.post('promo',auth=AuthBearer())
+def check_promo(request,Items:PromoSchema):
+    user=Token.objects.get(key=request.auth).user
+    p=Promo.objects.filter(code__exact=Items.code,active=True).first()
+    if p is not None and p.until>timezone.now():
+        used=PromoUsage.objects.filter(promo_id=p.id,used_by_id=user.id).first()
+        if used is not None:
+            return {'promo': {}, 'statuscode': 404, 'message': 'promo code already used'}
+        else:
+            request.session['promo']={'code':p.code,'valid_till':p.until.strftime("%B %d, %Y"),'type':p.type,'value':p.value,'title':p.title,'id':p.id}
+            return {'promo':{'code':p.code,'valid_till':p.until.strftime("%B %d, %Y"),'type':p.type,'value':p.value,'title':p.title},'statuscode': 200, 'message': 'promo found'}
+    else:
+        return {'promo': {}, 'statuscode': 404, 'message': 'promo code not found'}
+
+
 @user_api.get('updateorderfield/',auth=AuthBearer())
 def placeorder(request,name:str,value:str,):
     user = Token.objects.get(key=request.auth).user
@@ -215,18 +253,6 @@ def getPaymentIntent(request):
     order=Order.objects.filter(user_id=request.user.id, order_status=OrderType.OPEN).first()
     intent=PaymentIntent.objects.filter(order_id=order.id).first()
     return {'secret': intent.client_secret, 'statuscode': 200, 'message': 'success'}
-
-
-
-
-
-
-
-
-
-
-
-
 
 #{
 #   "amount": 1099,
