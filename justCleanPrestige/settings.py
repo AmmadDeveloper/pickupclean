@@ -124,7 +124,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test',
+        'NAME': 'pickupclean',
         'HOST': '46.101.55.159',
         # 'HOST': '172.17.0.2',
         'USER': 'pickupclean',
