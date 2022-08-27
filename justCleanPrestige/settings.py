@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q1n9yg2@h=*c_m0n#94)jzak%)i!f!mm^%str1$qti7jbr3jx7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['pickupclean.com','www.pickupclean.com','localhost','127.0.0.1']
 
 
 STRIPE_PUBLISHABLE_KEY='pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at'
@@ -131,6 +131,15 @@ DATABASES = {
         'PORT': '5432',
         'PASSWORD':'12345super'
     },
+# 'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pickupclean',
+#         'HOST': 'localhost',
+#         # 'HOST': '172.17.0.2',
+#         'USER': 'root',
+#         'PORT': '3306',
+#         #'PASSWORD':'12345super'
+#     },
 }
 
 
@@ -256,3 +265,10 @@ NOTIFY_SID='IS5d64c0c0999c6cdd8c03ad7d23e7d16f'
 
 USERNAME_FIELD='email'
 LOGIN_REDIRECT_URL="success"
+
+if not DEBUG:
+    GOOGLE_CAPTCHA_SITE_KEY='6LfoU7AhAAAAANgo6r6_HgPAKrbgd707U1cr_C4I'
+    GOOGLE_CAPTCHA_SECRET_KEY='6LfoU7AhAAAAAJ1NW8DoWGYJCVyZuG-K4fx1IvWC'
+else:
+    GOOGLE_CAPTCHA_SITE_KEY = '6Le302UbAAAAAMSbTcngnWI-6mJonz5TvdM2Eb1y'
+    GOOGLE_CAPTCHA_SECRET_KEY = '6Le302UbAAAAAJ2FBjZsVdFzVSyOS7JI9yxHe3LK'

@@ -1,5 +1,8 @@
 import datetime
 import functools
+import json
+
+import requests
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from django.utils import timezone
@@ -82,48 +85,59 @@ def orderdetail(request):
     if promo is not None:
         del request.session['promo']
     return render(request,'orderdetail.html')
-
 def login(request):
     if request.method=="GET":
-        return render(request, 'account/login.html')
+        site_key=settings.GOOGLE_CAPTCHA_SITE_KEY
+        return render(request, 'account/login.html',{'sitekey':site_key})
     if request.method == "POST":
         lform = loginform(request.POST or None)
-        if (lform.is_valid()):
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            if user == None:
-                return redirect('login')
+        userinput = request.POST.get('g-recaptcha-response')
+        res = requests.post('https://www.google.com/recaptcha/api/siteverify',
+                            data={'secret': settings.GOOGLE_CAPTCHA_SECRET_KEY, 'response': userinput})
+        resdict = json.loads(res.content)
+        if resdict.get('success'):
+            if (lform.is_valid()):
+                username = request.POST['username']
+                password = request.POST['password']
+                user = authenticate(request, username=username, password=password)
+                if user == None:
+                    return redirect('login')
+                else:
+                    lin(request, user,backend='django.contrib.auth.backends.ModelBackend')
+                    return redirect('homepage')
             else:
-                lin(request, user,backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('homepage')
-        else:
-            return render(request, 'account/login.html')
+                return render(request, 'account/login.html')
     return render(request,'account/login.html')
 
 
 def signup(request):
     if request.method=="GET":
-        return render(request,'account/signup.html')
+        site_key = settings.GOOGLE_CAPTCHA_SITE_KEY
+        return render(request, 'account/signup.html', {'sitekey': site_key})
     elif request.method=="POST":
         sform=signupform(request.POST or None)
-        if(sform.is_valid()):
-            try:
-                user=User.objects.create_user(password=request.POST['password'],email=request.POST['email'],username=request.POST['email'])
-                user.is_active=True
-                user.first_name=request.POST['first_name']
-                user.last_name=request.POST['last_name']
-                user.save()
-                eadd=Electronic_Address()
-                eadd.user=user
-                eadd.phone=request.POST['phone']
-                eadd.save()
-                lin(request,user,backend='django.contrib.auth.backends.ModelBackend')
-            except Exception as exc:
-                add_message(request,level=7,message="User already exists")
+        userinput = request.POST.get('g-recaptcha-response')
+        res = requests.post('https://www.google.com/recaptcha/api/siteverify',
+                            data={'secret': settings.GOOGLE_CAPTCHA_SECRET_KEY, 'response': userinput})
+        resdict = json.loads(res.content)
+        if resdict.get('success'):
+            if(sform.is_valid()):
+                try:
+                    user=User.objects.create_user(password=request.POST['password'],email=request.POST['email'],username=request.POST['email'])
+                    user.is_active=True
+                    user.first_name=request.POST['first_name']
+                    user.last_name=request.POST['last_name']
+                    user.save()
+                    eadd=Electronic_Address()
+                    eadd.user=user
+                    eadd.phone=request.POST['phone']
+                    eadd.save()
+                    lin(request,user,backend='django.contrib.auth.backends.ModelBackend')
+                except Exception as exc:
+                    add_message(request,level=7,message="User already exists")
+                    return redirect('signup')
+            else:
                 return redirect('signup')
-        else:
-            return redirect('signup')
         return redirect('homepage')
 
 def logout(request):

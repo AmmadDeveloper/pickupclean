@@ -1,9 +1,6 @@
 <!doctype html>
 <html lang="en-GB">
 {% load static %}
-<!-- Mirrored from www.ihateironing.com/prices/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:27:09 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
 <head>
   <meta charset="utf-8">
@@ -604,7 +601,7 @@
     <section class="prices-section prices-order-support">
       <h2>Can’t find what you’re looking for?</h2>
       <p>
-        You can have almost anything cleaned, pressed or repaired through ihateironing. If you have an item you would
+        You can have almost anything cleaned, pressed or repaired through pickupclean. If you have an item you would
         like us to take care of but can't see it listed please give us a call on
         <a href="tel:+442070604939">020 7060 4939</a>
         to clarify the price.
@@ -640,12 +637,12 @@
         <div class="col-md-4 footer-app-stores">
           <div class="footer-top-title">Download our new app:</div>
           <a class="ios-link"
-            href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
+            href="#">
             <img
               src="{% static '/images/app-stores/apple.png' %}"
               alt="Download on the App Store">
           </a>
-          <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
+          <a class="android-link" href="#">
             <img
               src="{% static '/images/app-stores/google.png' %}"
               alt="Get it on Google Play">
@@ -674,7 +671,7 @@
         <div class="footer-payment-methods footer-push">
           <div class="footer-payment-methods-title">Accepted payment methods:</div>
           <img class="footer-payment-methods-img"
-            src="{% static '/images/payments/payments-sprite-black.png' %}"
+            src="{% static '/imgs/cards.png' %}"
             width="190" alt="Accepted payment methods">
         </div>
         <div class="footer-logo-wrapper footer-push">
@@ -682,7 +679,7 @@
             <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
           </div>
           <div class="footer-copyright">
-            <div class="footer-company">© 2022 <span class="u-text-uppercase">ihateironing</span>.</div>
+            <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pickupclean</span>.</div>
             <div class="footer-rights">All rights reserved.</div>
           </div>
         </div>
@@ -694,18 +691,49 @@
     <div class="cookie-consent-container">
       <div class="cookie-consent-message">
         We use cookies to ensure you get the best experience on our website. To find out more, read our policy
-        <a class="cookie-consent-link" href="../privacy/index.html#cookies">here</a>.
+        <a class="cookie-consent-link" href="privacy/index.html#cookies">here</a>.
       </div>
       <button id="cookie-consent-action" class="btn">Accept and close</button>
     </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {% if not user.is_authenticated %}
+        <script>
+        localStorage.removeItem('token');
+        </script>
+      {% endif %}
     <script>
-      document.getElementById('cookie-consent-action').addEventListener('click', function () {
-        var expires = new Date();
-        expires.setUTCFullYear(expires.getUTCFullYear() + 1);
-        document.cookie = 'cookieconsent=1; expires=' + expires.toUTCString() + '; path=/';
-        var message = this.parentNode.parentNode;
-        message.parentNode.removeChild(message);
-      });
+        var token=localStorage.getItem('token')
+        if(token===null||token===undefined||token==='undefined'){
+            $.get('/loggedin/',(res)=>{
+                localStorage.setItem('token',res.token)
+            });
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        if(getCookie('cookieconsent')==='1'){
+            var divCookie=document.getElementsByClassName('cookie-consent');
+            divCookie[0].setAttribute("style","display:none")
+        }
+        document.getElementById('cookie-consent-action').addEventListener('click', function () {
+            var expires = new Date();
+            expires.setUTCFullYear(expires.getUTCFullYear() + 1);
+            document.cookie = 'cookieconsent=1; expires=' + expires.toUTCString() + '; path=/';
+            var message = this.parentNode.parentNode;
+            message.parentNode.removeChild(message);
+        });
     </script>
   </div>
 
