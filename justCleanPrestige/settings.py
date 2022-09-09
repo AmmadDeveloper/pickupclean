@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q1n9yg2@h=*c_m0n#94)jzak%)i!f!mm^%str1$qti7jbr3jx7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['picupclean.com','www.picupclean.com','localhost','127.0.0.1','46.101.55.159']
 
@@ -122,24 +122,24 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'pickupclean',
+    #     'HOST': '46.101.55.159',
+    #     # 'HOST': '172.17.0.2',
+    #     'USER': 'pickupclean',
+    #     'PORT': '5432',
+    #     'PASSWORD':'12345super'
+    # },
+'default': {
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pickupclean',
-        'HOST': '46.101.55.159',
+        'HOST': 'localhost',
         # 'HOST': '172.17.0.2',
-        'USER': 'pickupclean',
-        'PORT': '5432',
-        'PASSWORD':'12345super'
+        'USER': 'root',
+        'PORT': '3306',
+        #'PASSWORD':'12345super'
     },
-# 'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'pickupclean',
-#         'HOST': 'localhost',
-#         # 'HOST': '172.17.0.2',
-#         'USER': 'root',
-#         'PORT': '3306',
-#         #'PASSWORD':'12345super'
-#     },
 }
 
 
