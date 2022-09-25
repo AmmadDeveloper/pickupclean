@@ -267,6 +267,14 @@ class ServiceAttribute(models.Model):
     value = models.CharField(max_length=450)
     product = models.ForeignKey('Service', on_delete=models.CASCADE, related_name="productattributes")
 
+class Address(models.Model):
+    line1=models.CharField(max_length=250)
+    line2=models.CharField(max_length=250,blank=True,null=True)
+    city=models.CharField(max_length=250,blank=True,null=True)
+    province=models.CharField(max_length=250,blank=True,null=True)
+    country=models.CharField(max_length=250,blank=True,null=True)
+    postcode=models.CharField(max_length=250)
+    user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING, related_name='user_address')
 
 # ORDER AND PAYMENT
 class Order(models.Model):

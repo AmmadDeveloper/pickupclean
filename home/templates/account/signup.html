@@ -89,8 +89,8 @@ timer = setInterval('polling()',1000);
 
 </script>
         <div style="display:block;text-align: center;margin-top: 3%">
-            <a style="display:inline-block;color: white;text-decoration: none;background-color: #fe6703" class="btn btn-default" onclick="OpenNewWindow('/accounts/google/login')">Signup with <i style="color:white" class="fa fa-google"></i>oogle</a>
-            <a style="display:inline-block;color: white;text-decoration: none;background-color: #fe6703" class="btn btn-default" onclick="OpenNewWindow('/accounts/facebook/login')">Signup with <i style="color:white" class="fa fa-facebook"></i>acebook</a>
+            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/google/login')"><img style="width: 200px" src="{% static 'imgs/google-signin-button.png' %}" alt="not found"/></a>
+            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/facebook/login')"><img style="width: 200px" src="{% static 'imgs/fb-sign-in-button.png' %}" alt="not found"/></a>
         </div>
 
     </div>

@@ -85,6 +85,7 @@ def orderdetail(request):
 
 def login(request):
     if request.method=="GET":
+        #'IwAR0g_4-75JczurFtYHLgNjE-CBjx-xItCsREm5F9NuWuyzGjHg8fwhmVyAU'
         return render(request, 'account/login.html')
     if request.method == "POST":
         lform = loginform(request.POST or None)
