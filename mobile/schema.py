@@ -35,3 +35,13 @@ class cartSchema(Schema):
     qty: int=None
     total: float=None
     cartid:int=None
+
+
+class addressSchema(Schema):
+    id:int=None
+    line1:str=None
+    line2:str=None
+    city:str=None
+    province:str=None
+    country:str=None
+    postcode:str=None

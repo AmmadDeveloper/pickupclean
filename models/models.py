@@ -1,6 +1,8 @@
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 from django.db import models
+from django.template.loader import get_template
 from rest_framework.authtoken.models import Token
 from .utils.Constants import OrderType, OrderTypeChoice
 from django.contrib.auth.models import User
@@ -197,10 +199,10 @@ class Postal_Address(models.Model):
 class ServiceType(models.Model):
     name=models.CharField(max_length=200)
     active=models.BooleanField(default=True)
-    description=models.CharField(max_length=200,null=True,blank=True)
-    picture = models.ImageField(upload_to='typeImage',default="/media/files/coatgrey-03.png")
+    description=models.CharField(max_length=200)
+    picture = models.ImageField(upload_to='typeImage')
     created_on=models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING,blank=True,null=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
 
 class Service(models.Model):
@@ -216,7 +218,7 @@ class Service(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
     delivery_time = models.CharField(max_length=254, blank=True, null=True)
-    servicetype=models.ForeignKey('ServiceType',related_name="service_type",on_delete=models.DO_NOTHING)
+    servicetype=models.ForeignKey('ServiceType',related_name="services",on_delete=models.DO_NOTHING)
     category = models.ForeignKey('Category', null=True, related_name="category_products", on_delete=models.CASCADE)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name="vendor_name")
 
@@ -265,6 +267,14 @@ class ServiceAttribute(models.Model):
     value = models.CharField(max_length=450)
     product = models.ForeignKey('Service', on_delete=models.CASCADE, related_name="productattributes")
 
+class Address(models.Model):
+    line1=models.CharField(max_length=250)
+    line2=models.CharField(max_length=250,blank=True,null=True)
+    city=models.CharField(max_length=250,blank=True,null=True)
+    province=models.CharField(max_length=250,blank=True,null=True)
+    country=models.CharField(max_length=250,blank=True,null=True)
+    postcode=models.CharField(max_length=250)
+    user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING, related_name='user_address')
 
 # ORDER AND PAYMENT
 class Order(models.Model):
@@ -276,7 +286,6 @@ class Order(models.Model):
     ordernotecheck = models.BooleanField(default=False, )
     order_note = models.CharField(max_length=100, blank=True, null=True)
     order_amount = models.DecimalField(max_digits=65, decimal_places=4, blank=True, null=True)
-    promo = models.CharField(max_length=100, blank=True, null=True)
     promo_applied=models.BooleanField(default=False)
     pickup_date=models.DateField()
     pickup_time_slot=models.CharField(max_length=10)
@@ -450,6 +459,7 @@ class Notification(models.Model):
     created_on=models.DateTimeField(auto_now_add=True)
     message=models.CharField(max_length=200)
     heading = models.CharField(max_length=100, default='')
+    order=models.ForeignKey('Order',on_delete=models.CASCADE,related_name="order_notification",null=True,blank=True)
 
 class NotificationRead(models.Model):
     read_on=models.DateTimeField(auto_now_add=True)
@@ -459,6 +469,7 @@ class NotificationRead(models.Model):
 class PromoUsage(models.Model):
     used_on=models.DateTimeField(auto_now_add=True)
     order=models.ForeignKey('Order',on_delete=models.CASCADE,related_name="order_promo")
+    promo=models.ForeignKey('Promo',on_delete=models.DO_NOTHING,related_name='used_by')
     used_by = models.ForeignKey(User, on_delete=models.CASCADE,related_name="used_promo")
 
 
@@ -517,13 +528,38 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
+from allauth.account.models import EmailAddress
+# @receiver(post_save,sender=User)
+# def user_signup_procedure(sender, instance=None, created=False, **kwargs):
+#     user=instance
+#     email=EmailAddress.objects.filter(user_id=user.id).first()
+#     if not email:
+#         UserVerification.objects.get_or_create(user_id=user.id,phone_verified=False,email_verified=False)
+#         data = {"name": user.first_name + ' ' + user.last_name}
+#         template = get_template("../../home/templates/email/signupemail.html")
+#         html = template.render(data)
+#         res = send_mail(subject="Welcome to Pick up clean", message="this is a message",
+#                         from_email="suitclosset@gmail.com",
+#                         recipient_list=[user.email]
+#                         , fail_silently=False, html_message=html)
+#     else:
+#         userverification=UserVerification.objects.get(user_id=user.id)
+#         if userverification:
+#             userverification.email_verified=email.verified
+#             userverification.save()
+#         else:
+#             UserVerification.objects.get_or_create(user_id=user.id, phone_verified=False, email_verified=email.verified)
+
+
 
 @receiver(post_save, sender=Order)
 def create_notification(sender, instance=None, created=False, **kwargs):
     order=instance
     if order.paid and order.order_status=='confirmed':
-        notification=Notification()
-        notification.heading="Order Received"
-        notification.message="You have a new order, Order number is "+str(order.id)+", pick up time slot is "+str(order.pickup_time_slot)+" on "+order.pickup_date.strftime("%B %d, %y")+" and postal code is "+str(order.ship_postal_code)
-        notification.save()
-
+        notf=Notification.objects.filter(order_id=order.id).first()
+        if not notf:
+            notification=Notification()
+            notification.order_id=order.id
+            notification.heading="Order Received"
+            notification.message="You have a new order, Order number is "+str(order.id)+", pick up time slot is "+str(order.pickup_time_slot)+" on "+order.pickup_date.strftime("%B %d, %y")+" and postal code is "+str(order.ship_postal_code)
+            notification.save()
