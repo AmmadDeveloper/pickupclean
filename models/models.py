@@ -197,12 +197,12 @@ class Postal_Address(models.Model):
 
 # Services and Category
 class ServiceType(models.Model):
-    name=models.CharField(max_length=200)
+    name=models.CharField(max_length=200,blank=True,null=True)
     active=models.BooleanField(default=True)
-    description=models.CharField(max_length=200)
+    description=models.CharField(max_length=200,blank=True,null=True)
     picture = models.ImageField(upload_to='typeImage')
     created_on=models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING,blank=True,null=True)
 
 
 class Service(models.Model):
@@ -469,7 +469,7 @@ class NotificationRead(models.Model):
 class PromoUsage(models.Model):
     used_on=models.DateTimeField(auto_now_add=True)
     order=models.ForeignKey('Order',on_delete=models.CASCADE,related_name="order_promo")
-    promo=models.ForeignKey('Promo',on_delete=models.DO_NOTHING,related_name='used_by')
+    promo=models.ForeignKey('Promo',on_delete=models.DO_NOTHING,related_name='used_by',blank=True,null=True)
     used_by = models.ForeignKey(User, on_delete=models.CASCADE,related_name="used_promo")
 
 
