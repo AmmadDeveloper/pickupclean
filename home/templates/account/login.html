@@ -1,6 +1,14 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html lang="en-GB">
+{% load static %}
+<!-- Mirrored from www.ihateironing.com/prices/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Mar 2022 13:27:09 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
-{% block title %}Login{% endblock %}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}{% endblock %} | Pick up Clean</title>
 {% block style %}
     <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
 {% endblock %}
@@ -9,11 +17,91 @@
 {% load static %}
 {% load i18n %}
 {% load account socialaccount %}
-  <div style="background-image: url('{% static 'imgs/loginbg.jpg' %}');background-repeat: no-repeat;background-size: cover" class="registration">
+
+  <style>
+    .async-hide {
+      opacity: 0 !important
+    }
+  </style>
+  <meta name="description"
+    content="Competitive Dry Cleaning Prices from the Uk's 1st On Demand Dry Cleaners. Suits ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon"
+    href="{% static 'imgs/favicon.png' %}">
+  <link rel="stylesheet"
+    href="{% static '/css/css/styles.css' %}">
+  <script>document.documentMode && document.write('<script src="{% static 'polyfill.io/v3/polyfill.min3a03.js?features=default%2Ces2017%2Cfetch' %}"><\/script>');</script>
+
+</head>
+
+<body class="prices-body light">
+  <header>
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
+            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+          </a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-ihi navbar-main">
+{#            <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>#}
+            <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
+            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li>
+                <a href="tel:+090078601">
+                  <span class="link-text">T 090 0786 01</span>
+                </a>
+              </li>
+
+
+              {% if not user.is_authenticated %}
+                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  {% else %}
+                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
+                  <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+              {% endif %}
+
+
+<li>
+              <form action="#" style="visibility:hidden">
+                <select name="flag_dropdown" id="flag_picker"
+                  style="font-size:20px;height:auto;padding:0px;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
+                  <option value="GB">🇬🇧</option>
+                </select>
+                <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
+              </form>
+            </li>
+            <li class="nav-btn-cta">
+              <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
+            </li>
+          </ul>
+
+          <ol class="nav navbar-nav breadcrumb">
+            <hr class="breadcrumb-hr" />
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+
+          </ol>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+<div style="background-image: url('{% static 'imgs/loginbg.jpg' %}');background-repeat: no-repeat;background-size: cover" class="registration">
     <div class="registration-container">
       
   <h1 style="color: #000000;font-weight: bold">Log in</h1>
-  <form id="login-form" method="post">
+  <form method="post">
 
       {% csrf_token %}
   
@@ -84,19 +172,203 @@ function polling(){
 timer = setInterval('polling()',1000);
 
 </script>
+        <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=989243211762191&autoLogAppEvents=1" nonce="uEI9jzqZ"></script>
         <div style="display:block;text-align: center;margin-top: 3%">
-            <a style="display:inline-block;color: white;text-decoration: none;background-color: #fe6703" class="btn btn-default" onclick="OpenNewWindow('/accounts/google/login')">Login with <i style="color:white" class="fa fa-google"></i>oogle</a>
-            <a style="display:inline-block;color: white;text-decoration: none;background-color: #fe6703" class="btn btn-default" onclick="OpenNewWindow('/accounts/facebook/login')">Login with <i style="color:white" class="fa fa-facebook"></i>acebook</a>
+            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/google/login')"><img style="width: 200px" src="{% static 'imgs/google-signin-button.png' %}" alt="not found"/></a>
+            <fb:login-button class="fb-login-button" data-width="190" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+
+{#            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/facebook/login')"><img style="width: 200px" src="{% static 'imgs/fb-sign-in-button.png' %}" alt="not found"/></a>#}
         </div>
 
     </div>
   </div>
 
-{% endblock %}
-{% block script %}
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="col-md-4 footer-app-stores">
+          <div class="footer-top-title">Download our new app:</div>
+          <a class="ios-link"
+            href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
+            <img
+              src="{% static '/images/app-stores/apple.png' %}"
+              alt="Download on the App Store">
+          </a>
+          <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
+            <img
+              src="{% static 'images/app-stores/google.png' %}"
+              alt="Get it on Google Play">
+          </a>
+        </div>
+        <div class="col-md-8 sub2-newsletter footer-push">
+          <div class="footer-top-title">Subscribe to our newsletter:</div>
+          <div class="sub2-newsletter-content">
+            <form
+              action="/subscribe/post"
+              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+              target="_blank" novalidate>
+              <div id="mc_embed_signup_scroll" class="sub2-form-container">
+                <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address"
+                  required>
+                <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value=""
+                  style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-payment-methods footer-push">
+          <div class="footer-payment-methods-title">Accepted payment methods:</div>
+          <img class="footer-payment-methods-img"
+            src="{% static 'imgs/cards.png' %}"
+            width="190" alt="Accepted payment methods">
+        </div>
+        <div class="footer-logo-wrapper footer-push">
+          <div class="footer-logo">
+            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+          </div>
+          <div class="footer-copyright">
+            <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pick up clean</span>.</div>
+            <div class="footer-rights">All rights reserved.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+  <div class="cookie-consent">
+    <div class="cookie-consent-container">
+      <div class="cookie-consent-message">
+        We use cookies to ensure you get the best experience on our website. To find out more, read our policy
+        <a class="cookie-consent-link" href="privacy/index.html#cookies">here</a>.
+      </div>
+      <button id="cookie-consent-action" class="btn">Accept and close</button>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {% if not user.is_authenticated %}
+        <script>
+        localStorage.removeItem('token');
+        </script>
+      {% endif %}
     <script>
+        var token=localStorage.getItem('token')
+        if(token===null||token===undefined||token==='undefined'){
+            $.get('/loggedin/',(res)=>{
+                localStorage.setItem('token',res.token)
+            });
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        if(getCookie('cookieconsent')==='1'){
+            var divCookie=document.getElementsByClassName('cookie-consent');
+            divCookie[0].setAttribute("style","display:none")
+        }
+        document.getElementById('cookie-consent-action').addEventListener('click', function () {
+            var expires = new Date();
+            expires.setUTCFullYear(expires.getUTCFullYear() + 1);
+            document.cookie = 'cookieconsent=1; expires=' + expires.toUTCString() + '; path=/';
+            var message = this.parentNode.parentNode;
+            message.parentNode.removeChild(message);
+        });
+    </script>
+  </div>
+
+
+{% endblock %}
+<script>
    function onSubmit(token) {
      document.getElementById("login-form").submit();
    }
  </script>
-{% endblock %}
+  <script src="{% static '/js/libs.js' %}"></script>
+  <script
+    src="{% static '/local_pages/js/local-services.js' %}"></script>
+
+  <script>
+function checkLoginState() {
+    debugger;
+    FB.getLoginStatus(function(response) {
+        debugger;
+      statusChangeCallback(response);
+    });
+  }
+      window.fbAsyncInit = function() {
+          window.fbAsyncInit = function () {
+              FB.init({
+                  appId: '989243211762191',
+                  cookie: true,  // enable cookies to allow the server to access
+                                 // the session
+                  xfbml: true,  // parse social plugins on this page
+                  version: 'v15.0' // Specify the Graph API version to use
+              });
+
+              FB.AppEvents.logPageView();
+
+          };
+
+          (function (d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s);
+              js.id = id;
+              js.src = "https://connect.facebook.net/en_US/sdk.js";
+              fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+      }
+
+      function statusChangeCallback(response) {
+    debugger;
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+    } else {
+      // The person is not logged into your app or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    }
+  }
+  function testAPI() {
+    debugger;
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+</script>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
+
+
+</body>
+
+</html>

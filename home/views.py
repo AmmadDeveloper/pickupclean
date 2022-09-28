@@ -85,6 +85,7 @@ def orderdetail(request):
     if promo is not None:
         del request.session['promo']
     return render(request,'orderdetail.html')
+
 def login(request):
     if request.method=="GET":
         site_key=settings.GOOGLE_CAPTCHA_SITE_KEY

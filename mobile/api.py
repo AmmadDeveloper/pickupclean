@@ -11,10 +11,10 @@ from rest_framework.authtoken.models import Token
 from datetime import timedelta
 import datetime
 from models.models import PostCode, ScheduleConfig, Electronic_Address, Order, Cart, Category, Service, PaymentIntent, \
-    ServiceType
+    ServiceType, Address
 from mobile.schema import AuthenticationSchema, SignUpSchema, CreateOrderSchema, cartSchema
 from models.utils.Constants import OrderType
-
+from .schema import addressSchema
 api = NinjaAPI(version='3.0.0')
 
 class AuthClass(HttpBearer):
@@ -295,12 +295,18 @@ def getPaymentIntent(request):
         return {"message":exc.args[1],'statuscode':400}
 
 @api.get('getorderhistory',auth=AuthClass())
-def order_history(request):
+def order_history(request,fromdate:str=None,todate:str=None,limit:int=10,offset:int=0):
     try:
         user = Token.objects.get(key=request.auth).user
         query = Q()
         # query.add(Q(email__iexact=user.email), Q.OR)
         query.add(Q(user_id=user.pk), Q.OR)
+        if fromdate:
+            query.add(Q(order_place_date__gte=fromdate), Q.AND)
+        if todate:
+            query.add(Q(order_place_date__lte=todate), Q.AND)
+
+
         query.add(~Q(order_status=OrderType.OPEN), Q.AND)
         orders = [{"orderid": item.id,
                    "orderstatus": item.order_status,
@@ -323,11 +329,86 @@ def order_history(request):
 
                        } for line in item.ordercart.all()]
                    }
-                  for item in Order.objects.prefetch_related('ordercart').filter(query).order_by('-order_date')]
+                  for item in Order.objects.prefetch_related('ordercart').filter(query).order_by('-order_date')][offset:limit]
         return {"orders":orders,'statuscode': 200, 'message': 'success'}
     except Exception as exc:
         return {"message":exc.args[1],'statuscode':400}
 
+
+@api.get('updateorderfield/',auth=AuthClass())
+def placeorder(request,name:str,value:str,):
+    user = Token.objects.get(key=request.auth).user
+    order = Order.objects.filter(user_id=user.id, order_status=OrderType.OPEN).first()
+    if order:
+        if name=='fullname':
+            order.fullname=value
+            order.save()
+        elif name=='email':
+            order.email = value
+            order.save()
+        elif name=='phone':
+            order.phone = value
+            order.save()
+        elif name=='addressdetail':
+            order.addressdetail = value
+            order.detail=True
+            order.save()
+        return {'statuscode': 200, 'message': 'success'}
+    else:
+        return {'statuscode': 400, 'message': 'not found'}
+
+
+@api.get('address',auth=AuthClass())
+def getaddress(request):
+    try:
+        user = Token.objects.get(key=request.auth).user
+        item = Address.objects.filter(user_id=user.id).first()
+        if item:
+            return {'address': {"id":item.id,"line1":item.line1,"line2":item.line2,"city":item.city,"province":item.province,"country":item.country,"postcode":item.postcode}, 'statuscode': 200, 'message': 'success'}
+        else:
+            return {'address': {}, 'statuscode': 200, 'message': 'success'}
+
+    except Exception as exc:
+        return {"message":exc.args[1],'statuscode':400}
+
+
+@api.post('address',auth=AuthClass())
+def createaddress(request,addr:addressSchema):
+    try:
+        user = Token.objects.get(key=request.auth).user
+        address=Address.objects.filter(user_id=user.id).first()
+        if not address:
+            address=Address()
+        address.line1=addr.line1
+        address.line2=addr.line2
+        address.city=addr.city
+        address.province=addr.province
+        address.country=addr.country
+        address.postcode=addr.postcode
+        address.user=user
+        address.save()
+        return {'address': {"id":address.id,"line1":address.line1,"line2":address.line2,"city":address.city,"province":address.province,"country":address.country,"postcode":address.postcode}, 'statuscode': 200, 'message': 'success'}
+    except Exception as exc:
+        return {"message":exc.args[1],'statuscode':400}
+
+
+
+@api.patch('address',auth=AuthClass())
+def updateaddress(request,addr:addressSchema):
+    try:
+        address=Address.objects.filter(id=addr.id).first()
+        address.line1 = addr.line1
+        address.line2 = addr.line2
+        address.city = addr.city
+        address.province = addr.province
+        address.country = addr.country
+        address.postcode = addr.postcode
+        address.save()
+        return {'address': {"id": address.id, "line1": address.line1, "line2": address.line2, "city": address.city,
+                            "province": address.province, "country": address.country, "postcode": address.postcode},
+                'statuscode': 200, 'message': 'success'}
+    except Exception as exc:
+        return {"message":exc.args[1],'statuscode':400}
 
 #pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at
 

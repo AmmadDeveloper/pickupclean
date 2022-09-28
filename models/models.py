@@ -172,7 +172,7 @@ from rest_framework.authtoken.models import Token
 # Addresses
 class Electronic_Address(models.Model):
     phone = models.CharField(max_length=20)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='electronic_address')
 
 
 class Postal_Address(models.Model):
@@ -267,6 +267,14 @@ class ServiceAttribute(models.Model):
     value = models.CharField(max_length=450)
     product = models.ForeignKey('Service', on_delete=models.CASCADE, related_name="productattributes")
 
+class Address(models.Model):
+    line1=models.CharField(max_length=250)
+    line2=models.CharField(max_length=250,blank=True,null=True)
+    city=models.CharField(max_length=250,blank=True,null=True)
+    province=models.CharField(max_length=250,blank=True,null=True)
+    country=models.CharField(max_length=250,blank=True,null=True)
+    postcode=models.CharField(max_length=250)
+    user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING, related_name='user_address')
 
 # ORDER AND PAYMENT
 class Order(models.Model):
@@ -489,7 +497,7 @@ class EmailRecord(models.Model):
     subject=models.CharField(max_length=1000,blank=False,null=False)
     recipient_type=models.CharField(max_length=15)
     status=models.CharField(max_length=10)
-    status_message = models.CharField(max_length=10)
+    status_message = models.TextField()
     recipients=models.TextField()
     created_by= models.ForeignKey(User, on_delete=models.CASCADE,related_name="emails_sent")
     created_on=models.DateTimeField(auto_now_add=True)

@@ -140,6 +140,15 @@ DATABASES = {
         'PORT': '3306',
         #'PASSWORD':'12345super'
     },
+# 'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pickupclean',
+#         'HOST': 'localhost',
+#         # 'HOST': '172.17.0.2',
+#         'USER': 'root',
+#         'PORT': '3306',
+#         #'PASSWORD':'12345super'
+#     },
 }
 
 
