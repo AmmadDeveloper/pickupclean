@@ -122,24 +122,24 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'test',
-    #     'HOST': '46.101.55.159',
-    #     # 'HOST': '172.17.0.2',
-    #     'USER': 'pickupclean',
-    #     'PORT': '5432',
-    #     'PASSWORD':'12345super'
-    # },
-'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pickupclean',
-        'HOST': 'localhost',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test',
+        'HOST': '46.101.55.159',
         # 'HOST': '172.17.0.2',
-        'USER': 'root',
-        'PORT': '3306',
-        #'PASSWORD':'12345super'
+        'USER': 'pickupclean',
+        'PORT': '5432',
+        'PASSWORD':'12345super'
     },
+# 'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pickupclean',
+#         'HOST': 'localhost',
+#         # 'HOST': '172.17.0.2',
+#         'USER': 'root',
+#         'PORT': '3306',
+#         #'PASSWORD':'12345super'
+#     },
 }
 
 
@@ -248,7 +248,7 @@ SOCIALACCOUNT_PROVIDERS = {
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_HOST_USER='suitclosset@gmail.com'
-EMAIL_HOST_PASSWORD='uoxlgodbqekcwvdt1'
+EMAIL_HOST_PASSWORD='uoxlgodbqekcwvdt'
 EMAIL_USE_TLS=True
 EMAIL_TIMEOUT=5000
 
