@@ -56,13 +56,13 @@ class AuthenticationSchema(Schema):
 
 
 class EmailSendSchema(Schema):
-    emails:list=None
+    emails:list=[]
     to:str
     subject:str=''
     body:str
 
 class PhoneSendSchema(Schema):
-    phones:list=None
+    phones:list=[]
     to:str
     body:str
 

@@ -4,7 +4,9 @@ from django.template.loader import get_template
 from ninja import NinjaAPI
 from ninja.security import HttpBearer
 from django.contrib.auth.models import User
-from models.models import Category,Files,Service,Order,Cart,PostCode,TimeSlot,ScheduleConfig,EmailConfig,PhoneConfig,Promo,HomeBackground,PaymentIntent,Notification,NotificationRead,PromoUsage,ServiceType
+from models.models import Category, Files, Service, Order, Cart, PostCode, TimeSlot, ScheduleConfig, EmailConfig, \
+    PhoneConfig, Promo, HomeBackground, PaymentIntent, Notification, NotificationRead, PromoUsage, ServiceType, \
+    EmailRecord
 from rest_framework.authtoken.models import Token
 from .schema import CategorySchema,AuthenticationSchema,ServiceSchema,PostCodeSchema,SettingSchema,PromoSchema,EmailSendSchema,PhoneSendSchema,ServiceTypeSchema
 from ninja.files import UploadedFile
@@ -73,9 +75,17 @@ from datetime import timedelta
 @api.get('/dashboard')
 def getData(request):
     total_users=User.objects.filter(is_superuser=False,is_staff=False).count()
-    total_month_sales=round(float((Order.objects.filter(paid=True,order_status='delivered',order_date__gte=now()-timedelta(days=30)).aggregate(Sum('order_amount'))).get('order_amount__sum')),2)
-    total_year_sales = round(float((Order.objects.filter(paid=True,order_status='delivered', order_date__gte=now() - timedelta(days=365)).aggregate(
-        Sum('order_amount'))).get('order_amount__sum')),2)
+    total_month_sales=(Order.objects.filter(paid=True,order_status='delivered',order_date__gte=now()-timedelta(days=30)).aggregate(Sum('order_amount'))).get('order_amount__sum')
+    if total_month_sales:
+        total_month_sales=round(float(total_month_sales),2)
+    else:
+        total_month_sales=0
+    total_year_sales = (Order.objects.filter(paid=True,order_status='delivered', order_date__gte=now() - timedelta(days=365)).aggregate(
+        Sum('order_amount'))).get('order_amount__sum')
+    if total_year_sales:
+        total_year_sales=round(float(total_year_sales),2)
+    else:
+        total_year_sales=0
     total_pending_orders=Order.objects.filter(order_status__in=['confirmed','processing','pickedup','shipped']).count()
     return {"data":{"total_users":total_users,"total_month_sales":total_month_sales,"total_year_sales":total_year_sales,"total_pending_orders":total_pending_orders},'statuscode':200,'message':'success'}
 
@@ -137,6 +147,14 @@ def BlockCustomer(request,id:int):
     customer.save()
     return {'statuscode':200,'message':'success'}
 
+
+@api.get('/contact')
+def getContacts(request,name:str):
+    query = Q()
+    query.add(Q(first_name__icontains=name), Q.OR)
+    query.add(Q(last_name__icontains=name), Q.OR)
+    users=[{"firstname":user.first_name,"lastname":user.last_name,"id":user.id,"email":user.email,"phone":[x.phone for x in user.electronic_address.all()]} for user in User.objects.filter(query).prefetch_related('electronic_address')][0:5]
+    return {'users':users,'statuscode':200,'message':'success'}
 @api.get('/order/')
 def getOrder(request,status:str=None,fromdate:str=None,todate:str=None,search:str=None):
     query = Q()
@@ -318,8 +336,9 @@ def refundPayment(request,id:int):
 
 
 @api.get('listEmail/')
-def getEmailRecord(request,id:int=None):
-    return
+def getEmailRecord(request):
+    recs=[{"id":rec.id,"recipient_type":rec.recipient_type,"subject":rec.subject,"created_on":rec.created_on.strftime("%d %B %Y"),"status":rec.status,"key":rec.id} for rec in EmailRecord.objects.filter()]
+    return {"records":recs,'statuscode': 200, 'message': 'success'}
 
 @api.get('listSms/')
 def getSmsRecord(request,id:int=None):
@@ -328,6 +347,14 @@ def getSmsRecord(request,id:int=None):
 
 @api.post('sendEmail/')
 def sendMail(request,emailSchema:EmailSendSchema):
+    user = Token.objects.get(key=request.auth).user
+    record=EmailRecord()
+    record.body=emailSchema.body
+    record.subject=emailSchema.subject
+    record.created_by=user
+    record.recipient_type=emailSchema.to
+    record.recipients=str(emailSchema.emails) if emailSchema.to!='all' else "['all']"
+
     c = {
         'body':emailSchema.body
     }
@@ -336,9 +363,23 @@ def sendMail(request,emailSchema:EmailSendSchema):
     email = template.render(c)
     # email = loader.render_to_string(email_template_name, c)
     #send_mail(subject,message="Hello world", from_email='suitclosset@gmail.com', to=["ammadhassanqureshi@gmail.com","ammad.development@gmail.com"], fail_silently=False,html_message=email)
-    msg=EmailMultiAlternatives(subject,body=email, from_email='suitclosset@gmail.com', bcc=["ammadhassanqureshi@gmail.com","ammad.development@gmail.com"])
+    if emailSchema.to=='all':
+        emails=[x.email for x in User.objects.filter()]
+    else:
+        emails=emailSchema.emails
+    msg=EmailMultiAlternatives(subject,body=email, from_email='suitclosset@gmail.com', bcc=emails)
     msg.attach_alternative(email, "text/html")
-    msg.send(fail_silently=False)
+    try:
+        s=msg.send(fail_silently=False)
+        if s == 1:
+            record.status = "sent"
+            record.status_message = "email sent"
+            record.save()
+    except Exception as exe:
+        record.status = "error"
+        record.status_message = str(exe.args[1])
+        record.save()
+        return {'statuscode': 200,'statusmessge':'Your email was not sent', 'message': 'error'}
     return {'statuscode': 200,'statusmessge':'Your email has been sent', 'message': 'success'}
 
 @api.post('sendSms/')

@@ -172,7 +172,7 @@ from rest_framework.authtoken.models import Token
 # Addresses
 class Electronic_Address(models.Model):
     phone = models.CharField(max_length=20)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='electronic_address')
 
 
 class Postal_Address(models.Model):
@@ -497,7 +497,7 @@ class EmailRecord(models.Model):
     subject=models.CharField(max_length=1000,blank=False,null=False)
     recipient_type=models.CharField(max_length=15)
     status=models.CharField(max_length=10)
-    status_message = models.CharField(max_length=10)
+    status_message = models.TextField()
     recipients=models.TextField()
     created_by= models.ForeignKey(User, on_delete=models.CASCADE,related_name="emails_sent")
     created_on=models.DateTimeField(auto_now_add=True)
