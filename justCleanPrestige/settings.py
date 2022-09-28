@@ -122,24 +122,24 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'pickupclean',
-    #     'HOST': '46.101.55.159',
-    #     # 'HOST': '172.17.0.2',
-    #     'USER': 'pickupclean',
-    #     'PORT': '5432',
-    #     'PASSWORD':'12345super'
-    # },
-'default': {
-        'ENGINE': 'django.db.backends.mysql',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pickupclean',
-        'HOST': 'localhost',
+        'HOST': '46.101.55.159',
         # 'HOST': '172.17.0.2',
-        'USER': 'root',
-        'PORT': '3306',
-        #'PASSWORD':'12345super'
+        'USER': 'pickupclean',
+        'PORT': '5432',
+        'PASSWORD':'12345super'
     },
+# 'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pickupclean',
+#         'HOST': 'localhost',
+#         # 'HOST': '172.17.0.2',
+#         'USER': 'root',
+#         'PORT': '3306',
+#         #'PASSWORD':'12345super'
+#     },
 # 'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'pickupclean',
