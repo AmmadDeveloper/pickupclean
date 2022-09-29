@@ -6,7 +6,7 @@ from ninja.security import HttpBearer
 from django.contrib.auth.models import User
 from models.models import Category, Files, Service, Order, Cart, PostCode, TimeSlot, ScheduleConfig, EmailConfig, \
     PhoneConfig, Promo, HomeBackground, PaymentIntent, Notification, NotificationRead, PromoUsage, ServiceType, \
-    EmailRecord
+    EmailRecord, MessageRecord
 from rest_framework.authtoken.models import Token
 from .schema import CategorySchema,AuthenticationSchema,ServiceSchema,PostCodeSchema,SettingSchema,PromoSchema,EmailSendSchema,PhoneSendSchema,ServiceTypeSchema
 from ninja.files import UploadedFile
@@ -383,8 +383,60 @@ def sendMail(request,emailSchema:EmailSendSchema):
     return {'statuscode': 200,'statusmessge':'Your email has been sent', 'message': 'success'}
 
 @api.post('sendSms/')
-def sendMail(request,data:PhoneSendSchema):
-    return {'statuscode': 400,'statusmessge':'Your email has been sent', 'message': 'success'}
+def sendMessages(request,data:PhoneSendSchema):
+    record = MessageRecord()
+    try:
+        user = Token.objects.get(key=request.auth).user
+        record = MessageRecord()
+        record.body = data.body
+        record.created_by = user
+        record.recipient_type = data.to
+        record.recipients = str(data.phones) if data.to != 'all' else "['all']"
+        if data.to == 'all':
+            phones=[]
+            rec = [x.electronic_address.first() for x in User.objects.filter().prefetch_related('electronic_address')]
+            for i in rec:
+                if i!=None:
+                    phones.append(i.phone)
+        else:
+            phones = data.phones
+        bindings = list(map(lambda number: json.dumps({'binding_type': 'sms', 'address': number}), phones))
+        response = client.notify.services(settings.NOTIFY_SID).notifications.create(
+            to_binding=bindings,
+            body=data.body
+        )
+
+        # response = client.messages \
+        #     .create(
+        #     body='Hello tabtab this is a new message',
+        #     from_=settings.PHONE_NUMBER,
+        #     status_callback='https://992b-182-185-167-180.ap.ngrok.io/sms/status',
+        #     to='+923130452101'
+        # )
+        message = Message()
+        message.sid = response.sid
+        message.body = response.body
+        message.accountsid = response.account_sid
+        message.status = "sent"
+        message.error_message = ""
+        message.error_code = ""
+        message.sent_to = "marketing"
+        message.uri = ""
+        message.sent_from = settings.PHONE_NUMBER
+        message.save()
+        record.sid=response.sid
+        record.status = "sent"
+        record.status_message = "message sent"
+        record.save()
+        return {'statuscode': 200, 'message': 'success'}
+    except Exception as exe:
+        record.status = "error"
+        record.status_message = str(exe.args[1])
+        record.save()
+        return {'statuscode': 200, 'statusmessge': 'Your message was not sent', 'message': 'error'}
+
+
+
 
 
 

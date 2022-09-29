@@ -505,10 +505,10 @@ class EmailRecord(models.Model):
 
 
 class MessageRecord(models.Model):
-    sid=models.CharField(max_length=100,default='')
+    sid=models.CharField(max_length=100,default='',null=True,blank=True)
     recipient_type = models.CharField(max_length=15)
     status = models.CharField(max_length=10)
-    status_message = models.CharField(max_length=10)
+    status_message = models.TextField()
     recipients = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")
     created_on = models.DateTimeField(auto_now_add=True)

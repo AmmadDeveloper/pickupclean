@@ -405,9 +405,20 @@ def smswebhook(request):
         message_sid = request.POST.get('MessageSid', None)
         message_status = request.POST.get('MessageStatus', None)
         message=Message.objects.filter(sid=message_sid).first()
-        message.updated_on=datetime.datetime.now()
-        message.status=message_status
-        message.save()
+        if message:
+            message.updated_on=datetime.datetime.now()
+            message.status=message_status
+            message.save()
+        else:
+            message=Message()
+            message.sid=request.POST.get('SmsSid')
+            message.sent_to=request.POST.get('To')
+            message.sent_from = request.POST.get('From')
+            message.updated_on = datetime.datetime.now()
+            message.created_on = datetime.datetime.now()
+            message.status = message_status
+            message.accountsid=request.POST.get('AccountSid')
+            message.save()
         return JsonResponse({"status":"ok"})
     return JsonResponse({'status':'not found'})
 

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q1n9yg2@h=*c_m0n#94)jzak%)i!f!mm^%str1$qti7jbr3jx7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['picupclean.com','www.picupclean.com','localhost','127.0.0.1','46.101.55.159']
 
@@ -122,6 +122,8 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
+
+    #PRoduction DB
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pickupclean',
@@ -266,11 +268,11 @@ SERVER_URL='https://pickupclean.herokuapp.com/'
 
 
 #TWILIO
-ACCOUNT_SID='AC1bfc23beba30546467e2c4351485b009'
-AUTH_TOKEN='2714974eac7458a1f3b1decb9e27dc00'
-MESSAGE_SERVICE_SID='MG0f508964da61e66634828eb44a2b27a9'
-PHONE_NUMBER='+19707164935'
-NOTIFY_SID='IS5d64c0c0999c6cdd8c03ad7d23e7d16f'
+ACCOUNT_SID='AC26b1082d07ee310577c4d3a5b782ac6d'
+AUTH_TOKEN='d6428c83f25668353b1940521a7e87c4'
+MESSAGE_SERVICE_SID='MGd008618fb3570dafafa3ea7785fdabf3'
+PHONE_NUMBER='+18155690680'
+NOTIFY_SID='ISaae8c1b18aae6498b5981595593e81be'
 
 USERNAME_FIELD='email'
 LOGIN_REDIRECT_URL="success"
