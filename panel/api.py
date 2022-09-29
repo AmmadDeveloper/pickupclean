@@ -337,12 +337,15 @@ def refundPayment(request,id:int):
 
 @api.get('listEmail/')
 def getEmailRecord(request):
-    recs=[{"id":rec.id,"recipient_type":rec.recipient_type,"subject":rec.subject,"created_on":rec.created_on.strftime("%d %B %Y"),"status":rec.status,"key":rec.id} for rec in EmailRecord.objects.filter()]
+    recs=[{"id":rec.id,"recipient_type":rec.recipient_type,"subject":rec.subject,"created_on":rec.created_on.strftime("%d %B %Y"),"status":rec.status,"key":rec.id} for rec in EmailRecord.objects.filter().order_by('-created_on')]
     return {"records":recs,'statuscode': 200, 'message': 'success'}
 
-@api.get('listSms/')
-def getSmsRecord(request,id:int=None):
-    return
+@api.get('listMessages/')
+def getSmsRecord(request):
+    recs = [{"id": rec.id, "recipient_type": rec.recipient_type,
+             "created_on": rec.created_on.strftime("%d %B %Y"), "status": rec.status, "key": rec.id} for rec in
+            MessageRecord.objects.filter().order_by('-created_on')]
+    return {"records": recs, 'statuscode': 200, 'message': 'success'}
 
 
 @api.post('sendEmail/')
@@ -380,7 +383,10 @@ def sendMail(request,emailSchema:EmailSendSchema):
         record.status_message = str(exe.args[1])
         record.save()
         return {'statuscode': 200,'statusmessge':'Your email was not sent', 'message': 'error'}
-    return {'statuscode': 200,'statusmessge':'Your email has been sent', 'message': 'success'}
+    recs = [{"id": rec.id, "recipient_type": rec.recipient_type, "subject": rec.subject,
+             "created_on": rec.created_on.strftime("%d %B %Y"), "status": rec.status, "key": rec.id} for rec in
+            EmailRecord.objects.filter().order_by('-created_on')]
+    return {"records": recs, 'statuscode': 200,'statusmessge':'Your email was sent', 'message': 'success'}
 
 @api.post('sendSms/')
 def sendMessages(request,data:PhoneSendSchema):
@@ -428,7 +434,10 @@ def sendMessages(request,data:PhoneSendSchema):
         record.status = "sent"
         record.status_message = "message sent"
         record.save()
-        return {'statuscode': 200, 'message': 'success'}
+        recs = [{"id": rec.id, "recipient_type": rec.recipient_type,
+                 "created_on": rec.created_on.strftime("%d %B %Y"), "status": rec.status, "key": rec.id} for rec in
+                MessageRecord.objects.filter().order_by('-created_on')]
+        return {"records": recs, 'statuscode': 200, 'statusmessge': 'Your messages has been sent','message': 'success'}
     except Exception as exe:
         record.status = "error"
         record.status_message = str(exe.args[1])
