@@ -209,7 +209,7 @@ def resetpass(request):
             c = {
                 'email': user.email,
                 'domain': request.META['HTTP_HOST'],
-                'site_name': 'Pick Up Clean',
+                'site_name': 'Picupclean',
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'user': user,
                 'token': default_token_generator.make_token(user),
