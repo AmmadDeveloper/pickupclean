@@ -11,8 +11,8 @@
   <div style="background-image: url('{% static 'imgs/loginbg.jpg' %}');background-repeat: no-repeat;background-size: cover" class="registration">
     <div style="text-align: -webkit-center" class="registration-container">
       
-        <h3 style="color: #000000;text-align: center;margin-top: 20%;">An Email has been sent to <strong>"{{ order_id }}"</strong> please click the link attached.</h3>
-<a style="background-color: #fe6703;color: white;margin-top: 10%;margin-bottom: 20%" href="{% url 'orderhistory' %}" class="btn btn-default">Order List</a>
+        <h3 style="color: #000000;text-align: center;margin-top: 20%;">An Email has been sent to <strong>"{{ user.email }}"</strong> please click the link attached.</h3>
+<a style="background-color: #fe6703;color: white;margin-top: 10%;margin-bottom: 20%" href="{% url 'homepage' %}" class="btn btn-default">Go to Homepage</a>
     </div>
   </div>
 

@@ -492,6 +492,15 @@ class UserVerification(models.Model):
     phone_verified = models.BooleanField(default=False)
     user=models.OneToOneField(User,on_delete=models.CASCADE)
 
+class EmailCode(models.Model):
+    code=models.CharField(max_length=100)
+    created_on=models.DateTimeField(auto_now_add=True)
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+
+class PhoneCode(models.Model):
+    code=models.CharField(max_length=10)
+    created_on=models.DateTimeField(auto_now_add=True)
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
 
 class EmailRecord(models.Model):
     subject=models.CharField(max_length=1000,blank=False,null=False)
@@ -528,27 +537,27 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
-from allauth.account.models import EmailAddress
-@receiver(post_save,sender=User)
-def user_signup_procedure(sender, instance=None, created=False, **kwargs):
-    user=instance
-    email=EmailAddress.objects.filter(user_id=user.id).first()
-    if not email:
-        UserVerification.objects.get_or_create(user_id=user.id,phone_verified=False,email_verified=False)
-        data = {"name": user.first_name + ' ' + user.last_name}
-        template = get_template("../../home/templates/email/signupemail.html")
-        html = template.render(data)
-        res = send_mail(subject="Welcome to Pick up clean", message="this is a message",
-                        from_email="suitclosset@gmail.com",
-                        recipient_list=[user.email]
-                        , fail_silently=False, html_message=html)
-    else:
-        userverification=UserVerification.objects.get(user_id=user.id)
-        if userverification:
-            userverification.email_verified=email.verified
-            userverification.save()
-        else:
-            UserVerification.objects.get_or_create(user_id=user.id, phone_verified=False, email_verified=email.verified)
+# from allauth.account.models import EmailAddress
+# @receiver(post_save,sender=User)
+# def user_signup_procedure(sender, instance=None, created=False, **kwargs):
+#     user=instance
+#     email=EmailAddress.objects.filter(user_id=user.id).first()
+#     if not email:
+#         UserVerification.objects.get_or_create(user_id=user.id,phone_verified=False,email_verified=False)
+#         data = {"name": user.first_name + ' ' + user.last_name}
+#         template = get_template("../../home/templates/email/signupemail.html")
+#         html = template.render(data)
+#         res = send_mail(subject="Welcome to Pick up clean", message="this is a message",
+#                         from_email="suitclosset@gmail.com",
+#                         recipient_list=[user.email]
+#                         , fail_silently=False, html_message=html)
+#     else:
+#         userverification=UserVerification.objects.get(user_id=user.id)
+#         if userverification:
+#             userverification.email_verified=email.verified
+#             userverification.save()
+#         else:
+#             UserVerification.objects.get_or_create(user_id=user.id, phone_verified=False, email_verified=email.verified)
 
 
 

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block style %}
+    <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block body %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+  <div style="background-image: url('{% static 'imgs/loginbg.jpg' %}');background-repeat: no-repeat;background-size: cover" class="registration">
+    <div style="text-align: -webkit-center" class="registration-container">
+        <h3 style="color: #000000;text-align: center;margin-top: 20%;">Your {{ address }} has been verified!</h3>
+        <a href="{% url 'homepage' %}" style="background-color: #fe6703;color: white;margin-top: 5%;margin-bottom: 20%;width: 20%" class="btn btn-default">Go back</a>
+    </div>
+  </div>
+
+{% endblock %}

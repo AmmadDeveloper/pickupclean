@@ -1,0 +1,93 @@
+.press-header {
+  padding-left: 36px;
+  padding-right: 36px; }
+
+.press-bg {
+  display: none; }
+
+.press-section {
+  padding-bottom: 60px; }
+
+.press-container {
+  padding: 0 48px; }
+
+.press-title {
+  font-size: 28px;
+  padding: 0;
+  text-align: left; }
+
+.press-text {
+  text-align: left; }
+
+.press-link--blue {
+  color: #0051ff; }
+
+.press-link-list--dark .press-link-item > a {
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.5); }
+
+.press-link-item:not(:last-child) {
+  margin-bottom: 18px; }
+
+.press-link-item > a {
+  color: #000000;
+  border-bottom: 1px solid rgba(151, 151, 151, 0.5); }
+  .press-link-item > a:hover {
+    text-decoration: none; }
+
+.press-media-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 50px 0 34px; }
+
+.press-media-item {
+  flex: 0 0 100%; }
+  .press-media-item:not(:last-child) {
+    margin-bottom: 28px; }
+  .press-media-item > a {
+    display: block;
+    text-align: center; }
+    .press-media-item > a > img {
+      width: 100%; }
+
+@media (max-width: 59.99em) {
+  .press-bg {
+    display: block;
+    margin: -60px 0 90px;
+    width: 100%; } }
+
+@media (min-width: 60em) {
+  .press-header {
+    margin-bottom: 142px; }
+  .press-container {
+    margin: 0 auto;
+    width: 580px; }
+  .press-section {
+    padding-bottom: 90px; }
+  .press-title {
+    margin-bottom: 10px; }
+  .press-text {
+    font-size: 16px; }
+    .press-text--push {
+      margin-bottom: 42px; }
+  .press-media-list--grid {
+    flex-wrap: wrap; }
+    .press-media-list--grid .press-media-item:not(.press-media-item--focused) {
+      flex-basis: 47%; } }
+
+.press-section--news {
+  background: #000000;
+  color: #ffffff;
+  padding: 80px 0; }
+  .press-section--news .press-title--small {
+    font-size: 20px;
+    margin-bottom: 32px; }
+  .press-section--news .press-title--large {
+    display: none;
+    margin-bottom: 58px; }
+  @media (min-width: 60em) {
+    .press-section--news .press-title--small {
+      display: none; }
+    .press-section--news .press-title--large {
+      display: block; } }

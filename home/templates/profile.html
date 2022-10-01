@@ -162,21 +162,28 @@
         {% if email_verified %}
             <span style="float: right;color: #17bd19;">Verified <i class="fa fa-check"></i></span><br/>
             {% else %}
-            <span><a style="float: right;color: #f26522;cursor: pointer">Verify</a></span><br/>
+            <span><a href="{% url 'verify_email' %}" style="float: right;color: #f26522;cursor: pointer">Verify</a></span><br/>
         {% endif %}
 
-        <input id="name" style="display: inline-block;width: 350px;" value="{{ user.email }}" type="text">
+        <input id="name" style="display: inline-block;width: 350px;" value="{{ user.email }}" type="text" disabled>
     </div>
     <div style="margin-top: 3%">
         <label for="name">  Phone:</label>
         {% if phone_verified %}
             <span><a style="float: right;color: #17bd19;cursor: pointer">Verified <i class="fa fa-check"></i> </a></span><br/>
             {% else %}
-            <span><a style="float: right;color: #f26522;cursor: pointer">Verify</a></span><br/>
+            <span><a onclick="verifyPhone()" style="float: right;color: #f26522;cursor: pointer">Verify</a></span><br/>
         {% endif %}
-        <input id="name" style="display: inline-block;width: 350px;" value="{{ phone }}" type="text">
+        <input id="phone" style="display: inline-block;width: 350px;" value="{{ phone }}" type="text">
     </div>
 </div>
+
+  <script>
+      function verifyPhone(){
+          var phone=document.getElementById('phone').value
+          window.location.href=`/verify_phone/${phone}`
+      }
+  </script>
 
 <div id="Password" class="tabcontent">
     <form method="post">
