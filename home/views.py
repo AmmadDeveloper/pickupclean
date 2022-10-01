@@ -16,7 +16,6 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import logout as lout, authenticate,login as lin
 from .forms import loginform,signupform
 from django.contrib.auth.models import User
-from django.contrib.messages import add_message,get_messages
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -359,32 +358,34 @@ def verify_email(request):
 @login_required()
 def verify_phone(request,phone:str):
     if request.method=="GET":
-        phone=Electronic_Address.objects.filter(phone__iexact=phone).first()
-        # code = get_random_string(6)
-        # phonecode, created = PhoneCode.objects.get_or_create(user_id=request.user.id)
-        # if phonecode:
-        #     phonecode.code = code
-        #     phonecode.user = request.user
-        #     phonecode.save()
-        #     response = client.messages \
-        #         .create(
-        #         body=f'Thanks for choosing picupclean your one time system generated code for phone verification is: {code}',
-        #         from_=settings.PHONE_NUMBER,
-        #         status_callback='https://1a17-182-185-185-36.in.ngrok.io/sms/status',
-        #         to='+923045171619'
-        #     )
-        #     message = Message()
-        #     message.sid = response.sid
-        #     message.body = response.body
-        #     message.accountsid = response.account_sid
-        #     message.status = response.status
-        #     message.error_message = response.error_message
-        #     message.error_code = response.error_code
-        #     message.sent_to = response.to
-        #     message.uri = response.uri
-        #     message.sent_from = settings.PHONE_NUMBER
-        #     message.save()
-        return render(request,'verifyphone.html',{'phone':phone.phone})
+        uphone=Electronic_Address.objects.filter(user_id=request.user.id).first()
+        uphone.phone=phone
+        uphone.save()
+        code = get_random_string(6)
+        phonecode, created = PhoneCode.objects.get_or_create(user_id=request.user.id)
+        if phonecode:
+            phonecode.code = code
+            phonecode.user = request.user
+            phonecode.save()
+            response = client.messages \
+                .create(
+                body=f'Thanks for using picupclean your one time system generated code for phone verification is: {code}',
+                from_=settings.PHONE_NUMBER,
+                status_callback=f'{settings.SERVER_URL}sms/status',
+                to=phone
+            )
+            message = Message()
+            message.sid = response.sid
+            message.body = response.body
+            message.accountsid = response.account_sid
+            message.status = response.status
+            message.error_message = response.error_message
+            message.error_code = response.error_code
+            message.sent_to = response.to
+            message.uri = response.uri
+            message.sent_from = settings.PHONE_NUMBER
+            message.save()
+        return render(request,'verifyphone.html',{'phone':phone})
     elif request.method=="POST":
         data=request.POST.get('code') or None
         if data:
