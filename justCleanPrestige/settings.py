@@ -186,7 +186,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-BASE_URL='http://localhost:8000/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -266,6 +265,7 @@ EMAIL_TIMEOUT=5000
 
 
 SERVER_URL='https://www.picupclean.com/'
+BASE_URL='https://www.picupclean.com/'
 
 
 #TWILIO
