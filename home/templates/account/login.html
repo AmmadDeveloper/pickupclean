@@ -172,20 +172,20 @@ function polling(){
 timer = setInterval('polling()',1000);
 
 </script>
-        <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=989243211762191&autoLogAppEvents=1" nonce="uEI9jzqZ"></script>
-        <div style="display:block;text-align: center;margin-top: 3%">
-            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/google/login')"><img style="width: 200px" src="{% static 'imgs/google-signin-button.png' %}" alt="not found"/></a>
-            <fb:login-button class="fb-login-button" data-width="190" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
+{#        <div id="fb-root"></div>#}
+{#<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=989243211762191&autoLogAppEvents=1" nonce="uEI9jzqZ"></script>#}
+{#        <div style="display:block;text-align: center;margin-top: 3%">#}
+{#            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/google/login')"><img style="width: 200px" src="{% static 'imgs/google-signin-button.png' %}" alt="not found"/></a>#}
+{#            <fb:login-button class="fb-login-button" data-width="190" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"#}
+{#  scope="public_profile,email"#}
+{#  onlogin="checkLoginState();">#}
+{#</fb:login-button>#}
 
 {#            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/facebook/login')"><img style="width: 200px" src="{% static 'imgs/fb-sign-in-button.png' %}" alt="not found"/></a>#}
+{#    </div>#}
         </div>
 
     </div>
-  </div>
 
   <footer class="footer">
     <div class="container">
@@ -193,12 +193,12 @@ timer = setInterval('polling()',1000);
         <div class="col-md-4 footer-app-stores">
           <div class="footer-top-title">Download our new app:</div>
           <a class="ios-link"
-            href="https://itunes.apple.com/gb/app/ihateironing-dry-cleaning-laundry-service/id903871108?mt=8">
+            href="#">
             <img
               src="{% static '/images/app-stores/apple.png' %}"
               alt="Download on the App Store">
           </a>
-          <a class="android-link" href="https://play.google.com/store/apps/details?id=com.app.ihateironing">
+          <a class="android-link" href="#">
             <img
               src="{% static 'images/app-stores/google.png' %}"
               alt="Get it on Google Play">
