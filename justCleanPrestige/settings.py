@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q1n9yg2@h=*c_m0n#94)jzak%)i!f!mm^%str1$qti7jbr3jx7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['picupclean.com','www.picupclean.com','localhost','127.0.0.1','46.101.55.159','*']
+ALLOWED_HOSTS = ['picupclean.com','www.picupclean.com','localhost','127.0.0.1','46.101.55.159']
 
 
 # STRIPE_PUBLISHABLE_KEY='pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at'
@@ -124,15 +124,15 @@ DATABASES = {
     # }
 
     #PRoduction DB
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'pickupclean',
-    #     'HOST': '46.101.55.159',
-    #     # 'HOST': '172.17.0.2',
-    #     'USER': 'pickupclean',
-    #     'PORT': '5432',
-    #     'PASSWORD':'12345super'
-    # },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pickupclean',
+        'HOST': '46.101.55.159',
+        # 'HOST': '172.17.0.2',
+        'USER': 'pickupclean',
+        'PORT': '5432',
+        'PASSWORD':'12345super'
+    },
 # 'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'pickupclean',
@@ -142,15 +142,15 @@ DATABASES = {
 #         'PORT': '3306',
 #         #'PASSWORD':'12345super'
 #     },
-'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pickupclean',
-        'HOST': 'localhost',
-        # 'HOST': '172.17.0.2',
-        'USER': 'root',
-        'PORT': '3306',
-        #'PASSWORD':'12345super'
-    },
+# 'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pickupclean',
+#         'HOST': 'localhost',
+#         # 'HOST': '172.17.0.2',
+#         'USER': 'root',
+#         'PORT': '3306',
+#         #'PASSWORD':'12345super'
+#     },
 }
 
 
@@ -265,7 +265,7 @@ EMAIL_USE_TLS=True
 EMAIL_TIMEOUT=5000
 
 
-SERVER_URL='https://pickupclean.herokuapp.com/'
+SERVER_URL='https://www.picupclean.com/'
 
 
 #TWILIO
