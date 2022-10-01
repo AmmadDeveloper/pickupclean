@@ -27,6 +27,7 @@ function addtocart(id){
                 cart[id].catname=data.cartitem.catname;
                 UserCart=[...UserCart,data.cartitem]
                 updateCart()
+                updateRows()
             },
             data: JSON.stringify(item)
         });
@@ -62,28 +63,30 @@ function checkout(){
 }
 function updateRows(){
     let rows=""
-    $.each(cart,(key,value)=>{
-        rows+=`<div style="display: inline-block" class="form-group">
+    if(cart.length>0) {
+        $.each(cart, (key, value) => {
+            rows += `<div style="display: inline-block" class="form-group">
                   <select onchange="getService('service${key}',this,${key})" name="category${key}" id="category${key}" style=" display: inline-block;height: 43px">
                       ${genCat(value.catid)}
                   </select>
-                  <select  id="service${key}" name="service${key}" onchange="getPrice('service${key}','price${key}','qty${key}','${key}')" style="display: inline-block;height: 43px">${genService(value.id,value.catid)}</select>
-                    <input onchange="getPrice('service${key}','price${key}','qty${key}','${key}')" style="display: inline-block;width: 100px;" type="number" name="qty${key}" required="" id="qty${key}" min="1" value="${value.qty!==0?value.qty:1}"/>
-                    <input style="display: inline-block;width: 100px;" type="text" readonly name="price${key}" required="" id="price${key}" value="${value.total!==0?value.total:0}"/>`
-        if(value.cartid===0) {
-            rows += `<span>
-                        <button type="button" onclick="addtocart(${key})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-check"></i></button>
-                        <button type="button" onclick="remove(${key})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
+                  <select  id="service${key}" name="service${key}" onchange="getPrice('service${key}','price${key}','qty${key}','${key}')" style="display: inline-block;height: 43px">${genService(value.id, value.catid)}</select>
+                    <input onchange="getPrice('service${key}','price${key}','qty${key}','${key}')" style="display: inline-block;width: 100px;" type="number" name="qty${key}" required="" id="qty${key}" min="1" value="${value.qty !== 0 ? value.qty : 1}"/>
+                    <input style="display: inline-block;width: 100px;" type="text" readonly name="price${key}" required="" id="price${key}" value="${value.total !== 0 ? "£"+value.total.toString() : "£0"}"/>`
+            if (value.cartid === 0) {
+                rows += `<span>
+                        <button type="button" onclick="addtocart(${key})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-check"></i></button>
+                        <button type="button" onclick="remove(${key})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
                     </span>`
-        }else{
-            rows += `<span>
-                        <button type="button" onclick="editcart(${key},${value.cartid})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-edit"></i></button>
-                        <button type="button" onclick="removecart(${value.cartid})" style="background-color: orange;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
+            } else {
+                rows += `<span>
+                        <button type="button" onclick="editcart(${key},${value.cartid})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-edit"></i></button>
+                        <button type="button" onclick="removecart(${value.cartid})" style="background-color: #f26522;display: inline-block; color: white" class="btn"><i class="fa fa-times"></i></button>
                     </span>`
-        }
-        rows+=`</div>`
-    });
-    $("#detail-rows")[0].innerHTML=rows;
+            }
+            rows += `</div>`
+        });
+        $("#detail-rows")[0].innerHTML = rows;
+    }
 }
 
 
@@ -164,13 +167,15 @@ function genCat(id){
             res+=`<option value="${val.id}">${val.name}</option>`
         }
        });
-    $(`#${id}`).change();
+    if(id!==''){
+        $(`#${id}`).change();
+    }
     return res;
 }
 function getPrice(sid,priceid,qtyid,index){
     var price=+($(`#${sid}`)[0].value.split('-')[0])
     var qty=+$(`#${qtyid}`)[0].value
-    $(`#${priceid}`)[0].value=(price*qty).toString()
+    $(`#${priceid}`)[0].value="£"+(price*qty).toString()
     cart[index].price=price;
     cart[index].qty=qty;
     cart[index].total=price*qty;
@@ -182,7 +187,14 @@ function addRow(){
     updateRows()
 }
 
+
+
+$.get('/api/categories/',function(res){
+    cats=res;
+    updateRows();
+});
 $(document).ready(function(){
+
     var token=localStorage.getItem('token')
     $.ajax({
         url: '/api/cart',
@@ -197,13 +209,9 @@ $(document).ready(function(){
                 updateRows()
                 updateCart()
             }
+
         }
     });
-    $.get('/api/categories/',function(res){
-       cats=res;
-       updateRows();
-    });
-
 
 });
 var UserCart=[]
@@ -211,14 +219,14 @@ function updateCart(){
     let rows=""
     $.each(UserCart,(key,value)=>{
         rows+=`<div class="row">
-                  <div class="col-sm-7">${value.qty} X ${value.name} - ${value.catname}</div>
-                  <div style="text-align: right" class="col-sm-5">
+                  <div style="width: 100%;padding-right: 20px;padding-left: 20px">${value.qty} X ${value.name} - ${value.catname} <span style="float: right;text-align: end;">
                       £${value.total}
-                  </div>
+                  </span></div>
+                  
               </div>`
     });
     $("#total-amount")[0].innerHTML=UserCart.reduce((x,y)=>x+y.total,0);
-    $("#ord-info__content")[0].innerHTML=rows;
+    $("#ord-info-rows")[0].innerHTML=rows;
 
 }
 function getService(service,cat,index){

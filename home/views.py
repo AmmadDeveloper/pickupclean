@@ -1,14 +1,16 @@
 import datetime
 import functools
 import json
+import random
+import string
 
 import requests
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from django.utils import timezone
-
+from twilio.rest import Client
 from models.models import Category, Message, PostCode, Electronic_Address, Order, Cart, PaymentIntent, UserVerification, \
-    PromoUsage, ServiceType
+    PromoUsage, ServiceType, EmailCode, PhoneCode
 from models.utils.Constants import OrderType
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import logout as lout, authenticate,login as lin
@@ -30,7 +32,7 @@ from django.contrib.auth.decorators import login_required
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-
+client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 
 # Create your views here.
 def home(request):
@@ -133,6 +135,14 @@ def signup(request):
                     eadd.user=user
                     eadd.phone=request.POST['phone']
                     eadd.save()
+                    UserVerification.objects.get_or_create(user_id=user.id, phone_verified=False, email_verified=False)
+                    data = {"name": user.first_name + ' ' + user.last_name}
+                    template = get_template("../../home/templates/email/signupemail.html")
+                    html = template.render(data)
+                    res = send_mail(subject="Welcome to Pick up clean", message="this is a message",
+                                    from_email="suitclosset@gmail.com",
+                                    recipient_list=[user.email]
+                                    , fail_silently=False, html_message=html)
                     lin(request,user,backend='django.contrib.auth.backends.ModelBackend')
                 except Exception as exc:
                     add_message(request,level=7,message="User already exists")
@@ -302,15 +312,91 @@ def orderhistory(request):
     else:
         return render(request,'orderhistory.html')
 
+
+
+def get_random_string(length):
+    # choose from all lowercase letter
+    if length==80:
+        letters = string.ascii_lowercase
+        result_str = ''.join(random.choice(letters) for i in range(length))
+        return result_str
+    else:
+        letters = string.digits
+        result_str = ''.join(random.choice(letters) for i in range(length))
+        return result_str
+
+def callback(request):
+    code=request.GET.get('code')
+    ecode=EmailCode.objects.filter(code__iexact=code).first()
+    if ecode:
+        verification=UserVerification.objects.filter(user_id=ecode.user.id,email_verified=False).first()
+        if verification:
+            verification.email_verified=True
+            verification.save()
+        else:
+            return render(request,'index.html')
+    return render(request,'verified.html',{'address':'email'})
+
 @login_required()
 def verify_email(request):
     if request.method=="GET":
+        user=request.user
+        code=get_random_string(80)
+        emailcode,created=EmailCode.objects.get_or_create(user_id=user.id)
+        if emailcode:
+            emailcode.code=code
+            emailcode.user=request.user
+            emailcode.save()
+        data = {"name": user.first_name + ' ' + user.last_name,"url":f'{settings.BASE_URL}email/callback/?code={code}'}
+        template = get_template("../../home/templates/email/emailverification.html")
+        html = template.render(data)
+        res = send_mail(subject="Email Verification", message="",
+                        from_email="suitclosset@gmail.com",
+                        recipient_list=[user.email]
+                        , fail_silently=False, html_message=html)
         return render(request,'verifyemail.html')
 
 @login_required()
-def verify_phone(request):
+def verify_phone(request,phone:str):
     if request.method=="GET":
-        return render(request,'verifyphone.html')
+        phone=Electronic_Address.objects.filter(phone__iexact=phone).first()
+        # code = get_random_string(6)
+        # phonecode, created = PhoneCode.objects.get_or_create(user_id=request.user.id)
+        # if phonecode:
+        #     phonecode.code = code
+        #     phonecode.user = request.user
+        #     phonecode.save()
+        #     response = client.messages \
+        #         .create(
+        #         body=f'Thanks for choosing picupclean your one time system generated code for phone verification is: {code}',
+        #         from_=settings.PHONE_NUMBER,
+        #         status_callback='https://1a17-182-185-185-36.in.ngrok.io/sms/status',
+        #         to='+923045171619'
+        #     )
+        #     message = Message()
+        #     message.sid = response.sid
+        #     message.body = response.body
+        #     message.accountsid = response.account_sid
+        #     message.status = response.status
+        #     message.error_message = response.error_message
+        #     message.error_code = response.error_code
+        #     message.sent_to = response.to
+        #     message.uri = response.uri
+        #     message.sent_from = settings.PHONE_NUMBER
+        #     message.save()
+        return render(request,'verifyphone.html',{'phone':phone.phone})
+    elif request.method=="POST":
+        data=request.POST.get('code') or None
+        if data:
+            pcode = PhoneCode.objects.filter(code__iexact=data).first()
+            if pcode:
+                verification = UserVerification.objects.filter(user_id=pcode.user.id, phone_verified=False).first()
+                if verification:
+                    verification.phone_verified = True
+                    verification.save()
+                else:
+                    return render(request, 'index.html')
+        return render(request,'verified.html',{'address':'phone'})
 
 
 @login_required()
