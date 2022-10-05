@@ -24,3 +24,6 @@ class PromoSchema(Schema):
 class AuthenticationSchema(Schema):
     email:str
     password:str
+    
+class GoogleSchema(Schema):
+    token:str

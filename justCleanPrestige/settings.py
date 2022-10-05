@@ -213,11 +213,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+'http://localhost:8000',
+'http://localhost:8080',
+'http://localhost:4200',
 ]
 CORS_ORIGIN_WHITELIST = (
-
-    'http://localhost:3000',
-
+'http://localhost:3000',
+'http://localhost:8000',
+'http://localhost:8080',
+'http://localhost:4200',
 )
 
 # AUTH_USER_MODEL='models.User'
@@ -226,6 +230,9 @@ SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD='username_email'
 ACCOUNT_EMAIL_VERIFICATION='none'
 # Provider specific settings
+
+GOOGLE_CLIENT_ID='342462780848-k79mrcrbfm2n0inkj8im53rvnbdrblm8.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET='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'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
@@ -288,3 +295,5 @@ if not DEBUG:
 else:
     GOOGLE_CAPTCHA_SITE_KEY = '6Le302UbAAAAAMSbTcngnWI-6mJonz5TvdM2Eb1y'
     GOOGLE_CAPTCHA_SECRET_KEY = '6Le302UbAAAAAJ2FBjZsVdFzVSyOS7JI9yxHe3LK'
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'

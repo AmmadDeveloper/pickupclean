@@ -2,17 +2,23 @@
 import json
 import stripe
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.shortcuts import redirect
+from django.template.loader import get_template
 from django.utils import timezone
 from ninja import NinjaAPI,Form
 from ninja.security import HttpBearer
-from models.models import Category,Files,ScheduleConfig,PostCode,PostCodeRequests,Service,Cart,Order
+from models.models import Category, Files, ScheduleConfig, PostCode, PostCodeRequests, Service, Cart, Order, \
+    Electronic_Address, UserVerification
 from rest_framework.authtoken.models import Token
 from datetime import timedelta
 import datetime
 import requests
 from ninja.responses import codes_4xx
-from .schema import districtSchema, cartSchema, AuthenticationSchema, PromoSchema
+from .schema import districtSchema, cartSchema, AuthenticationSchema, PromoSchema, GoogleSchema
 from models.utils.Constants import OrderType
 
 
@@ -114,6 +120,7 @@ def get_categories(request):
 def get_services(request,id:int):
     servs=[{"id":item.id,"name":item.name,"price":item.price} for item in Service.objects.filter(category_id=id)]
     return servs
+
 
 
 @user_api.get('time-slots/',response={200: dict, codes_4xx: dict},auth=None)

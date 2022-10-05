@@ -6,6 +6,7 @@
 {% endblock %}
 {% block body %}
     <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 {% load static %}
 {% load i18n %}
 {% load account socialaccount %}
@@ -54,6 +55,31 @@
     Already have account?
     <a style="color: #fe6703" href="{% url 'login' %}">Login here.</a>
   </p>
+    <form id="googlelogin" method="post" action="/social/google">
+        {% csrf_token %}
+        <input type="text" name="token" id="token" hidden />
+    </form>
+    <script>
+        function handleCredentialResponse(response) {
+            debugger;
+            document.getElementById('token').value=response.credential;
+          console.log("Encoded JWT ID token: " + response.credential);
+          var form=document.getElementById('googlelogin');
+          form.submit();
+        }
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "342462780848-k79mrcrbfm2n0inkj8im53rvnbdrblm8.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "filled_black", size: "large",type:"standard",shape:"pill" }  // customization attributes
+          );
+          google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+    </script>
+    <div id="buttonDiv" style="text-align: -webkit-center;margin-top: 30px"></div>
 <script type="text/javascript">
     var win;
 function OpenNewWindow(MyPath)

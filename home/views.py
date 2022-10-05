@@ -103,11 +103,13 @@ def login(request):
                 password = request.POST['password']
                 user = authenticate(request, username=username, password=password)
                 if user == None:
+                    messages.error(request,'Email or password provided is incorrect!')
                     return redirect('login')
                 else:
                     lin(request, user,backend='django.contrib.auth.backends.ModelBackend')
                     return redirect('homepage')
             else:
+                messages.error(request, 'Please enter valid information!')
                 return render(request, 'account/login.html')
     return render(request,'account/login.html')
 
@@ -144,7 +146,7 @@ def signup(request):
                                     , fail_silently=False, html_message=html)
                     lin(request,user,backend='django.contrib.auth.backends.ModelBackend')
                 except Exception as exc:
-                    add_message(request,level=7,message="User already exists")
+                    messages.error(request,message="User already exists")
                     return redirect('signup')
             else:
                 return redirect('signup')
@@ -649,6 +651,80 @@ def loggedIn(request):
 
 def status(request):
     return render(request,'success.html')
+
+
+
+
+
+
+from google.oauth2 import id_token
+from google.auth.transport import requests
+from django.contrib.auth import login as lin
+def create_google_user(request):
+    token=request.POST.get('token')
+    # (Receive token by HTTPS POST)
+    # ...
+
+    try:
+        # Specify the CLIENT_ID of the app that accesses the backend:
+        idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.GOOGLE_CLIENT_ID)
+        # {
+        # 'iss': 'https://accounts.google.com',
+        # 'nbf': 1664825478,
+        #  'aud': '342462780848-k79mrcrbfm2n0inkj8im53rvnbdrblm8.apps.googleusercontent.com',
+        #  'sub': '104693037795907723835',
+        #  'email': 'asad.tornado99@gmail.com',
+        #  'email_verified': True,
+        #  'azp': '342462780848-k79mrcrbfm2n0inkj8im53rvnbdrblm8.apps.googleusercontent.com',
+        #  'name': 'Asad Saleem',
+        #  'picture': 'https://lh3.googleusercontent.com/a/ALm5wu0QoYt5uHim37FCPlg1v_bYdozKGw0BwIubD_HL=s96-c',
+        #  'given_name': 'Asad',
+        #  'family_name': 'Saleem',
+        #  'iat': 1664825778,
+        #  'exp': 1664829378,
+        #  'jti': 'e5fba2af851a98567251c011db953d9ea9f7e481'}
+        try:
+            user = User.objects.create_user(password=idinfo['jti'], email=idinfo['email'],
+                                            username=idinfo['email'],first_name = idinfo['given_name'],last_name = idinfo['family_name'],is_active = True)
+
+            eadd = Electronic_Address()
+            eadd.user = user
+            eadd.phone = ""
+            eadd.save()
+            UserVerification.objects.get_or_create(user_id=user.id, phone_verified=False, email_verified=True)
+            data = {"name": user.first_name + ' ' + user.last_name}
+            template = get_template("../../home/templates/email/signupemail.html")
+            html = template.render(data)
+            res = send_mail(subject="Welcome to Picupclean", message="this is a message",
+                            from_email="suitclosset@gmail.com",
+                            recipient_list=[user.email]
+                            , fail_silently=False, html_message=html)
+            lin(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        except Exception as exc:
+            if exc.args[0]==1062:
+                user = User.objects.get(username=idinfo['email'])
+                lin(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect('homepage')
+            else:
+                return redirect('login')
+        # Or, if multiple clients access the backend server:
+        # idinfo = id_token.verify_oauth2_token(token, requests.Request())
+        # if idinfo['aud'] not in [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]:
+        #     raise ValueError('Could not verify audience.')
+
+        # If auth request is from a G Suite domain:
+        # if idinfo['hd'] != GSUITE_DOMAIN_NAME:
+        #     raise ValueError('Wrong hosted domain.')
+
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+        #userid = idinfo['sub']
+    except ValueError:
+        # Invalid token
+        return redirect('login')
+    return redirect('homepage')
+
+
+
 
 
 

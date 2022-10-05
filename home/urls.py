@@ -1,6 +1,8 @@
 
 from django.urls import path,re_path
-from .views import verify_email,callback,verify_phone,smswebhook,setpassword,orderhistory,home,orderdetail,loggedIn,loginsuccess,login,price,resetpass,services,profile,areas,servicedetail,order,logout,privacy,instruction,status,signup,orderwebhook,smsmarketinhwebhook
+from .views import verify_email, callback, verify_phone, smswebhook, setpassword, orderhistory, home, orderdetail, \
+    loggedIn, loginsuccess, login, price, resetpass, services, profile, areas, servicedetail, order, logout, privacy, \
+    instruction, status, signup, orderwebhook, smsmarketinhwebhook, create_google_user
 from django.conf import settings
 from django.conf.urls.static import static
 from .api import user_api
@@ -27,6 +29,7 @@ urlpatterns = [
     path('api/',user_api.urls),
     path('verify_email/',verify_email,name="verify_email"),
     path('verify_phone/<phone>',verify_phone,name="verify_phone"),
+    re_path('^social/google',create_google_user),
     re_path('^order/',status),
     re_path('^email/callback/',callback,name="emailcallback"),
     re_path('^sms/status',smswebhook,name="smswebhook"),

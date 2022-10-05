@@ -7,13 +7,18 @@
 
 <head>
   <meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block title %}{% endblock %} | Pick up Clean</title>
+<meta name="google-signin-client_id" content="342462780848-clcoeia8oa635pkn2d3dsor3cs8uajmn">
+
+  <title>{% block title %}Login{% endblock %} | Picupclean</title>
 {% block style %}
     <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
 {% endblock %}
 {% block body %}
-     <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 {% load static %}
 {% load i18n %}
 {% load account socialaccount %}
@@ -101,6 +106,11 @@
     <div class="registration-container">
       
   <h1 style="color: #000000;font-weight: bold">Log in</h1>
+        {% if messages %}
+      {% for message in messages %}
+          <p style="background-color: #ffcfb8;padding: 15px;border-radius: 10px;border: 1px solid #ffb694;margin-bottom: 20px;">{{ message }}</p>
+      {% endfor %}
+  {% endif %}
   <form id="login-form" method="post">
 
       {% csrf_token %}
@@ -180,7 +190,31 @@ timer = setInterval('polling()',1000);
 {#  scope="public_profile,email"#}
 {#  onlogin="checkLoginState();">#}
 {#</fb:login-button>#}
-
+    <form id="googlelogin" method="post" action="/social/google">
+        {% csrf_token %}
+        <input type="text" name="token" id="token" hidden />
+    </form>
+    <script>
+        function handleCredentialResponse(response) {
+            debugger;
+            document.getElementById('token').value=response.credential;
+          console.log("Encoded JWT ID token: " + response.credential);
+          var form=document.getElementById('googlelogin');
+          form.submit();
+        }
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "342462780848-k79mrcrbfm2n0inkj8im53rvnbdrblm8.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "filled_black", size: "large",type:"standard",shape:"pill" }  // customization attributes
+          );
+          google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+    </script>
+    <div id="buttonDiv" style="text-align: -webkit-center;margin-top: 30px"></div>
 {#            <a style="display:inline-block" onclick="OpenNewWindow('/accounts/facebook/login')"><img style="width: 200px" src="{% static 'imgs/fb-sign-in-button.png' %}" alt="not found"/></a>#}
 {#    </div>#}
         </div>
@@ -235,7 +269,7 @@ timer = setInterval('polling()',1000);
             <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
           </div>
           <div class="footer-copyright">
-            <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pick up clean</span>.</div>
+            <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">picupclean</span>.</div>
             <div class="footer-rights">All rights reserved.</div>
           </div>
         </div>
@@ -305,6 +339,24 @@ timer = setInterval('polling()',1000);
     src="{% static '/local_pages/js/local-services.js' %}"></script>
 
   <script>
+function onSignIn(googleUser) {
+    debugger;
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+
+
+
 function checkLoginState() {
     debugger;
     FB.getLoginStatus(function(response) {

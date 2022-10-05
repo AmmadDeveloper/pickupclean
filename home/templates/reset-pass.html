@@ -85,6 +85,11 @@
     <div class="registration-container">
       
   <h1>Reset your password</h1>
+        {% if messages %}
+      {% for message in messages %}
+          <p style="background-color: #ffcfb8;padding: 15px;border-radius: 10px;border: 1px solid #ffb694;margin-bottom: 20px;">{{ message }}</p>
+      {% endfor %}
+  {% endif %}
   <form method="post">
       {% csrf_token %}
     
