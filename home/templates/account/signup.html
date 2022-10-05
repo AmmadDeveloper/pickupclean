@@ -61,7 +61,6 @@
     </form>
     <script>
         function handleCredentialResponse(response) {
-            debugger;
             document.getElementById('token').value=response.credential;
           console.log("Encoded JWT ID token: " + response.credential);
           var form=document.getElementById('googlelogin');
@@ -74,7 +73,7 @@
           });
           google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
-            { theme: "filled_black", size: "large",type:"standard",shape:"pill" }  // customization attributes
+            { theme: "filled_black", size: "large",type:"standard",shape:"pill",text:'signup_with',context:'signup' }  // customization attributes
           );
           google.accounts.id.prompt(); // also display the One Tap dialog
         }

@@ -701,12 +701,9 @@ def create_google_user(request):
                             , fail_silently=False, html_message=html)
             lin(request, user, backend='django.contrib.auth.backends.ModelBackend')
         except Exception as exc:
-            if exc.args[0]==1062:
-                user = User.objects.get(username=idinfo['email'])
-                lin(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('homepage')
-            else:
-                return redirect('login')
+            user = User.objects.get(username=idinfo['email'])
+            lin(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('homepage')
         # Or, if multiple clients access the backend server:
         # idinfo = id_token.verify_oauth2_token(token, requests.Request())
         # if idinfo['aud'] not in [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]:
