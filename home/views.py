@@ -5,12 +5,13 @@ import random
 import string
 
 import requests
+from django.db.models import Min
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from django.utils import timezone
 from twilio.rest import Client
 from models.models import Category, Message, PostCode, Electronic_Address, Order, Cart, PaymentIntent, UserVerification, \
-    PromoUsage, ServiceType, EmailCode, PhoneCode, ScheduleConfig
+    PromoUsage, ServiceType, EmailCode, PhoneCode, ScheduleConfig, HomeBackground
 from models.utils.Constants import OrderType
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import logout as lout, authenticate,login as lin
@@ -36,7 +37,14 @@ client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 # Create your views here.
 def home(request):
     if request.method=="GET":
-        return render(request,'index.html')
+        cats=[{"name":cat.name,"icon":cat.icon,"short_desc":cat.short_description,"price":cat.category_products.aggregate(price=Min('price'))} for cat in Category.objects.filter(active=True).prefetch_related('category_products')[0:4]]
+        imgs=[{
+        "src": img.File.url,
+        "theme": 'light',
+        "title": 'Laundary Mess?',
+        "description": 'Dont worry we are here for you'
+      } for img in HomeBackground.objects.filter().order_by('-created_on')[0:5]]
+        return render(request,'index.html',{"categories":cats,"background":imgs})
     elif request.method=="POST":
         if request.user.is_authenticated:
             if request.POST.get('pickup_date') !='' and request.POST.get('dropoff_date')!='':

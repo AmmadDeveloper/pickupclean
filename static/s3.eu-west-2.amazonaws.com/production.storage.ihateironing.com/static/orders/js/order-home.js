@@ -28,7 +28,7 @@ window.IronWeb.HomePage = function () {
     slides: window.IronWeb.orderSlides,
     walk: function walk(index, slide) {
       body.removeClass(THEME_CLASSES).addClass(slide.theme); // title.html(slide.title);
-      // description.text(formatSlideDescription(slide.description));
+      description.text(formatSlideDescription(slide.description));
       // Set icon if one was assigned to the slide, hide otherwise
       // !slide.logo || !slide.logo.src
       //   ? logo.hide()
