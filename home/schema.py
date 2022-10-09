@@ -8,6 +8,13 @@ class districtSchema(Schema):
     postcode:str
     country:str
 
+class timeSlotSchema(Schema):
+    pickupdate:str
+    dropoffdate:str
+    pickup_timeslot:str
+    dropoff_timeslot:str
+    order_id:str
+
 class cartSchema(Schema):
     catid: str=None
     catname: str=None

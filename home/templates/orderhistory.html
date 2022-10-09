@@ -20,8 +20,6 @@
    <link rel="shortcut icon" href="{% static 'imgs/favicon.png' %}">
     <script src="https://kit.fontawesome.com/9cff5eee9f.js" crossorigin="anonymous"></script>
   <script src="{% static '/js/libs.js' %}"></script>
-<link rel="stylesheet" href="{% static '/css/jquery-confirm.min.css' %}">
-<script src="{% static '/js/jquery-confirm.min.js' %}"></script>
 {#  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>#}
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
@@ -287,7 +285,8 @@
 
   </div>
 </footer>
-
+<link rel="stylesheet" href="{% static '/css/jquery-confirm.min.css' %}">
+<script src="{% static '/js/jquery-confirm.min.js' %}"></script>
   <script>
     $('.sign').click(function(){
         $(this.parentElement.parentElement).toggleClass('expand').nextUntil('tr.heading').slideToggle('fast');
@@ -295,7 +294,58 @@
 
 
     function editOrder(id){
-        console.log(id)
+        $.confirm({
+    title: false,
+    content: `url:/editorder/?id=${id}`,
+    closeIcon: true,
+    buttons: {
+        Update: {
+            text: 'Update',
+            btnClass: 'btn-green',
+            action: function(){
+                var dropoffdate=document.getElementById('dropoffdate').value;
+                var picupdate=document.getElementById('picupdate').value;
+                var dropoff_timeslot=document.getElementById('dropoff_timeslot').value;
+                var pickup_timeslot=document.getElementById('pickup_timeslot').value;
+                var orderid=document.getElementById('orderid').value;
+                if(dropoffdate===""||dropoff_timeslot===""||picupdate===""||pickup_timeslot===""){
+                    $.alert('Please select valid dates and timeslots"');
+                }else{
+                    var data={
+                        "pickupdate":picupdate,
+                        "dropoffdate":dropoffdate,
+                        "pickup_timeslot":pickup_timeslot,
+                        "dropoff_timeslot":dropoff_timeslot,
+                        "order_id":orderid
+                    }
+                    var token=localStorage.getItem('token')
+                  $.ajax({
+                        url: '/api/updatetime/',
+                        type: 'post',
+                        headers:{'Authorization': `Bearer ${token}`},
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if(data.statuscode===200){
+                                $.confirm({
+                                    title: false,
+                                    content: `"Your order has been successfully updated"`,
+                                            onDestroy: function () {
+                                        // when the modal is removed from DOM
+                                        window.location.href='/orderhistory/';
+                                    }});
+                            }
+                        },
+                        error:function (data){
+                            $.alert("There was an error while processing your request please try again");
+                        },
+                        data: JSON.stringify(data)
+                    });
+                }
+            }
+        }
+    }
+});
     }
     function cancelOrder(id){
         $.confirm({

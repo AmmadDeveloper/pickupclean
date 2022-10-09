@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{#  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">#}
+{#    <link rel="stylesheet" href="{% static '/css/jquery-confirm.min.css' %}">#}
+{#<script src="{% static '/js/jquery-confirm.min.js' %}"></script>#}
+{#   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
+</head>
+<body>
+<input id="orderid" type="hidden" value="{{ orderid }}">
+<input id="country" type="hidden" value="{{ country }}">
+<input id="postalcode" type="hidden" value="{{ postalcode }}">
+<h3>Update Pickup and Dropoff time</h3>
+<label style="margin-top: 20px" for="picupdate">Pick Up Date
+</label>
+<select name="pickupdate" id="picupdate" onchange="picupchanged(this)" class="form-control" >
+    {% for data in enable %}
+        <option value="{{ data.date }}">{{ data.weekday_label }}</option>
+    {% endfor %}
+</select>
+<label style="margin-top: 20px" for="pickup_timeslot">Pick Up Time Slot
+</label>
+<select id="pickup_timeslot" class="form-control">
+    <option value="" selected>
+        Select a time slot
+    </option>
+    {% for item in data.time_slots %}
+        <option value="{{ item.label }}">{{ item.label }}</option>
+    {% endfor %}
+</select>
+<label style="margin-top: 20px" for="dropoffdate">Dropoff Date
+</label>
+<select name="dropoffdate" id="dropoffdate" onchange="dropoffchanged()" class="form-control" ><option value="" selected>
+        Select a dropoff date
+    </option></select>
+<label style="margin-top: 20px" for="dropoff_timeslot">Dropoff Time Slot
+</label>
+<select id="dropoff_timeslot" class="form-control">
+    <option>
+        Select a time slot
+    </option>
+</select>
+{#  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>#}
+{#<!--  Flatpickr  -->#}
+{#      <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>#}
+<script>
+    var dropoffdateselect=$('#dropoffdate')[0];
+    var picupdateselect=$('#picupdate')[0];
+    var picupdata={{ enable | safe }};
+    var dropoffdata=[]
+    var option=picupdateselect.selectedOptions[0].value;
+    var picupselecteddate=picupdata.filter(x=>x.date===option)[0];
+        var options=`<option value="" selected>
+                        Select a time slot
+                    </option>`;
+        $.each(picupselecteddate.time_slots,function (index,val){
+            options+=`<option value="${ val.label }">${ val.label }</option>`;
+        });
+    $('#pickup_timeslot')[0].innerHTML=options;
+    $.get(`/api/time-slots/?country=${document.getElementById('country').value}&postcode=${document.getElementById('postalcode').value}&pickup_start=${option}T11:00:00`,function (resp){
+            console.log(resp);
+            var dropdates=[]
+            $.each(resp.availability,function (index,val){
+               dropdates.push({'date':val.date,"label":val.full_label})
+            });
+
+            var dropoptions=`<option value="" selected>
+                        Select a dropoff date
+                    </option>`;
+            $.each(dropdates,function (index,val){
+                dropoptions+=`<option value="${ val.date }">${ val.label }</option>`;
+            });
+            dropoffdateselect.innerHTML=dropoptions;
+
+
+
+            dropoffdata=[...resp.availability];
+
+        var droptimeslotoptions=`<option value="" selected>
+                        Select a time slot
+                    </option>`;
+        $.each(dropoffdata[0].time_slots,function (index,val){
+            droptimeslotoptions+=`<option value="${ val.label }">${ val.label }</option>`;
+        });
+        $('#dropoff_timeslot')[0].innerHTML=droptimeslotoptions;
+    });
+
+
+
+
+
+    {#var datet=new Date(`{{ data.date }}`);#}
+    {#datet.setDate(datet.getDate() + 1);#}
+    {#var min =`${datet.getFullYear()}-${+datet.getMonth()+1}-${datet.getDate()-10<0?'0':''}${datet.getDate()}`#}
+    {#datet.setDate(datet.getDate() + 15);#}
+    {#var max =`${datet.getFullYear()}-${+datet.getMonth()+1}-${datet.getDate()-10<1?'0':''}${datet.getDate()}`#}
+    {#$("#picupdate").flatpickr({#}
+    {#    enableTime: false,#}
+    {#    minDate: min,#}
+    {#    maxDate:max,#}
+    {#    dateFormat: "d-m-Y",#}
+    {#    defaultDate:min,#}
+    {#    enable:{{ enable |safe }},#}
+    {#    parseDate: (datestr, format) => {#}
+    {#        return moment(datestr, "Y-m-d", true).toDate();#}
+    {#    },#}
+    {#    disable: [#}
+    {#        function(date) {#}
+    {#           return (date.getDay() === 0);  // disable weekends#}
+    {#        }#}
+    {#    ],#}
+    {#    locale: {#}
+    {#        "firstDayOfWeek": 1 // set start day of week to Monday#}
+    {#    }#}
+    //});
+
+
+    {#var datePickerId= document.getElementById('picupdate')#}
+    {#var datet=new Date(`{{ data.date }}`);#}
+    {#datet.setDate(datet.getDate() + 1);#}
+    {#datePickerId.min =`${datet.getFullYear()}-${+datet.getMonth()+1}-${datet.getDate()-10<0?'0':''}${datet.getDate()}`#}
+    {#datet.setDate(datet.getDate() + 15);#}
+    {#datePickerId.max =`${datet.getFullYear()}-${+datet.getMonth()+1}-${datet.getDate()-10<1?'0':''}${datet.getDate()}`#}
+    {#$.get(`/api/time-slots/?country=${document.getElementById('country').value}&postcode=${document.getElementById('postalcode').value}&pickup_start={{ data.date }}T11:00:00`,function (resp){#}
+    {#    var datePickerId= document.getElementById('dropoffdate')#}
+    {#    var datet=new Date(resp.availability[0].date);#}
+    {#    datet.setDate(datet.getDate() + 1);#}
+    {#    datePickerId.min =`${datet.getFullYear()}-${+datet.getMonth()+1}-${datet.getDate()-10<0?'0':''}${datet.getDate()}`#}
+    {#    datet.setDate(datet.getDate() + 15);#}
+    {#    datePickerId.max =`${datet.getFullYear()}-${+datet.getMonth()+1}-${datet.getDate()-10<1?'0':''}${datet.getDate()}`#}
+    {#    $('#dropoffdate').val(resp.availability[0].date);#}
+    {#    var options=`<option value="" selected>#}
+    {#                    Select a time slot#}
+    {#                </option>`;#}
+    {#    $.each(resp.availability[0].time_slots,function (index,val){#}
+    {#        options+=`<option value="${ val.label }">${ val.label }</option>`;#}
+    {#    });#}
+    {#    $('#dropoff_timeslot')[0].innerHTML=options;#}
+    //});
+
+
+    function dropoffchanged(){
+        var dropoffselect=$('#dropoffdate')[0];
+        var option=dropoffselect.selectedOptions[0].value;
+
+        var selecteddate=dropoffdata.filter(x=>x.date===option)[0];
+        var options=`<option value="" selected>
+                        Select a time slot
+                    </option>`;
+        $.each(selecteddate.time_slots,function (index,val){
+            options+=`<option value="${ val.label }">${ val.label }</option>`;
+        });
+        $('#dropoff_timeslot')[0].innerHTML=options;
+    }
+
+    function picupchanged(){
+        var dropoffselect=$('#dropoffdate')[0];
+        var picupselect=$('#picupdate')[0];
+        var option=picupselect.selectedOptions[0].value;
+
+        var selecteddate=picupdata.filter(x=>x.date===option)[0];
+        var options=`<option value="" selected>
+                        Select a time slot
+                    </option>`;
+        $.each(selecteddate.time_slots,function (index,val){
+            options+=`<option value="${ val.label }">${ val.label }</option>`;
+        });
+        $('#pickup_timeslot')[0].innerHTML=options;
+
+        $.get(`/api/time-slots/?country=${document.getElementById('country').value}&postcode=${document.getElementById('postalcode').value}&pickup_start=${option}T11:00:00`,function (resp){
+            console.log(resp);
+            var dropdates=[]
+            $.each(resp.availability,function (index,val){
+               dropdates.push({'date':val.date,"label":val.full_label})
+            });
+
+            var dropoptions=`<option value="" selected>
+                        Select a dropoff date
+                    </option>`;
+            $.each(dropdates,function (index,val){
+                dropoptions+=`<option value="${ val.date }">${ val.label }</option>`;
+            });
+            dropoffselect.innerHTML=dropoptions;
+
+
+
+            dropoffdata=[...resp.availability];
+
+        var droptimeslotoptions=`<option value="" selected>
+                        Select a time slot
+                    </option>`;
+        $.each(dropoffdata[0].time_slots,function (index,val){
+            droptimeslotoptions+=`<option value="${ val.label }">${ val.label }</option>`;
+        });
+        $('#dropoff_timeslot')[0].innerHTML=droptimeslotoptions;
+    });
+    }
+</script>
+</body>
+</html>

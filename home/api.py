@@ -18,7 +18,7 @@ from datetime import timedelta
 import datetime
 import requests
 from ninja.responses import codes_4xx
-from .schema import districtSchema, cartSchema, AuthenticationSchema, PromoSchema, GoogleSchema
+from .schema import districtSchema, cartSchema, AuthenticationSchema, PromoSchema, GoogleSchema, timeSlotSchema
 from models.utils.Constants import OrderType
 
 
@@ -172,7 +172,8 @@ def time_slot(request,country:str,postcode:str,pickup_start:datetime.datetime=No
                 "date":day.strftime("%Y-%m-%d"),
                 "date_label":day.strftime("%d %B %Y"),
                 "weekday_label":label[0].upper()+label[1:],
-                "time_slots":timeslot_arr
+                "time_slots":timeslot_arr,
+                "full_label":f'{label[0].upper()}{label[1:]} ({day.strftime("%d %B %Y")})'
             }
             res['availability'].append(data)
 
@@ -180,6 +181,16 @@ def time_slot(request,country:str,postcode:str,pickup_start:datetime.datetime=No
     else:
         return 400,{"errors": [{"code": "address_not_served"}]}
 
+
+@user_api.post('updatetime/')
+def updatetimeslots(request,timeSlot:timeSlotSchema):
+    order=Order.objects.filter(id=timeSlot.order_id).first()
+    order.pickup_date=timeSlot.pickupdate
+    order.dropoff_date=timeSlot.dropoffdate
+    order.pickup_time_slot=timeSlot.pickup_timeslot
+    order.dropoff_time_slot=timeSlot.dropoff_timeslot
+    order.save()
+    return {'statuscode': 200, 'message': 'success'}
 
 @user_api.post('district-request/',auth=None)
 def districtrequest(request,Items:districtSchema=Form('')):

@@ -1,4 +1,4 @@
-const stripe = Stripe('pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at');
+const stripe = Stripe('pk_test_51LfjniBkHrOrPPqzFob0uyBP1AllpBmvNioBGMkP8dS9QcY6cKUx3umlbYq1SVB2kSi9dXxh8iDskrpSiuLSD3SN00ybrM7SIW');
 $.ajaxSetup({async: false});
 var token=localStorage.getItem('token')
 const options = {
@@ -36,7 +36,7 @@ form.addEventListener('submit', async (event) => {
     //`Elements` instance that was used to create the Payment Element
     elements,
     confirmParams: {
-      return_url: 'https://www.picupclean.com/order/webhook/',
+      return_url: 'https://picupclean.com/order/webhook/',
     },
   });
 

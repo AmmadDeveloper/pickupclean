@@ -10,7 +10,7 @@ from django.shortcuts import render,redirect
 from django.utils import timezone
 from twilio.rest import Client
 from models.models import Category, Message, PostCode, Electronic_Address, Order, Cart, PaymentIntent, UserVerification, \
-    PromoUsage, ServiceType, EmailCode, PhoneCode
+    PromoUsage, ServiceType, EmailCode, PhoneCode, ScheduleConfig
 from models.utils.Constants import OrderType
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import logout as lout, authenticate,login as lin
@@ -658,7 +658,7 @@ def status(request):
 
 
 from google.oauth2 import id_token
-from google.auth.transport import requests
+from google.auth.transport import requests as reqs
 from django.contrib.auth import login as lin
 def create_google_user(request):
     token=request.POST.get('token')
@@ -667,7 +667,7 @@ def create_google_user(request):
 
     try:
         # Specify the CLIENT_ID of the app that accesses the backend:
-        idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.GOOGLE_CLIENT_ID)
+        idinfo = id_token.verify_oauth2_token(token, reqs.Request(), settings.GOOGLE_CLIENT_ID)
         # {
         # 'iss': 'https://accounts.google.com',
         # 'nbf': 1664825478,
@@ -705,7 +705,7 @@ def create_google_user(request):
             lin(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('homepage')
         # Or, if multiple clients access the backend server:
-        # idinfo = id_token.verify_oauth2_token(token, requests.Request())
+        # idinfo = id_token.verify_oauth2_token(token, reqs.Request())
         # if idinfo['aud'] not in [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]:
         #     raise ValueError('Could not verify audience.')
 
@@ -730,3 +730,57 @@ def create_google_user(request):
 
 #Twilio
 #<QueryDict: {'SmsSid': ['SMe79cf28467c596f70f2be3174f87b0eb'], 'SmsStatus': ['delivered'], 'MessageStatus': ['delivered'], 'To': ['+923130452101'], 'MessageSid': ['SMe79cf28467c596f70f2be3174f87b0eb'], 'AccountSid': ['AC1bfc23beba30546467e2c4351485b009'], 'From': ['+19707164935'], 'ApiVersion': ['2010-04-01']}>
+
+def editorder(request):
+    if request.method=="GET":
+        data={}
+        res=[]
+        oid=request.GET.get('id')
+        order=Order.objects.filter(id=oid).first()
+        #picupdate=datetime.datetime.combine(order.pickup_date, datetime.datetime.min.time())+datetime.timedelta(days=1)
+        # days = [(picupdate + datetime.timedelta(days=i)).date() for i in range(5) if
+        #         (picupdate + datetime.timedelta(days=i)).isoweekday() != 7]
+        days = [(datetime.datetime.today() + datetime.timedelta(days=i)).date() for i in range(1,15) if
+                (datetime.datetime.today() + datetime.timedelta(days=i)).isoweekday() != 7]
+        api_resp = requests.get(
+            "https://www.googleapis.com/calendar/v3/calendars/en.uk%23holiday@group.v.calendar.google.com/events?key=AIzaSyBjr42RKZeifwt7Za0P09BJGD8YXTPudLI")
+        response = json.loads(api_resp.content)
+        holidays = [item['start']['date'] for item in response["items"]]
+
+        days = [day for day in days if str(day) not in holidays]
+        sch = ScheduleConfig.objects.all()
+        time_schedules = eval(sch[0].value)
+        for day in days:
+            timeslot_arr = []
+            start = int(time_schedules[str(day.isoweekday())]['start'].strftime("%H"))
+            end = int(time_schedules[str(day.isoweekday())]['end'].strftime("%H"))
+            today = datetime.datetime.now()
+            if day == today.date():
+                c_hr = today.strftime('%H')
+                if start < int(c_hr) and int(c_hr) < end - 2:
+                    start = int(c_hr) + 2
+
+            while (start != end):
+                timeslot_arr.append({
+                    "cleaners": [308, 160],
+                    "full_label": day.strftime("%d %B %Y") + ", " + str(start) + ":00 - " + str(start + 1) + ":00",
+                    "value": day.strftime("%Y-%m-%d") + "T" + str(start) + ":00:00",
+                    "tags": [],
+                    "id": str(start) + "-" + str(start + 1),
+                    "label": str(start) + ":00 - " + str(start + 1) + ":00"
+                })
+                start += 1
+            if datetime.date.today() == day:
+                label = "Today"
+            elif datetime.date.today() + datetime.timedelta(days=1) == day:
+                label = "Tomorrow"
+            else:
+                label = time_schedules[str(day.isoweekday())]['day']
+            data = {
+                "date": day.strftime("%Y-%m-%d"),
+                "date_label": day.strftime("%d %B %Y"),
+                "weekday_label": f'{label[0].upper()}{label[1:]} ({day.strftime("%d %B %Y")})',
+                "time_slots": timeslot_arr
+            }
+            res.append(data)
+        return render(request,'edittime.html',{"country":order.ship_country,"postalcode":order.ship_postal_code,'enable':res,"orderid":order.id})
