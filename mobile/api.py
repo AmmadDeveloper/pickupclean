@@ -308,9 +308,13 @@ def order_history(request,fromdate:str=None,todate:str=None,limit:int=10,offset:
 
 
         query.add(~Q(order_status=OrderType.OPEN), Q.AND)
-        orders = [{"orderid": item.id,
-                   "orderstatus": item.order_status,
-                   "orderdate": item.order_date.strftime("%B %d, %Y") if item.order_date else '',
+        orders = [{
+            "fullname":item.fullname,
+            "email":item.email,
+            "phone":item.phone,
+            "orderid": item.id,
+            "orderstatus": item.order_status,
+            "orderdate": item.order_date.strftime("%B %d, %Y") if item.order_date else '',
                    "pickuptime": item.pickup_time_slot,
                    "pickupdate": item.pickup_date.strftime("%B %d, %Y") if item.pickup_date else '',
                    "dropofftime": item.dropoff_time_slot,
