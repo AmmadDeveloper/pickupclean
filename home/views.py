@@ -35,6 +35,12 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 
 # Create your views here.
+def terms(request):
+    return render(request,'terms.html')
+
+def about(request):
+    return render(request,'about.html')
+
 def home(request):
     if request.method=="GET":
         cats=[{"name":cat.name,"icon":cat.icon,"short_desc":cat.short_description,"price":cat.category_products.aggregate(price=Min('price'))} for cat in Category.objects.filter(active=True).prefetch_related('category_products')[0:4]]

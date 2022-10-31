@@ -10,10 +10,10 @@
 {% load static %}
 {% load i18n %}
 {% load account socialaccount %}
-  <div style="background-image: url('{% static 'imgs/loginbg.jpg' %}');background-repeat: no-repeat;background-size: cover" class="registration">
+  <div style="background-image: url('{% static 'imgs/bgs/am15.png' %}');background-repeat: no-repeat;background-size: cover" class="registration">
     <div class="registration-container">
       
-  <h1 style="color: #000000;font-weight: bold">Sign up</h1>
+  <h1 style="color: #fff;font-weight: bold">Sign up</h1>
         {% if messages %}
             {% for message in messages %}
                 {{ message }}
@@ -25,23 +25,23 @@
       {% csrf_token %}
 
   <div class="form-group">
-    <label style="color: #000000" for="id_username">First Name:</label>
+    <label style="color: #fff" for="id_username">First Name:</label>
     <input type="text" name="first_name" autofocus autocapitalize="none" autocomplete="firstname" maxlength="254" class="form-control" required id="id_firstname">
   </div>
   <div class="form-group">
-    <label style="color: #000000" for="id_username">Last Name:</label>
+    <label style="color: #fff" for="id_username">Last Name:</label>
     <input type="text" name="last_name" autofocus autocapitalize="none" autocomplete="lastname" maxlength="254" class="form-control" required id="id_lastname">
   </div>
   <div class="form-group">
-    <label style="color: #000000" for="id_username">Phone:</label>
+    <label style="color: #fff" for="id_username">Phone:</label>
     <input type="text" name="phone" autofocus autocapitalize="none" autocomplete="phone" maxlength="254" class="form-control" required id="phone">
   </div>
   <div class="form-group">
-    <label style="color: #000000" for="id_password">Password:</label>
+    <label style="color: #fff" for="id_password">Password:</label>
     <input type="password" name="password" autocomplete="current-password" class="form-control" required id="id_password">
   </div>
   <div class="form-group">
-    <label style="color: #000000" for="id_username">Email address:</label>
+    <label style="color: #fff" for="id_username">Email address:</label>
     <input type="text" name="email" autofocus autocapitalize="none" autocomplete="email" maxlength="254" class="form-control" required id="id_email">
   </div>
 
@@ -51,7 +51,7 @@
         data-callback='onSubmit'
         data-action='submit'>Sign Up</button>
   </form>
-  <p class="reg-push-md">
+  <p style="color: white" class="reg-push-md">
     Already have account?
     <a style="color: #fe6703" href="{% url 'login' %}">Login here.</a>
   </p>

@@ -2,7 +2,7 @@
 from django.urls import path,re_path
 from .views import verify_email, callback, verify_phone, smswebhook, setpassword, orderhistory, home, orderdetail, \
     loggedIn, loginsuccess, login, price, resetpass, services, profile, areas, servicedetail, order, logout, privacy, \
-    instruction, status, signup, orderwebhook, smsmarketinhwebhook, create_google_user,editorder
+    instruction, status, signup, orderwebhook, smsmarketinhwebhook, create_google_user,editorder,terms,about
 from django.conf import settings
 from django.conf.urls.static import static
 from .api import user_api
@@ -13,7 +13,9 @@ urlpatterns = [
     re_path('^login/', login ,name="login"),
     re_path('^logout/', logout ,name="logout"),
     path('signup/',signup,name="signup"),
+    path('about/',about,name="about"),
     path('privacy/',privacy,name="privacy"),
+    path('terms/',terms,name="terms"),
     path('instructions/',instruction,name="instructions"),
     path('', home ,name="homepage"),
     path('success/', loginsuccess ,name="success"),

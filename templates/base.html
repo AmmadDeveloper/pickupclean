@@ -56,22 +56,22 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-ihi navbar-main">
 {#            <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>#}
-            <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
-            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
-            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li class="nav-item-prices"><a style="color: white !important;" href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
+            <li class="services"><a style="color: white !important;" href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a style="color: white !important;" href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
             <li>
-                <a href="tel:+090078601">
-                  <span class="link-text">T 090 0786 01</span>
+                <a style="color: white !important;" href="tel:+44 7759053194">
+                  <span class="link-text">T +44 7759053194</span>
                 </a>
               </li>
 
 
               {% if not user.is_authenticated %}
-                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
                   {% else %}
-                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
-                  <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
-                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
               {% endif %}
 
 
@@ -85,15 +85,15 @@
               </form>
             </li>
             <li class="nav-btn-cta">
-              <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
+              <a style="color: white !important;" href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
             </li>
           </ul>
 
-          <ol class="nav navbar-nav breadcrumb">
-            <hr class="breadcrumb-hr" />
-            <li><a href="{% url 'homepage' %}">Home</a></li>
-
-          </ol>
+{#          <ol class="nav navbar-nav breadcrumb">#}
+{#            <hr class="breadcrumb-hr" />#}
+{#            <li><a href="{% url 'homepage' %}">Home</a></li>#}
+{##}
+{#          </ol>#}
 
         </div>
       </div>
@@ -108,39 +108,39 @@
     <div class="container">
       <div class="footer-top">
         <div class="col-md-4 footer-app-stores">
-          <div class="footer-top-title">Download our new app:</div>
-          <a class="ios-link"
+          <div style="text-align-last:right;" class="footer-top-title">Download our new app:</div>
+          <a style="float: right" class="ios-link"
             href="#">
             <img
               src="{% static '/images/app-stores/apple.png' %}"
               alt="Download on the App Store">
           </a>
-          <a class="android-link" href="#">
+          <a style="float: right" class="android-link" href="#">
             <img
               src="{% static 'images/app-stores/google.png' %}"
               alt="Get it on Google Play">
           </a>
         </div>
-        <div class="col-md-8 sub2-newsletter footer-push">
-          <div class="footer-top-title">Subscribe to our newsletter:</div>
-          <div class="sub2-newsletter-content">
-            <form
-              action="/subscribe/post"
-              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
-              target="_blank" novalidate>
-              <div id="mc_embed_signup_scroll" class="sub2-form-container">
-                <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address"
-                  required>
-                <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value=""
-                  style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
-              </div>
-            </form>
-          </div>
-        </div>
+{#        <div class="col-md-8 sub2-newsletter footer-push">#}
+{#          <div class="footer-top-title">Subscribe to our newsletter:</div>#}
+{#          <div class="sub2-newsletter-content">#}
+{#            <form#}
+{#              action="/subscribe/post"#}
+{#              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"#}
+{#              target="_blank" novalidate>#}
+{#              <div id="mc_embed_signup_scroll" class="sub2-form-container">#}
+{#                <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address"#}
+{#                  required>#}
+{#                <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value=""#}
+{#                  style="position: absolute; left: -5000px;" aria-hidden="true">#}
+{#                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">#}
+{#              </div>#}
+{#            </form>#}
+{#          </div>#}
+{#        </div>#}
       </div>
 
-      <div class="footer-bottom">
+      <div style="margin-top: 0px !important;" class="footer-bottom">
         <div class="footer-payment-methods footer-push">
           <div class="footer-payment-methods-title">Accepted payment methods:</div>
           <img class="footer-payment-methods-img"
@@ -153,7 +153,7 @@
           </div>
           <div class="footer-copyright">
             <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pick up clean</span>.</div>
-            <div class="footer-rights">All rights reserved.</div>
+            <div class="footer-rights">All rights reserved. <span style="position: absolute;right: 0;padding-right: 40px;"><a href="{% url 'about' %}" style="padding-left: 20px">About</a><a href="{% url 'privacy' %}" style="padding-left: 20px">Privacy</a><a href="{% url 'terms' %}" style="padding-left: 20px">Terms & Conditions</a></span></div>
           </div>
         </div>
       </div>

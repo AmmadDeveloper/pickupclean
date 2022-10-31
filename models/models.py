@@ -191,7 +191,7 @@ class Postal_Address(models.Model):
     state = models.CharField(max_length=50)
     postal_code = models.CharField(max_length=6)
     country = models.CharField(max_length=50)
-    type = models.CharField(max_length=10, choices=ADDRESS_TYPE, default=HOME)
+    type = models.CharField(max_length=20, choices=ADDRESS_TYPE, default=HOME)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -251,7 +251,7 @@ class Category(models.Model):
 
 class Promo(models.Model):
     title=models.CharField(max_length=200)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=20)
     until=models.DateTimeField()
     type=models.CharField(max_length=20)
     active=models.BooleanField(default=True)
@@ -288,9 +288,9 @@ class Order(models.Model):
     order_amount = models.DecimalField(max_digits=65, decimal_places=4, blank=True, null=True)
     promo_applied=models.BooleanField(default=False)
     pickup_date=models.DateField()
-    pickup_time_slot=models.CharField(max_length=10)
+    pickup_time_slot=models.CharField(max_length=15)
     dropoff_date=models.DateField()
-    dropoff_time_slot = models.CharField(max_length=10)
+    dropoff_time_slot = models.CharField(max_length=15)
     order_status = models.CharField(max_length=50, choices=OrderTypeChoice.CHOICES, default=OrderType.OPEN)
     deleted = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
@@ -303,7 +303,7 @@ class Order(models.Model):
     ship_address3 = models.TextField(blank=True, null=True)
     ship_address4 = models.TextField(blank=True, null=True)
     ship_phone1 = models.CharField(max_length=50, blank=True, null=True)
-    ship_postal_code = models.CharField(max_length=6, blank=True, null=True)
+    ship_postal_code = models.CharField(max_length=20, blank=True, null=True)
     ship_city = models.CharField(max_length=50, blank=True, null=True)
     ship_country = models.CharField(max_length=50, blank=True, null=True)
     shipping_number = models.CharField(max_length=254, blank=True, null=True)
@@ -365,7 +365,7 @@ class OrderDetails(models.Model):
 class Payment(models.Model):
     id = models.AutoField(primary_key=True)
     amount = models.DecimalField(max_digits=65, decimal_places=4, default=0.0)
-    status = models.CharField(max_length=10, blank=True, null=True)
+    status = models.CharField(max_length=20, blank=True, null=True)
     card_holder_name = models.CharField(max_length=254, blank=True, null=True)
     last4digit = models.CharField(max_length=5, blank=True, null=True)
     card_type = models.CharField(max_length=20, blank=True, null=True)
@@ -422,7 +422,7 @@ class PostCodeRequests(models.Model):
     name=models.CharField(blank=False, max_length=100)
     email=models.CharField(blank=False, max_length=200)
     postcode=models.CharField(blank=False, max_length=50)
-    country=models.CharField(blank=False, max_length=10)
+    country=models.CharField(blank=False, max_length=50)
     created_on=models.DateTimeField(auto_now_add=True)
 
 class Weekday(models.Model):
@@ -498,14 +498,14 @@ class EmailCode(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
 
 class PhoneCode(models.Model):
-    code=models.CharField(max_length=10)
+    code=models.CharField(max_length=20)
     created_on=models.DateTimeField(auto_now_add=True)
     user=models.OneToOneField(User,on_delete=models.CASCADE)
 
 class EmailRecord(models.Model):
     subject=models.CharField(max_length=1000,blank=False,null=False)
     recipient_type=models.CharField(max_length=15)
-    status=models.CharField(max_length=10)
+    status=models.CharField(max_length=20)
     status_message = models.TextField()
     recipients=models.TextField()
     created_by= models.ForeignKey(User, on_delete=models.CASCADE,related_name="emails_sent")
@@ -516,7 +516,7 @@ class EmailRecord(models.Model):
 class MessageRecord(models.Model):
     sid=models.CharField(max_length=100,default='',null=True,blank=True)
     recipient_type = models.CharField(max_length=15)
-    status = models.CharField(max_length=10)
+    status = models.CharField(max_length=50)
     status_message = models.TextField()
     recipients = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")
