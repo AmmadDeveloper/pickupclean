@@ -231,7 +231,7 @@ class Service(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
     description = models.CharField(max_length=250)
     short_description = models.CharField(max_length=250,default="")
     picture = models.ImageField(upload_to='categoryImage')

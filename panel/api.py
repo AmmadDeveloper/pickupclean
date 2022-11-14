@@ -75,18 +75,18 @@ from datetime import timedelta
 @api.get('/dashboard')
 def getData(request):
     total_users=User.objects.filter(is_superuser=False,is_staff=False).count()
-    total_month_sales=(Order.objects.filter(paid=True,order_status='delivered',order_date__gte=now()-timedelta(days=30)).aggregate(Sum('order_amount'))).get('order_amount__sum')
+    total_month_sales=(Order.objects.filter(paid=True,order_status__in=['delivered','confirmed','processing','completed','in-progress'],order_date__gte=now()-timedelta(days=30)).aggregate(Sum('order_amount'))).get('order_amount__sum')
     if total_month_sales:
         total_month_sales=round(float(total_month_sales),2)
     else:
         total_month_sales=0
-    total_year_sales = (Order.objects.filter(paid=True,order_status='delivered', order_date__gte=now() - timedelta(days=365)).aggregate(
+    total_year_sales = (Order.objects.filter(paid=True,order_status__in=['delivered','confirmed','processing','completed','in-progress'], order_date__gte=now() - timedelta(days=365)).aggregate(
         Sum('order_amount'))).get('order_amount__sum')
     if total_year_sales:
         total_year_sales=round(float(total_year_sales),2)
     else:
         total_year_sales=0
-    total_pending_orders=Order.objects.filter(order_status__in=['confirmed','processing','pickedup','shipped']).count()
+    total_pending_orders=Order.objects.filter(order_status__in=['in-progress']).count()
     return {"data":{"total_users":total_users,"total_month_sales":total_month_sales,"total_year_sales":total_year_sales,"total_pending_orders":total_pending_orders},'statuscode':200,'message':'success'}
 
 
@@ -467,41 +467,41 @@ def getCustomer(request):
 
 @api.get('/homeimages')
 def homeimages(request):
-    imgs=[{"uid":img.id,"name":img.File.name,"status":'done',"url":"http://localhost:8000"+img.File.url} for img in HomeBackground.objects.all().order_by('-created_on')[0:5]]
+    imgs=[{"uid":img.id,"name":img.File.name,"status":'done',"url":img.File.url} for img in HomeBackground.objects.all().order_by('-created_on')[0:5]]
     return {'images':imgs,'statuscode':200,'message':'success'}
 
 
 @api.get('/settings')
 def get_settings(request):
-    settings={}
+    setting={}
     sch = ScheduleConfig.objects.all()
     emailConf = EmailConfig.objects.all()
     phoneConf = PhoneConfig.objects.all()
     if len(sch) == 0:
-        settings['schedule']={'monday':[],'tuesday':[],'wednesday':[],'thursday':[],'friday':[],'saturday':[]}
+        setting['schedule']={'monday':[],'tuesday':[],'wednesday':[],'thursday':[],'friday':[],'saturday':[]}
     else:
         vals=eval(sch[0].value)
-        settings['schedule']={}
+        setting['schedule']={}
         for k,v in vals.items():
-            settings['schedule'][v.get('day')]=[v.get('start').strftime('%Y-%m-%d %H:%M:%S'),v.get('end').strftime('%Y-%m-%d %H:%M:%S')]
+            setting['schedule'][v.get('day')]=[v.get('start').strftime('%Y-%m-%d %H:%M:%S'),v.get('end').strftime('%Y-%m-%d %H:%M:%S')]
     if len(emailConf) == 0:
-        settings['emailConfig']={'email':'','password':''}
+        setting['emailConfig']={'email':'','password':''}
     else:
-        settings['emailConfig']={
+        setting['emailConfig']={
             'email':emailConf[0].email,
             'password':emailConf[0].password
         }
     if len(sch) == 0:
-        settings['phoneConfig']={'phone':''}
+        setting['phoneConfig']={'phone':''}
     else:
-        settings['phoneConfig']={
+        setting['phoneConfig']={
             'phone':phoneConf[0].phone
         }
-    settings['paymentConfig']={}
-    settings['paymentConfig']['publishablekey']='pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at'
-    settings['paymentConfig']['secretkey'] = 'sk_test_51JlhHTAIj4VUJPcDfNA5qSSTWmQNyleq7dbrbrSA9r8zmlZ32z9rsy0ZuWqhJSV4rv6trZDl8VgGpTV8JkwTGpgV00L7dwGE6l'
+    setting['paymentConfig']={}
+    setting['paymentConfig']['publishablekey']=settings.STRIPE_PUBLISHABLE_KEY
+    setting['paymentConfig']['secretkey'] = settings.STRIPE_SECRET_KEY
 
-    return {'settings': settings, 'statuscode': 200, 'message': 'success'}
+    return {'settings': setting, 'statuscode': 200, 'message': 'success'}
 
 
 
@@ -595,7 +595,7 @@ def get_types(request,id:int=None):
         Types=[{"id":t.id,"name":t.name,"description":t.description,"key":t.id} for t in ServiceType.objects.filter(active=True)]
         return {'types':Types,'statuscode':200,'message':'success'}
     else:
-        type=[{"id": t.id, "name": t.name, "description": t.description,"picture_path":t.picture.url[6:],"picture":"http://localhost:8000"+t.picture.url[6:], "key": t.id} for t in ServiceType.objects.filter(id=id,active=True)][0]
+        type=[{"id": t.id, "name": t.name, "description": t.description,"picture_path":t.picture.url[6:],"picture":t.picture.url[6:], "key": t.id} for t in ServiceType.objects.filter(id=id,active=True)][0]
         type['picture'] = [{
             'uid': type.get('id'),
             'name': type.get('picture').split('/')[-1],
@@ -643,7 +643,7 @@ def get_category(request,id:int=None):
         Cat=[{"id":cat.id,"name":cat.name,"description":cat.description,"key":cat.id} for cat in Category.objects.filter(active=True)]
         return {'categories':Cat,'statuscode':200,'message':'success'}
     else:
-        category=[{"id": cat.id, "name": cat.name, "description": cat.description,"short_description":cat.short_description,"icon_path":cat.icon.url[6:],"picture_path":cat.picture.url[6:],"icon":"http://localhost:8000"+cat.icon.url[6:],"picture":"http://localhost:8000"+cat.picture.url[6:], "key": cat.id} for cat in Category.objects.filter(id=id,active=True)][0]
+        category=[{"id": cat.id, "name": cat.name, "description": cat.description,"short_description":cat.short_description,"icon_path":cat.icon.url[6:],"picture_path":cat.picture.url[6:],"icon":cat.icon.url[6:],"picture":cat.picture.url[6:], "key": cat.id} for cat in Category.objects.filter(id=id,active=True)][0]
         category['icon']=[{
             'uid': category.get('id'),
             'name': category.get('icon').split('/')[-1],

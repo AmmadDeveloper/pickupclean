@@ -96,8 +96,8 @@
             <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
             <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
             <li>
-                <a href="tel:+090078601">
-                  <span class="link-text">T 090 0786 01</span>
+                <a style="color: black !important;" href="tel:+44 7759053194">
+                  <span class="link-text">T +44 7759053194</span>
                 </a>
               </li>
               {% if not user.is_authenticated %}
@@ -108,27 +108,10 @@
                   <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
               {% endif %}
 
-              <li>
-                <form action="#" style="visibility:hidden">
-  <select name="flag_dropdown" id="flag_picker" style="font-size:20px;height:auto;padding:0;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
-    <option value="GB">🇬🇧</option>
-  </select>
-  <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
-</form>
-
-              </li>
-
           <li class="nav-btn-cta">
             <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
           </li>
         </ul>
-
-              <ol class="nav navbar-nav breadcrumb">
-                <hr class="breadcrumb-hr"/>
-                  <li><a href="{% url 'homepage' %}">Home</a></li>
-
-              </ol>
-
       </div>
     </div>
   </nav>
@@ -166,24 +149,18 @@
                                 <td class="cart__price hidden-sm-sm"><span style="margin-left:12px;">({{ item.dropofftime }}) {{item.dropoffdate}}</span></td>
                                 <td  class="cart__price hidden-sm">£{{item.orderamount}}</td>
                                 {% if "open" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold" class="badge badge-warning">{{ item.orderstatus }}</span></td>
-                                            {% elif "confirmed" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #fadb14;" class="badge badge-primary">{{ item.orderstatus }}</span></td>
-                                            {% elif "declined" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #f5222d;" class="badge badge-danger">{{ item.orderstatus }}</span></td>
-                                            {% elif "shipped" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #722ed1;" class="badge badge-info">{{ item.orderstatus }}</span></td>
-                                            {% elif "pickedup" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #fa8c16;" class="badge badge-success">{{ item.orderstatus }}</span></td>
-                                            {% elif "processing" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #000000;" class="badge badge-secondary">{{ item.orderstatus }}</span></td>
-                                            {% elif "cancelled" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #f5222d;" class="badge badge-danger">{{ item.orderstatus }}</span></td>
-                                            {% elif "refunded" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #1890ff;" class="badge badge-warning">{{ item.orderstatus }}</span></td>
-                                            {% elif "delivered" == item.orderstatus %}
-                                                <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #52c41a;" class="badge badge-warning">{{ item.orderstatus }}</span></td>
-                                            {% endif %}
+                                    <td class="cart__price"><span style="font-size: large;font-weight: bold" class="badge badge-warning">{{ item.orderstatus }}</span></td>
+                                {% elif "in-progress" == item.orderstatus %}
+                                    <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #fadb14;" class="badge badge-primary">{{ item.orderstatus }}</span></td>
+                                {% elif "declined" == item.orderstatus %}
+                                    <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #f5222d;" class="badge badge-danger">{{ item.orderstatus }}</span></td>
+                                {% elif "cancelled" == item.orderstatus %}
+                                    <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #f5222d;" class="badge badge-danger">{{ item.orderstatus }}</span></td>
+                                {% elif "refunded" == item.orderstatus %}
+                                    <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #1890ff;" class="badge badge-warning">{{ item.orderstatus }}</span></td>
+                                {% elif "completed" == item.orderstatus %}
+                                    <td class="cart__price"><span style="font-size: large;font-weight: bold;background-color: #52c41a;" class="badge badge-warning">{{ item.orderstatus }}</span></td>
+                                {% endif %}
                                 <td class="cart__total carttotal hidden-sm" ><span style="margin-left:12px;">{{ item.orderaddress }}</span></td>
                             {% if item.cancel %}
                                 <td><span style="margin-right: 15px;margin-left: 15px;padding:12px;background-color: #f2f2f2;border-radius: 20px"><a onclick="editOrder(`{{ item.orderid }}`)"><i class="fa fa-edit"></i></a> </span></td>
@@ -252,18 +229,6 @@
         <a class="android-link" href="#">
           <img src="{% static 'images/app-stores/google.png' %}" alt="Get it on Google Play">
         </a>
-      </div>
-      <div class="col-md-8 sub2-newsletter footer-push">
-        <div class="footer-top-title">Subscribe to our newsletter:</div>
-        <div class="sub2-newsletter-content">
-          <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-            <div id="mc_embed_signup_scroll" class="sub2-form-container">
-              <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
-              <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
-              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
-            </div>
-          </form>
-        </div>
       </div>
     </div>
 

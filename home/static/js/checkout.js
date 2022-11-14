@@ -14,9 +14,10 @@
     card: $('#stripe-card-element')
   };
   var fieldsToValidate = ['name', 'email', 'mobile_number', 'password', 'address_details'];
-  var stripePublishableKey = 'pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at';
+  var stripePublishableKey = 'pk_test_51LfjniBkHrOrPPqzFob0uyBP1AllpBmvNioBGMkP8dS9QcY6cKUx3umlbYq1SVB2kSi9dXxh8iDskrpSiuLSD3SN00ybrM7SIW';
   var stripe = Stripe(stripePublishableKey);
   var stripeElements = stripe.elements({
+
     fonts: [{
       cssSrc: 'https://fonts.googleapis.com/css?family=Montserrat:400'
     }]

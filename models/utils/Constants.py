@@ -33,27 +33,30 @@ class ProcessorType:
 
 class OrderType:
     OPEN='open'
-    SHIPPED = "shipped"
+    # SHIPPED = "shipped"
     CANCELLED = "cancelled"
     REFUND = "refunded"
     DELIVERED = "delivered"
     DECLINED = "declined"
-    CONFIRMED = "confirmed"
-    PROCESSING= "processing"
-    PICKEDUP = 'pickedup'
+    INPROGRESS="in-progress"
+#    CONFIRMED = "confirmed"
+#     PROCESSING= "processing"
+#     PICKEDUP = 'pickedup'
+    COMPLETED='completed'
 
 
 class OrderTypeChoice:
     CHOICES = (
         (OrderType.OPEN, 'open'),
-        (OrderType.CONFIRMED, 'confirmed'),
+#        (OrderType.CONFIRMED, 'confirmed'),
+        (OrderType.INPROGRESS, 'in-progress'),
         (OrderType.CANCELLED, 'cancelled'),
         (OrderType.DECLINED, 'declined'),
         (OrderType.REFUND, 'refunded'),
-        (OrderType.PICKEDUP,'pickedup'),
-        (OrderType.PROCESSING, 'processing'),
-        (OrderType.SHIPPED, 'shipped'),
-        (OrderType.DELIVERED, 'delivered'),
+        # (OrderType.PICKEDUP,'pickedup'),
+        # (OrderType.PROCESSING, 'processing'),
+        # (OrderType.SHIPPED, 'shipped'),
+        (OrderType.COMPLETED, 'completed'),
     )
 
 

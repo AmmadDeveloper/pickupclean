@@ -123,7 +123,7 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 
-    #PRoduction DB
+    # PRoduction DB
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pickupclean',
@@ -285,7 +285,8 @@ NOTIFY_SID='ISaae8c1b18aae6498b5981595593e81be'
 #STRIPE
 STRIPE_PUBLISHABLE_KEY='pk_test_51LfjniBkHrOrPPqzFob0uyBP1AllpBmvNioBGMkP8dS9QcY6cKUx3umlbYq1SVB2kSi9dXxh8iDskrpSiuLSD3SN00ybrM7SIW'
 STRIPE_SECRET_KEY='sk_test_51LfjniBkHrOrPPqzenn70scPiFYuJSUKf6du46Dm6Dbe3w02aYAExS0bYo5MloCCDoE4k3Uu3vlJOiY4Ysd0HTG200z2o3g1as'
-
+pk='pk_test_51JlhHTAIj4VUJPcDeLGSFO23zCFWywO8QCsU6jwKzYBtgAeUzC3USVd28e9q71Msxcc5ZMPQRBGO5h0V2xbHefhQ00xEanG3at'
+sk='sk_test_51JlhHTAIj4VUJPcDfNA5qSSTWmQNyleq7dbrbrSA9r8zmlZ32z9rsy0ZuWqhJSV4rv6trZDl8VgGpTV8JkwTGpgV00L7dwGE6l'
 USERNAME_FIELD='email'
 LOGIN_REDIRECT_URL="success"
 

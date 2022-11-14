@@ -1,6 +1,7 @@
 import datetime
 import functools
 import json
+import math
 import random
 import string
 
@@ -496,7 +497,7 @@ def orderwebhook(request):
             order.promo_applied=True
         order=Order.objects.filter(id=order_id,user_id=user_id).first()
         order.order_place_date=datetime.datetime.now()
-        order.order_status=OrderType.CONFIRMED
+        order.order_status=OrderType.INPROGRESS
         order.paid=True
         order.save()
         return render(request,'placed.html',{'order_id':order.id})
@@ -747,7 +748,6 @@ def create_google_user(request):
 
 def editorder(request):
     if request.method=="GET":
-        data={}
         res=[]
         oid=request.GET.get('id')
         order=Order.objects.filter(id=oid).first()
@@ -798,3 +798,64 @@ def editorder(request):
             }
             res.append(data)
         return render(request,'edittime.html',{"country":order.ship_country,"postalcode":order.ship_postal_code,'enable':res,"orderid":order.id})
+
+from models.models import Category
+def upload(request):
+    # cats=Category.objects.all()
+    # for item in cats:
+    #     item.icon='https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
+    #     item.save()
+    import pandas as pd
+    from models.models import Service
+    catdf=pd.read_excel(f'Categories-picupclean.xlsx',index_col='ID')
+    typedf = pd.read_excel(f'Types-picupclean.xlsx', index_col='ID')
+    servdf = pd.read_excel(f'Services-picupclean.xlsx', index_col='ID')
+    user = User.objects.filter(is_superuser=True).first()
+    for index,row in catdf.iterrows():
+        name=row['Category_Name']
+        cat=Category.objects.filter(name__exact=name).first()
+        if cat==None:
+            cat=Category()
+            cat.name=name
+            cat.short_description=''
+            cat.description=''
+            cat.icon=''
+            cat.picture='https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
+            cat.created_by=user
+            cat.save()
+    for index,row in typedf.iterrows():
+        name = row['Type_Name']
+        type = ServiceType.objects.filter(name__exact=name).first()
+        if type == None:
+            type = ServiceType()
+            type.name = name
+            type.short_description = ''
+            type.description = ''
+            type.icon = 'https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
+            type.picture = 'https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
+            type.created_by = user
+            type.save()
+
+    for index, row in servdf.iterrows():
+        name = row['Item Name']
+        if index==61:
+            print(index)
+        serv = Service.objects.filter(name__exact=name,category__name=row['Category'],servicetype__name=row['Type']).first()
+        if serv == None:
+            serv = Service()
+            type = ServiceType.objects.filter(name__exact=row['Type']).first()
+            cat = Category.objects.filter(name__exact=row['Category']).first()
+            serv.name=name
+            if isinstance(row['Item_Description'],float):
+                serv.description=row['Item_Description'] if not math.isnan(row['Item_Description']) else ''
+            else:
+                serv.description=row['Item_Description']
+            serv.price=row['Price']
+            serv.delivery_time='4'
+            serv.short_description=serv.description
+            serv.servicetype=type
+            serv.category=cat
+            serv.created_by = user
+            serv.save()
+
+    return render(request,'terms.html')

@@ -10,5 +10,13 @@
       <jdbc-url>jdbc:postgresql://46.101.55.159:5432/pickupclean</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="postgres@picupclean" uuid="f17619f1-2d88-47b7-ac49-0b4498535a41">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>Live Database</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://46.101.55.159:5432/pickupclean</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
