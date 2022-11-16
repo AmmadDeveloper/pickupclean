@@ -367,10 +367,10 @@ def sendMail(request,emailSchema:EmailSendSchema):
     # email = loader.render_to_string(email_template_name, c)
     #send_mail(subject,message="Hello world", from_email='suitclosset@gmail.com', to=["ammadhassanqureshi@gmail.com","ammad.development@gmail.com"], fail_silently=False,html_message=email)
     if emailSchema.to=='all':
-        emails=[x.email for x in User.objects.filter()]
+        emails=[x.email for x in User.objects.filter(is_superuser=False)]
     else:
         emails=emailSchema.emails
-    msg=EmailMultiAlternatives(subject,body=email, from_email='suitclosset@gmail.com', bcc=emails)
+    msg=EmailMultiAlternatives(subject,body=email, from_email=settings.EMAIL_HOST_USER, bcc=emails)
     msg.attach_alternative(email, "text/html")
     try:
         s=msg.send(fail_silently=False)

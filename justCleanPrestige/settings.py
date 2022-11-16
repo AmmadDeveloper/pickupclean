@@ -263,12 +263,12 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 #SEND EMAIL
-EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST='smtp.office365.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER='suitclosset@gmail.com'
-EMAIL_HOST_PASSWORD='uoxlgodbqekcwvdt'
+EMAIL_HOST_USER='no-reply@picupclean.com'
+EMAIL_HOST_PASSWORD='picUpclean@noreply'
 EMAIL_USE_TLS=True
-EMAIL_TIMEOUT=5000
+EMAIL_TIMEOUT=50000
 
 
 SERVER_URL='https://www.picupclean.com/'
