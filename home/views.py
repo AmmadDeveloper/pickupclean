@@ -156,7 +156,7 @@ def signup(request):
                     template = get_template("../../home/templates/email/signupemail.html")
                     html = template.render(data)
                     res = send_mail(subject="Welcome to Pick up clean", message="this is a message",
-                                    from_email="suitclosset@gmail.com",
+                                    from_email=settings.EMAIL_HOST_USER,
                                     recipient_list=[user.email]
                                     , fail_silently=False, html_message=html)
                     lin(request,user,backend='django.contrib.auth.backends.ModelBackend')
@@ -367,7 +367,7 @@ def verify_email(request):
         template = get_template("../../home/templates/email/emailverification.html")
         html = template.render(data)
         res = send_mail(subject="Email Verification", message="",
-                        from_email="suitclosset@gmail.com",
+                        from_email=settings.EMAIL_HOST_USER,
                         recipient_list=[user.email]
                         , fail_silently=False, html_message=html)
         return render(request,'verifyemail.html')
@@ -711,7 +711,7 @@ def create_google_user(request):
             template = get_template("../../home/templates/email/signupemail.html")
             html = template.render(data)
             res = send_mail(subject="Welcome to Picupclean", message="this is a message",
-                            from_email="suitclosset@gmail.com",
+                            from_email=settings.EMAIL_HOST_USER,
                             recipient_list=[user.email]
                             , fail_silently=False, html_message=html)
             lin(request, user, backend='django.contrib.auth.backends.ModelBackend')
