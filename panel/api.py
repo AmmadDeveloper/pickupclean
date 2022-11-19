@@ -467,9 +467,14 @@ def getCustomer(request):
 
 @api.get('/homeimages')
 def homeimages(request):
-    imgs=[{"uid":img.id,"name":img.File.name,"status":'done',"url":img.File.url} for img in HomeBackground.objects.all().order_by('-created_on')[0:5]]
+    imgs=[{"uid":img.id,"name":img.File.name,"status":'done',"url":img.File.url} for img in HomeBackground.objects.filter(active=True).order_by('-created_on')[0:5]]
     return {'images':imgs,'statuscode':200,'message':'success'}
-
+@api.post('/homeimages')
+def homeimages(request,id:int):
+    img=HomeBackground.objects.filter(id=id).first()
+    img.active=False
+    img.save()
+    return {'statuscode': 200,'statusmessge':'Background image removed', 'message': 'success'}
 
 @api.get('/settings')
 def get_settings(request):

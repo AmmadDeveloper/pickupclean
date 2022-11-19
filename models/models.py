@@ -402,6 +402,7 @@ class Files(models.Model):
 class HomeBackground(models.Model):
     File=models.ImageField(upload_to='backgrounds')
     created_on=models.DateTimeField(auto_now_add=True)
+    active=models.BooleanField(default=True)
 
 
 
