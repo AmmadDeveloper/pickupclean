@@ -1,4 +1,5 @@
-const stripe = Stripe('pk_test_51LfjniBkHrOrPPqzFob0uyBP1AllpBmvNioBGMkP8dS9QcY6cKUx3umlbYq1SVB2kSi9dXxh8iDskrpSiuLSD3SN00ybrM7SIW');
+//const stripe = Stripe('pk_test_51LfjniBkHrOrPPqzFob0uyBP1AllpBmvNioBGMkP8dS9QcY6cKUx3umlbYq1SVB2kSi9dXxh8iDskrpSiuLSD3SN00ybrM7SIW');
+const stripe = Stripe('pk_live_51LfjniBkHrOrPPqzuM6WfIXafq84CyWBKyRCuyilD3Fd4gnWksO6IZ857Rb78eBVhFeCUsMRar6jlbyr5Cury8dV00Y3HOHrvb');
 $.ajaxSetup({async: false});
 var token=localStorage.getItem('token')
 const options = {

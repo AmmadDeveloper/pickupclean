@@ -23,6 +23,42 @@
 {#  <script src="{% static 's3.eu-west-2.amazonaws.com/production.storage.ihateironing.com/static/accounts/js/addresses.js' %}" data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>#}
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
+    <style>
+                /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            #logo{
+                max-width: 40px;
+            }
+        }
+
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+            #logo{
+                max-width: 45px;
+            }
+        }
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 768px) {
+            #logo{
+                max-width: 60px;
+            }
+        }
+
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 992px) {
+            #logo{
+                max-width: 75px;
+            }
+        }
+
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1200px) {
+            #logo{
+                max-width: 90px;
+            }
+        }
+    </style>
 
     <style>
         .no-scroll{
@@ -80,7 +116,7 @@
     <div class="container">
       <div class="navbar-header">
           <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
-                <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+                <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" id="logo">
           </a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>

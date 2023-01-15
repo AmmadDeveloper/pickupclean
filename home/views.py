@@ -811,30 +811,30 @@ def upload(request):
     typedf = pd.read_excel(f'Types-picupclean.xlsx', index_col='ID')
     servdf = pd.read_excel(f'Services-picupclean.xlsx', index_col='ID')
     user = User.objects.filter(is_superuser=True).first()
-    for index,row in catdf.iterrows():
-        name=row['Category_Name']
-        cat=Category.objects.filter(name__exact=name).first()
-        if cat==None:
-            cat=Category()
-            cat.name=name
-            cat.short_description=''
-            cat.description=''
-            cat.icon=''
-            cat.picture='https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
-            cat.created_by=user
-            cat.save()
-    for index,row in typedf.iterrows():
-        name = row['Type_Name']
-        type = ServiceType.objects.filter(name__exact=name).first()
-        if type == None:
-            type = ServiceType()
-            type.name = name
-            type.short_description = ''
-            type.description = ''
-            type.icon = 'https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
-            type.picture = 'https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
-            type.created_by = user
-            type.save()
+    # for index,row in catdf.iterrows():
+    #     name=row['Category_Name']
+    #     cat=Category.objects.filter(name__exact=name).first()
+    #     if cat==None:
+    #         cat=Category()
+    #         cat.name=name
+    #         cat.short_description=''
+    #         cat.description=''
+    #         cat.icon=''
+    #         cat.picture='https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
+    #         cat.created_by=user
+    #         cat.save()
+    # for index,row in typedf.iterrows():
+    #     name = row['Type_Name']
+    #     type = ServiceType.objects.filter(name__exact=name).first()
+    #     if type == None:
+    #         type = ServiceType()
+    #         type.name = name
+    #         type.short_description = ''
+    #         type.description = ''
+    #         type.icon = 'https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
+    #         type.picture = 'https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg'
+    #         type.created_by = user
+    #         type.save()
 
     for index, row in servdf.iterrows():
         name = row['Item Name']

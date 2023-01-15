@@ -17,9 +17,44 @@
     <meta name="description" content="Dry Cleaning, Washing and Ironing Prices from the Uk's No 1 On Demand Dry Cleaners. Suits ✓ Laundry ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓ Sofa Cover">
     <meta name="keywords" content="Dry Cleaning, Wash, Ironing, Suiting in UK, Closet , Laundry,pickupclean,top laundry services, Suiting in UK,Formal Suits, Mens Suits Dry Clean, Mens Clothing Wash, Alterations, Repairs, My Suit Cleaning, Pick Up clean,pick up clean,picupclean">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="google-signin-client_id" content="342462780848-clcoeia8oa635pkn2d3dsor3cs8uajmn">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="google-signin-client_id" content="342462780848-clcoeia8oa635pkn2d3dsor3cs8uajmn">
+    <style>
+                /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            #logo{
+                max-width: 40px;
+            }
+        }
 
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+            #logo{
+                max-width: 45px;
+            }
+        }
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 768px) {
+            #logo{
+                max-width: 60px;
+            }
+        }
+
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 992px) {
+            #logo{
+                max-width: 75px;
+            }
+        }
+
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1200px) {
+            #logo{
+                max-width: 90px;
+            }
+        }
+    </style>
 
 
   <title>{% block title %}{% endblock %} | Pick up Clean</title>
@@ -44,7 +79,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
-            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" id="logo">
           </a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -105,61 +140,49 @@
   {% endblock %}
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="col-md-4 footer-app-stores">
-          <div style="text-align-last:right;" class="footer-top-title">Download our new app:</div>
-          <a style="float: right" class="ios-link"
-            href="#">
-            <img
-              src="{% static '/images/app-stores/apple.png' %}"
-              alt="Download on the App Store">
-          </a>
-          <a style="float: right" class="android-link" href="#">
-            <img
-              src="{% static 'images/app-stores/google.png' %}"
-              alt="Get it on Google Play">
-          </a>
-        </div>
-{#        <div class="col-md-8 sub2-newsletter footer-push">#}
-{#          <div class="footer-top-title">Subscribe to our newsletter:</div>#}
-{#          <div class="sub2-newsletter-content">#}
-{#            <form#}
-{#              action="/subscribe/post"#}
-{#              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"#}
-{#              target="_blank" novalidate>#}
-{#              <div id="mc_embed_signup_scroll" class="sub2-form-container">#}
-{#                <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address"#}
-{#                  required>#}
-{#                <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value=""#}
-{#                  style="position: absolute; left: -5000px;" aria-hidden="true">#}
-{#                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">#}
-{#              </div>#}
-{#            </form>#}
-{#          </div>#}
-{#        </div>#}
+  <div class="container">
+    <div class="footer-top">
+      <div class="col-md-4 footer-app-stores">
+        <div class="footer-top-title">Download our new app:</div>
+        <a class="ios-link" href="#">
+          <img src="{% static 'images/app-stores/apple.png' %}" alt="Download on the App Store">
+        </a>
+        <a class="android-link" href="#">
+          <img src="{% static 'images/app-stores/google.png' %}" alt="Get it on Google Play">
+        </a>
       </div>
-
-      <div style="margin-top: 0px !important;" class="footer-bottom">
-        <div class="footer-payment-methods footer-push">
-          <div class="footer-payment-methods-title">Accepted payment methods:</div>
-          <img class="footer-payment-methods-img"
-            src="{% static 'imgs/cards.png' %}"
-            width="190" alt="Accepted payment methods">
-        </div>
-        <div class="footer-logo-wrapper footer-push">
-          <div class="footer-logo">
-            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
-          </div>
-          <div class="footer-copyright">
-            <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pick up clean</span>.</div>
-            <div class="footer-rights">All rights reserved. <span style="position: absolute;right: 0;padding-right: 40px;"><a href="{% url 'about' %}" style="padding-left: 20px">About</a><a href="{% url 'privacy' %}" style="padding-left: 20px">Privacy</a><a href="{% url 'terms' %}" style="padding-left: 20px">Terms & Conditions</a></span></div>
-          </div>
+      <div class="col-md-8 sub2-newsletter footer-push">
+        <div class="footer-top-title">Subscribe to our newsletter:</div>
+        <div class="sub2-newsletter-content">
+          <form method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <div id="mc_embed_signup_scroll" class="sub2-form-container">
+              <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
+              <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+            </div>
+          </form>
         </div>
       </div>
-
     </div>
-  </footer>
+
+    <div class="footer-bottom">
+      <div class="footer-payment-methods footer-push">
+        <div class="footer-payment-methods-title">Accepted payment methods:</div>
+        <img class="footer-payment-methods-img" src="{% static 'imgs/cards.png' %}" width="190" alt="Accepted payment methods">
+      </div>
+      <div class="footer-logo-wrapper footer-push">
+        <div class="footer-logo">
+         <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+        </div>
+        <div class="footer-copyright">
+          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pickupclean</span>.</div>
+          <div class="footer-rights">All rights reserved.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
   <div class="cookie-consent">
     <div class="cookie-consent-container">
       <div class="cookie-consent-message">

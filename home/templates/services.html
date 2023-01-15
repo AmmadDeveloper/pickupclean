@@ -19,6 +19,43 @@
   <link rel="shortcut icon" href="{% static 'imgs/favicon.png' %}">
   <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
   <script>document.documentMode && document.write('<script src="{% static 'polyfill.io/v3/polyfill.min3a03.js?features=default%2Ces2017%2Cfetch' %}"><\/script>');</script>
+    <style>
+                /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            #logo{
+                max-width: 40px;
+            }
+        }
+
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+            #logo{
+                max-width: 45px;
+            }
+        }
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 768px) {
+            #logo{
+                max-width: 60px;
+            }
+        }
+
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 992px) {
+            #logo{
+                max-width: 75px;
+            }
+        }
+
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1200px) {
+            #logo{
+                max-width: 90px;
+            }
+        }
+    </style>
+
 </head>
 <body class="light">
 <header >
@@ -26,7 +63,7 @@
     <div class="container">
       <div class="navbar-header">
           <a class="navbar-brand standard logo-container" href="{% url 'homepage' %}">
-                <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+                <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" id="logo">
           </a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>

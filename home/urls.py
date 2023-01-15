@@ -37,5 +37,5 @@ urlpatterns = [
     re_path('^sms/status',smswebhook,name="smswebhook"),
     re_path('^smsmarketing/status',smsmarketinhwebhook,name="smsmarketingwebhook"),
     re_path('^editorder/',editorder),
-    re_path('^upload/',upload)
+    #re_path('^upload/',upload)
 ]+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
