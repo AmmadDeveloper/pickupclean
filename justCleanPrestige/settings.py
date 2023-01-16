@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q1n9yg2@h=*c_m0n#94)jzak%)i!f!mm^%str1$qti7jbr3jx7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['picupclean.com','www.picupclean.com','localhost','127.0.0.1','46.101.55.159']
 #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
