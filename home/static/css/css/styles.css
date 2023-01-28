@@ -6313,8 +6313,8 @@ nav .breadcrumb-hr {
 .light .navbar-header > .logo-container.enforce-white > svg {
   fill: #ffffff; }
 
-.light .navbar-header > .navbar-toggle .icon-bar {
-  background: #000000; }
+/*.light .navbar-header > .navbar-toggle .icon-bar {*/
+/*  background: #000000; }*/
 
 .light .navbar-header > .navbar-toggle.open > .icon-bar {
   background: #ffffff; }

@@ -2,6 +2,11 @@
 {% load static %}
 {% block title %}Home{% endblock %}
 {% block style %}
+    <style>
+    .light .navbar-header > .navbar-toggle .icon-bar{
+        color: white !important;
+    }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -163,12 +168,9 @@
             <img src="{{ cat.icon }}" alt="not found" height="145px">
         </div>
 
-        <div style="margin-top: 75px" class="pricing-item-title">
+        <div style="margin-top: 100px" class="pricing-item-title">
           <h3>{{ cat.name }}</h3>
         </div>
-
-        <div class="pricing-item-description">{{ cat.short_desc}}</div>
-
         <div class="pricing-item-price">From £{{ cat.price.price }}</div>
 
       </div>

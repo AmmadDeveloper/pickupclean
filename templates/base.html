@@ -9,7 +9,7 @@
     <meta property="og:image" content="{% static 'imgs/339w/Asset-1mdpi.png' %}">
     <meta property="og:image:width" content="65">
     <meta property="og:image:height" content="100">
-    <meta property="og:url" content="https://picupclean.com/">
+    <meta property="og:url" content="https://www.picupclean.com/">
     <meta property="og:site_name" content="Pick Up Clean">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Laundary and Cleaning Services in UK">
@@ -155,7 +155,8 @@
         <div class="footer-top-title">Subscribe to our newsletter:</div>
         <div class="sub2-newsletter-content">
           <form method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-            <div id="mc_embed_signup_scroll" class="sub2-form-container">
+            {% csrf_token %}
+              <div id="mc_embed_signup_scroll" class="sub2-form-container">
               <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
               <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
               <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
