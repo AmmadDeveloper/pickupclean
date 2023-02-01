@@ -59,8 +59,7 @@
 
 </head>
 <body class="dark">
-<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-TLZJJ2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<header >
+<header>
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -106,19 +105,13 @@
           </li>
         </ul>
           
-              <ol class="nav navbar-nav breadcrumb">
-                <hr class="breadcrumb-hr"/>
-                  <li><a href="{% url 'homepage' %}">Home</a></li>
-                
-              </ol>
-          
       </div>
     </div>
   </nav>
 </header>
 
 
-  <div class="registration">
+  <div style="background-image: url('{% static 'imgs/bgs/am15.png' %}');background-repeat: no-repeat;background-size: cover;padding-bottom: 20%" class="registration">
     <div class="registration-container">
       
   <h1>Reset your password</h1>
@@ -146,7 +139,7 @@
     </div>
   </div>
 
-<footer class="footer">
+<footer style="position: absolute !important; width: 100% !important;bottom: 0;" class="footer">
   <div class="container">
     <div class="footer-top">
       <div class="col-md-4 footer-app-stores">
@@ -161,7 +154,7 @@
       <div class="col-md-8 sub2-newsletter footer-push">
         <div class="footer-top-title">Subscribe to our newsletter:</div>
         <div class="sub2-newsletter-content">
-          <form action="https://ihateironing.us5.list-manage.com/subscribe/post?u=70163dda0059bbc6424bb415f&amp;id=b7c1f868ac" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <div id="mc_embed_signup_scroll" class="sub2-form-container">
               <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
               <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
@@ -182,7 +175,7 @@
           <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
         </div>
         <div class="footer-copyright">
-          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pickupclean</span>.</div>
+          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">picup clean</span>.</div>
           <div class="footer-rights">All rights reserved.</div>
         </div>
       </div>
@@ -240,13 +233,12 @@
     </script>
   </div>
 
-  <script src="{% static '/js/libs.js' %}"></script>
   <script>
     window.intercomSettings = {
       app_id: 'uk1rq1t1'
     };
   </script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
     function priceListTop() {
       hj('tagRecording', ['User Clicked On Pending Page Price List (Top)']);

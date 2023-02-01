@@ -9,17 +9,23 @@
     <meta property="og:image:width" content="65">
     <meta property="og:image:height" content="100">
     <meta property="og:url" content="https://picupclean.com/">
-    <meta property="og:site_name" content="Pick Up Clean">
+    <meta property="og:site_name" content="Picup Clean">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Laundary and Cleaning Services in UK">
     <meta property="og:type" content="website">
     <meta name="description" content="Dry Cleaning, Washing and Ironing Prices from the Uk's No 1 On Demand Dry Cleaners. Suits ✓ Laundry ✓ Shirts ✓ Dresses ✓ Curtains ✓ Repairs ✓ Alterations ✓ Sofa Cover">
-    <meta name="keywords" content="Dry Cleaning, Wash, Ironing, Suiting in UK, Closet , Laundry,pickupclean,top laundry services, Suiting in UK,Formal Suits, Mens Suits Dry Clean, Mens Clothing Wash, Alterations, Repairs, My Suit Cleaning, Pick Up clean,pick up clean,picupclean">
+    <meta name="keywords" content="Dry Cleaning, Wash, Ironing, Suiting in UK, Closet , Laundry,picupclean,top laundry services, Suiting in UK,Formal Suits, Mens Suits Dry Clean, Mens Clothing Wash, Alterations, Repairs, My Suit Cleaning, Picup clean,picup clean,picupclean">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
-  <title>Our Affordable Prices | Pick Up Clean</title>
+  <title>Our Affordable Prices | Picup Clean</title>
   <style>
     .async-hide {
       opacity: 0 !important
+    }
+    .light .navbar-header > .navbar-toggle .icon-bar{
+        color: black !important;
+    }
+    .light .navbar-ihi > li > a span.active{
+        border-color: #ffffff !important;
     }
   </style>
         <style>
@@ -28,6 +34,7 @@
             #logo{
                 max-width: 40px;
             }
+
         }
 
         /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -83,24 +90,27 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-ihi navbar-main">
-            <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>
-            <li class="nav-item-prices"><a href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
-            <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
-            <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
-              <li>
-                <a href="tel:+090078601">
-                  <span class="link-text">T 090 0786 01</span>
+{#            <li><a href="{% url 'homepage' %}"><span class="link-text">Order</span></a></li>#}
+            <li class="nav-item-prices"><a style="color: white !important;" href="{% url 'price' %}"><span class="link-text">Pricing</span></a></li>
+            <li class="services"><a style="color: white !important;" href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
+            <li><a style="color: white !important;" href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
+            <li>
+                <a style="color: white !important;" href="tel:+44 7759053194">
+                  <span class="link-text">T +44 7759053194</span>
                 </a>
               </li>
+
+
               {% if not user.is_authenticated %}
-                  <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
                   {% else %}
-                  <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
-                  <li><a href="accounts/login/"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
-                  <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
+                  <li><a style="color: white !important;" href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
               {% endif %}
 
-            <li>
+
+<li>
               <form action="#" style="visibility:hidden">
                 <select name="flag_dropdown" id="flag_picker"
                   style="font-size:20px;height:auto;padding:0px;border:0;letter-spacing:0;border-radius:1px;background-color:transparent;padding-top:5px;">
@@ -109,17 +119,16 @@
                 <input type="hidden" id="currentCountryCode" name="variable" value="GB" readonly>
               </form>
             </li>
-
             <li class="nav-btn-cta">
-              <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
+              <a style="color: white !important;" href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
             </li>
           </ul>
 
-          <ol class="nav navbar-nav breadcrumb">
-            <hr class="breadcrumb-hr" />
-            <li><a href="{% url 'homepage' %}">Home</a></li>
-
-          </ol>
+{#          <ol class="nav navbar-nav breadcrumb">#}
+{#            <hr class="breadcrumb-hr" />#}
+{#            <li><a href="{% url 'homepage' %}">Home</a></li>#}
+{##}
+{#          </ol>#}
 
         </div>
       </div>
@@ -146,14 +155,14 @@
     </section>
 
     <div class="prices-body">
-      <section class="prices-section prices-category-list">
+      <section id="content" class="prices-section prices-category-list">
           {% for item in types %}
               <button class="btn btn-cta prices-category-item {{ item.active }}">
-                  {{ item.name }}
+
+                  {{ item.name|slice:":17" }}
               </button>
           {% endfor %}
       </section>
-
       <div class="prices-section">
         <h5 class="prices-list-title">Price list</h5>
       </div>
@@ -181,271 +190,6 @@
               </div>
             </div>
           {% endfor %}
-{#        <div class="prices-item-section active">#}
-{#          <div class="row">#}
-{#            <div class="col-md-6">#}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Bed Set - 1 Double Duvet Cover, 1 Double Sheet, 2 Pillow Cases (Wash &amp; Press)#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £16.00#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Dress - Dry Clean#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £11.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Duvet - Double#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £21.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Jacket - Dry Clean#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £8.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Knitwear - Dry Clean#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £7.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Men&#39;s Rubber Half Sole &amp; Rubber Heel#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £44.70#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{#            </div>#}
-{##}
-{#            <div class="col-md-6">#}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Re-hem Trousers (1 Leg)#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £6.90#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item"#}
-{#                data-details="Items are washed at 30 degrees and tumble dried warm. We cannot take responsibility for items included that should not be treated in this way.">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Service Wash (Wash, Dry &amp; Fold) - Additional kg above 5kg#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £3.20#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item"#}
-{#                data-details="Items are washed at 30 degrees and tumble dried warm. We cannot take responsibility for items included that should not be treated in this way. See FAQs for full list of items not to be included.">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Service Wash (Wash, Dry &amp; Fold) Up to 5kg#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £16.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Skirt - Dry Clean#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £7.00#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Trousers - Dry Clean#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £6.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Two-Piece Suit - Dry Clean#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £12.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{#            </div>#}
-{##}
-{#          </div>#}
-{##}
-{#          <p class="prices-item-section-remarks"></p>#}
-{##}
-{##}
-{#        </div>#}
-{##}
-{#        <div class="prices-item-section">#}
-{#          <div class="row">#}
-{##}
-{#            <div class="col-md-6">#}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Burberry Trench Coat#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £46.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Canada Goose Coat#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £51.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{#            </div>#}
-{##}
-{#            <div class="col-md-6">#}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Moncler Jacket#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £51.50#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{#            </div>#}
-{##}
-{#          </div>#}
-{##}
-{##}
-{#          <div class="prices-item-section-subtitle">Professional care for specialist items, please allow 72 hours for#}
-{#            cleaning.</div>#}
-{##}
-{#        </div>#}
-{##}
-{#        <div class="prices-item-section">#}
-{#          <div class="row">#}
-{##}
-{#            <div class="col-md-6">#}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Apron - Press Only#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £3.40#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{#            </div>#}
-{##}
-{#            <div class="col-md-6">#}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Pashmina - press only#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £4.95#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{##}
-{#              <div class="prices-item">#}
-{#                <div class="prices-item-left">#}
-{#                  <div class="prices-item-name">#}
-{#                    Pillowcase - Press Only#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="prices-item-price">#}
-{#                  £1.76#}
-{#                </div>#}
-{#              </div>#}
-{##}
-{#            </div>#}
-{##}
-{#          </div>#}
-{##}
-{##}
-{#          <div class="prices-item-section-subtitle">Press Only</div>#}
-{##}
-{#        </div>#}
 
 
         <div class="prices-item-section prices-search-results">
@@ -520,7 +264,7 @@
                   </div>
                   <div class="modal-body">
                     <div style="margin-bottom: 1em;">
-                      pickupclean does not currently serve your area.
+                      picup clean does not currently serve your area.
                     </div>
                     <div style="margin-bottom: 1em;">
                       We're always adding new locations. Please fill out the form below to be notified when we roll out
@@ -552,7 +296,7 @@
   <script src="{% static '/js/libs.js' %}"></script>
             <script
               src="{% static '/accounts/js/addresses.js' %}"
-              data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+              data-pca-key="GB55-ND37-NB66-EG63" data-pca-country="GB"></script>
             <script
               src=" {% static '/packages/time-slot-picker.js' %}"></script>
             <script
@@ -643,12 +387,12 @@
       </section>
     </div>
 
-    <section class="prices-section prices-order-support">
+    <section style="background-color: #f26522" class="prices-section prices-order-support">
       <h2>Can’t find what you’re looking for?</h2>
       <p>
-        You can have almost anything cleaned, pressed or repaired through pickupclean. If you have an item you would
+        You can have almost anything cleaned, pressed or repaired through picupclean. If you have an item you would
         like us to take care of but can't see it listed please give us a call on
-        <a href="tel:+442070604939">020 7060 4939</a>
+        <a style="color: white;font-weight: bold" href="tel:+447759053194">077 5905 3194</a>
         to clarify the price.
       </p>
       <p>
@@ -675,63 +419,51 @@
 
 
   </div>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="col-md-4 footer-app-stores">
-          <div class="footer-top-title">Download our new app:</div>
-          <a class="ios-link"
-            href="#">
-            <img
-              src="{% static '/images/app-stores/apple.png' %}"
-              alt="Download on the App Store">
-          </a>
-          <a class="android-link" href="#">
-            <img
-              src="{% static '/images/app-stores/google.png' %}"
-              alt="Get it on Google Play">
-          </a>
-        </div>
-        <div class="col-md-8 sub2-newsletter footer-push">
-          <div class="footer-top-title">Subscribe to our newsletter:</div>
-          <div class="sub2-newsletter-content">
-            <form
-              action="https://ihateironing.us5.list-manage.com/subscribe/post?u=70163dda0059bbc6424bb415f&amp;id=b7c1f868ac"
-              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
-              target="_blank" novalidate>
+    <footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="col-md-4 footer-app-stores">
+        <div class="footer-top-title">Download our new app:</div>
+        <a class="ios-link" href="#">
+          <img src="{% static 'images/app-stores/apple.png' %}" alt="Download on the App Store">
+        </a>
+        <a class="android-link" href="#">
+          <img src="{% static 'images/app-stores/google.png' %}" alt="Get it on Google Play">
+        </a>
+      </div>
+      <div class="col-md-8 sub2-newsletter footer-push">
+        <div class="footer-top-title">Subscribe to our newsletter:</div>
+        <div class="sub2-newsletter-content">
+          <form method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            {% csrf_token %}
               <div id="mc_embed_signup_scroll" class="sub2-form-container">
-                <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address"
-                  required>
-                <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value=""
-                  style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
-              </div>
-            </form>
-          </div>
+              <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
+              <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+            </div>
+          </form>
         </div>
       </div>
-
-      <div class="footer-bottom">
-        <div class="footer-payment-methods footer-push">
-          <div class="footer-payment-methods-title">Accepted payment methods:</div>
-          <img class="footer-payment-methods-img"
-            src="{% static '/imgs/cards.png' %}"
-            width="190" alt="Accepted payment methods">
-        </div>
-        <div class="footer-logo-wrapper footer-push">
-          <div class="footer-logo">
-            <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
-          </div>
-          <div class="footer-copyright">
-            <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pickupclean</span>.</div>
-            <div class="footer-rights">All rights reserved.</div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </footer>
+
+    <div class="footer-bottom">
+      <div class="footer-payment-methods footer-push">
+        <div class="footer-payment-methods-title">Accepted payment methods:</div>
+        <img class="footer-payment-methods-img" src="{% static 'imgs/cards.png' %}" width="190" alt="Accepted payment methods">
+      </div>
+      <div class="footer-logo-wrapper footer-push">
+        <div class="footer-logo">
+         <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
+        </div>
+        <div class="footer-copyright">
+          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">picup clean</span>.</div>
+          <div class="footer-rights">All rights reserved.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
   <div class="cookie-consent">
     <div class="cookie-consent-container">
       <div class="cookie-consent-message">
@@ -782,15 +514,19 @@
     </script>
   </div>
 
-  <script src="{% static '/js/libs.js' %}"></script>
   <script>
-      $('#fist').addClass('active')
+      $('#fist').addClass('active');
   </script>
   <script src="{% static '/accounts/js/addresses.js' %}"
-    data-pca-key="FW93-MZ92-GB55-AE75" data-pca-country="GB"></script>
+    data-pca-key="GB55-ND37-NB66-EG63" data-pca-country="GB"></script>
   <script src="{% static '/about/js/prices.js' %}"></script>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static '/css/css/styles.css' %}">
+<script
+    src="{% static '/orders/js/order-home.js' %}"></script>
+
+  <script
+    src="{% static '/vendor/jquery/dist/jquery.matchHeight.js' %}"></script>
+
 </body>
 
 </html>

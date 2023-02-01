@@ -3668,8 +3668,8 @@ tbody.collapse.in {
     border-color: transparent; }
     .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
       background-color: #333; }
-    .navbar-inverse .navbar-toggle .icon-bar {
-      background-color: #fff; }
+    /*.navbar-inverse .navbar-toggle .icon-bar {*/
+    /*  background-color: #fff; }*/
   .navbar-inverse .navbar-collapse,
   .navbar-inverse .navbar-form {
     border-color: #101010; }

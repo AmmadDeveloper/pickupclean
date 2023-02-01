@@ -253,8 +253,7 @@
             <a style="background-color: orangered;color: white;width: 50%" class="btn" href="{% url 'homepage' %}">Continue Shopping</a>
         </div>
   </div>
-
-<footer class="footer">
+  <footer class="footer">
   <div class="container">
     <div class="footer-top">
       <div class="col-md-4 footer-app-stores">
@@ -265,6 +264,19 @@
         <a class="android-link" href="#">
           <img src="{% static 'images/app-stores/google.png' %}" alt="Get it on Google Play">
         </a>
+      </div>
+      <div class="col-md-8 sub2-newsletter footer-push">
+        <div class="footer-top-title">Subscribe to our newsletter:</div>
+        <div class="sub2-newsletter-content">
+          <form method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            {% csrf_token %}
+              <div id="mc_embed_signup_scroll" class="sub2-form-container">
+              <input type="email" value="" name="EMAIL" class="sub2-input" id="mce-EMAIL" placeholder="email address" required>
+              <input type="text" name="b_70163dda0059bbc6424bb415f_b7c1f868ac" tabindex="-1" value="" style="position: absolute; left: -5000px;" aria-hidden="true">
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="sub2-button">
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -278,7 +290,7 @@
          <img src="{% static 'imgs/339w/Asset-1mdpi.png' %}" width="90px">
         </div>
         <div class="footer-copyright">
-          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">pickupclean</span>.</div>
+          <div class="footer-company">© {% now 'Y' %} <span class="u-text-uppercase">picup clean</span>.</div>
           <div class="footer-rights">All rights reserved.</div>
         </div>
       </div>
