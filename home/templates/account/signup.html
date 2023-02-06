@@ -26,23 +26,27 @@
 
   <div class="form-group">
     <label style="color: #fff" for="id_username">First Name:</label>
-    <input type="text" name="first_name" autofocus autocapitalize="none" autocomplete="firstname" maxlength="254" class="form-control" required id="id_firstname">
+    <input placeholder="Enter your first name" type="text" name="first_name" autofocus autocapitalize="none" autocomplete="firstname" maxlength="254" class="form-control" required id="firstname">
   </div>
   <div class="form-group">
     <label style="color: #fff" for="id_username">Last Name:</label>
-    <input type="text" name="last_name" autofocus autocapitalize="none" autocomplete="lastname" maxlength="254" class="form-control" required id="id_lastname">
+    <input placeholder="Enter your last name" type="text" name="last_name" autofocus autocapitalize="none" autocomplete="lastname" maxlength="254" class="form-control" required id="lastname">
   </div>
   <div class="form-group">
     <label style="color: #fff" for="id_username">Phone:</label>
-    <input type="text" name="phone" autofocus autocapitalize="none" autocomplete="phone" maxlength="254" class="form-control" required id="phone">
-  </div>
-  <div class="form-group">
-    <label style="color: #fff" for="id_password">Password:</label>
-    <input type="password" name="password" autocomplete="current-password" class="form-control" required id="id_password">
+    <input placeholder="Enter your phone number starting with +44" type="text" name="phone" autofocus autocapitalize="none" autocomplete="phone" maxlength="254" class="form-control" pattern="^\+44\d{10}$" required id="phone">
   </div>
   <div class="form-group">
     <label style="color: #fff" for="id_username">Email address:</label>
-    <input type="text" name="email" autofocus autocapitalize="none" autocomplete="email" maxlength="254" class="form-control" required id="id_email">
+    <input placeholder="Enter your email" type="text" name="email" autofocus autocapitalize="none" autocomplete="email" maxlength="254" class="form-control" required id="email">
+  </div>
+  <div class="form-group">
+    <label style="color: #fff" for="id_password">Password:</label>
+    <input placeholder="Enter your password" type="password" name="password" autocomplete="current-password" class="form-control" required id="password">
+  </div>
+    <div class="form-group">
+    <label style="color: #fff" for="c_password">Confirm Password:</label>
+    <input placeholder="Confirm your password" type="password" name="c_password" autocomplete="c-password" class="form-control" required id="c_password">
   </div>
 
   
@@ -127,6 +131,27 @@ timer = setInterval('polling()',1000);
 {% block script %}
     <script>
    function onSubmit(token) {
+       debugger;
+      const firstname = document.getElementById("firstname").value;
+    const lastname = document.getElementById("lastname").value;
+    const phoneNumber = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const cpassword = document.getElementById("c_password").value;
+    const pattern = /^\+44\d{10}$/;
+
+    if (!pattern.test(phoneNumber)) {
+        alert("Please provide a valid UK number starting with +44");
+        return;
+    }
+    if(password!==cpassword){
+        alert("Password didn't match");
+        return;
+    }
+    if ((!firstname || !lastname || !phoneNumber || !email || !password)) {
+      alert("All fields are required");
+      return;
+    }
      document.getElementById("signup-form").submit();
    }
  </script>

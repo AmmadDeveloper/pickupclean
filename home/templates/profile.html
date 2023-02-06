@@ -135,13 +135,14 @@
             <li class="services"><a href="{% url 'services' %}"><span class="link-text">Services</span></a></li>
             <li><a href="{% url 'areas' %}"><span class="link-text">Areas</span></a></li>
             <li>
-                <a href="tel:+090078601">
-                  <span class="link-text">T 090 0786 01</span>
+                <a style="color: black !important;" href="tel:+447759053194">
+                  <span class="link-text">T +44 7759053194</span>
                 </a>
               </li>
               {% if not user.is_authenticated %}
                   <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
                   {% else %}
+                  <li><a href="{% url 'orderdetail' %}"><span class="link-text">Cart</span></a></li>
                   <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
                   <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
                   <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
@@ -216,7 +217,13 @@
   <script>
       function verifyPhone(){
           var phone=document.getElementById('phone').value
-          window.location.href=`/verify_phone/${phone}`
+          var regex = /^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/;
+            if (regex.test(phone)) {
+              window.location.href=`/verify_phone/${phone}`
+            } else {
+              alert("Invalid UK phone number");
+            }
+
       }
   </script>
 

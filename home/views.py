@@ -12,7 +12,7 @@ from django.shortcuts import render,redirect
 from django.utils import timezone
 from twilio.rest import Client
 from models.models import Category, Message, PostCode, Electronic_Address, Order, Cart, PaymentIntent, UserVerification, \
-    PromoUsage, ServiceType, EmailCode, PhoneCode, ScheduleConfig, HomeBackground
+    PromoUsage, ServiceType, EmailCode, PhoneCode, ScheduleConfig, HomeBackground, Promo, PhoneConfig
 from models.utils.Constants import OrderType
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import logout as lout, authenticate,login as lin
@@ -372,11 +372,20 @@ def verify_email(request):
                         , fail_silently=False, html_message=html)
         return render(request,'verifyemail.html')
 
+
+
+def valid_uk_number(phone_number):
+    if phone_number.startswith("+44"):
+        return phone_number
+    else:
+        # Remove leading zeros from the phone number
+        phone_number = phone_number.lstrip("0")
+        return "+44" + phone_number
 @login_required()
 def verify_phone(request,phone:str):
     if request.method=="GET":
         uphone=Electronic_Address.objects.filter(user_id=request.user.id).first()
-        uphone.phone=phone
+        uphone.phone=valid_uk_number(phone)
         uphone.save()
         code = get_random_string(6)
         phonecode, created = PhoneCode.objects.get_or_create(user_id=request.user.id)
@@ -389,7 +398,7 @@ def verify_phone(request,phone:str):
                 body=f'Thanks for using picupclean your one time system generated code for phone verification is: {code}',
                 from_=settings.PHONE_NUMBER,
                 status_callback=f'{settings.SERVER_URL}sms/status',
-                to=phone
+                to=uphone.phone
             )
             message = Message()
             message.sid = response.sid
@@ -402,7 +411,7 @@ def verify_phone(request,phone:str):
             message.uri = response.uri
             message.sent_from = settings.PHONE_NUMBER
             message.save()
-        return render(request,'verifyphone.html',{'phone':phone})
+        return render(request,'verifyphone.html',{'phone':uphone.phone})
     elif request.method=="POST":
         data=request.POST.get('code') or None
         if data:
@@ -483,6 +492,7 @@ def chunks(lst, n):
 def orderwebhook(request):
     intent_id=request.GET.get('payment_intent')
     stripe_intent = stripe.PaymentIntent.retrieve(intent_id)
+    promocode=None
     if stripe_intent.status=='succeeded':
         order_id=stripe_intent.metadata.get('order_id')
         user_id = stripe_intent.metadata.get('user_id')
@@ -494,12 +504,87 @@ def orderwebhook(request):
             promo.promo_id=promo_id
             promo.used_by_id=user_id
             promo.save()
+            promocode=Promo.objects.filter(id=promo_id).first()
             order.promo_applied=True
         order=Order.objects.filter(id=order_id,user_id=user_id).first()
         order.order_place_date=datetime.datetime.now()
         order.order_status=OrderType.INPROGRESS
         order.paid=True
         order.save()
+        cart_total = [x.total for x in Cart.objects.filter(order_id=order.id, active=True)]
+        cart = [{"cartid": item.id,
+                 "catid": item.category.id,
+                 "id": item.service.id,
+                 "price": item.price,
+                 "total": item.total,
+                 "qty": item.qty,
+                 "name": item.service.name,
+                 "catname": item.category.name
+                 } for item in Cart.objects.filter(order_id=order.id)]
+        total_amount = functools.reduce(lambda a, b: a + b, cart_total, )
+        data = {
+            "order_id":order.id,
+            "name": order.fullname,
+            "items":cart,
+            "total":total_amount,
+            "promo":True if promo_id else False,
+            "promo_text":promocode.title if promo_id else None,
+            "promo_value":f"- {promocode.value}{'(%)' if promocode.type=='percentage' else '(£)'}" if promo_id else None,
+            "line1":f"{order.ship_address1} {order.ship_address2}",
+            "address_detail":order.addressdetail if order.addressdetail else '',
+            "city":order.ship_city,
+            "postal_code":order.ship_postal_code,
+            "pickup_date":order.pickup_date,
+            "pickup_time_slot":order.pickup_time_slot,
+            "dropoff_date":order.dropoff_date,
+            "dropoff_time_slot":order.dropoff_time_slot
+        }
+        template = get_template("../../home/templates/email/OrderPlaced.html")
+        html = template.render(data)
+        res = send_mail(subject="Order Placed", message=" ",
+                        from_email=settings.EMAIL_HOST_USER,
+                        recipient_list=[order.user.email]
+                        , fail_silently=False, html_message=html)
+
+        if order.phone!='' and order.phone!=None:
+            bindings = list(
+                map(lambda number: json.dumps({'binding_type': 'sms', 'address': number}), [order.phone]))
+            response = client.notify.services(settings.NOTIFY_SID).notifications.create(
+                to_binding=bindings,
+                body=f"Thank you for placing order, your pick up time is {order.pickup_date} ({order.pickup_time_slot}) and dropoff time is {order.dropoff_date} ({order.dropoff_time_slot}) and order id is {order.id}."
+            )
+            message = Message()
+            message.sid = response.sid
+            message.body = response.body
+            message.accountsid = response.account_sid
+            message.status = "sent"
+            message.error_message = ""
+            message.error_code = ""
+            message.sent_to = "order_place"
+            message.uri = ""
+            message.sent_from = settings.PHONE_NUMBER
+            message.save()
+
+        phoneConf = PhoneConfig.objects.all()
+        if phoneConf:
+            if phoneConf[0].phone!='' and phoneConf[0].phone!=None:
+                bindings = list(map(lambda number: json.dumps({'binding_type': 'sms', 'address': number}), [phoneConf[0].phone]))
+                response = client.notify.services(settings.NOTIFY_SID).notifications.create(
+                    to_binding=bindings,
+                    body=f"{order.fullname} placed an order, pick up time is {order.pickup_date} ({order.pickup_time_slot}) and dropoff time is {order.dropoff_date} ({order.dropoff_time_slot}) and order id is {order.id}."
+                )
+                message = Message()
+                message.sid = response.sid
+                message.body = response.body
+                message.accountsid = response.account_sid
+                message.status = "sent"
+                message.error_message = ""
+                message.error_code = ""
+                message.sent_to = "owner"
+                message.uri = ""
+                message.sent_from = settings.PHONE_NUMBER
+                message.save()
+
         return render(request,'placed.html',{'order_id':order.id})
 
 
