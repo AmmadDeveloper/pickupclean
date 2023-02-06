@@ -142,7 +142,7 @@
               {% if not user.is_authenticated %}
                   <li><a href="{% url 'login' %}"> <span class="link-text">Log in</span></a></li>
                   {% else %}
-                  <li><a href="{% url 'orderdetail' %}"><span class="link-text">Cart</span></a></li>
+{#                  <li><a href="{% url 'orderdetail' %}"><span class="link-text">Cart</span></a></li>#}
                   <li><a href="{% url 'orderhistory' %}"><span class="link-text">My Orders</span></a></li>
                   <li><a href="{% url 'profile' %}"><span class="link-text">{{ user.first_name}} {{ user.last_name }}</span></a></li>
                   <li><a href="{% url 'logout' %}"> <span class="link-text">Log out</span></a></li>
@@ -162,13 +162,6 @@
             <a href="{% url 'homepage' %}" class="btn btn-primary">Place an order</a>
           </li>
         </ul>
-
-              <ol class="nav navbar-nav breadcrumb">
-                <hr class="breadcrumb-hr"/>
-                  <li><a href="{% url 'homepage' %}">Home</a></li>
-
-              </ol>
-
       </div>
     </div>
   </nav>
